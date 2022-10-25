@@ -2,7 +2,9 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const webpack = require("webpack");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
 const isDev = process.env.NODE_ENV === "development"; // 是否是开发模式
+
 module.exports = {
   entry: path.join(__dirname, "../src/index.tsx"), // 入口文件
   // 打包文件出口
@@ -24,7 +26,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.css$/, //匹配所有的 less 文件
+        test: /\.css$/, //匹配所有的 ccs 文件
         include: [path.resolve(__dirname, "../src")],
         use: [
           isDev ? "style-loader" : MiniCssExtractPlugin.loader,
@@ -33,7 +35,7 @@ module.exports = {
         ],
       },
       {
-        test: /.(css|less)$/, //匹配 css和less 文件
+        test: /\.less$/, //匹配 css和less 文件
         include: [path.resolve(__dirname, "../src")],
         use: [
           isDev ? "style-loader" : MiniCssExtractPlugin.loader,
@@ -43,7 +45,7 @@ module.exports = {
         ],
       },
       {
-        test: /.(ts|tsx)$/,
+        test: /.(js|ts|tsx)$/,
         include: [path.resolve(__dirname, "../src")], //只对项目src文件的ts,tsx进行loader解析
         use: ["thread-loader", "babel-loader"],
       },
@@ -88,7 +90,7 @@ module.exports = {
   resolve: {
     extensions: [".js", ".tsx", ".ts"],
     alias: {
-      "@": path.join(__dirname, "../src"),
+      "@": path.resolve(__dirname, "../src"),
     },
     modules: [path.resolve(__dirname, "../node_modules")],
   },

@@ -1,16 +1,18 @@
 import React, { lazy, Suspense, useState } from "react";
+import "./app.less";
 const LazyDemo = lazy(() => import("@/components/LazyDemo"));
 import { Demo, Demo2 } from "@/components";
+import Lear from "./pages/lear/Lear";
+import Hooks from "./pages/lear/Hooks";
+import "./app.css";
 function App() {
   const [count, setCounts] = useState("");
   const onChange = (e: any) => {
     setCounts(e.target.value);
   };
   const [show, setShow] = useState(false);
-
   // 点击事件中动态引入css, 设置show为true
   const onClick = () => {
-    import("./app.css");
     setShow(true);
   };
 
@@ -18,17 +20,16 @@ function App() {
     <>
       <h2 onClick={onClick}>webpack5+react+ts</h2>
       <Demo />
-      <p>受控组件</p>
       <input type="text" value={count} onChange={onChange} />
       <br />
-      <p>非受控组件</p>
-      <input type="text" />
       {/* show为true时加载LazyDemo组件 */}
       {show && (
         <Suspense fallback={null}>
           <LazyDemo />
         </Suspense>
       )}
+      <Lear />
+      <Hooks />
     </>
   );
 }
