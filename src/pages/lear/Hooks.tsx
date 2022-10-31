@@ -1,5 +1,5 @@
 import React, { useSyncExternalStore } from "react";
-import { combineReducers, createStore } from "redux";
+// import { combineReducers, createStore } from "redux";
 import { Button } from "antd";
 // useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 function numberReducer(state = 1, action: { type: any }) {

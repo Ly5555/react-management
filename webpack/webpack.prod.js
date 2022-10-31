@@ -5,8 +5,9 @@ const CopyPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
+const { PurgeCSSPlugin } = require("purgecss-webpack-plugin");
 const globAll = require("glob-all");
-const PurgeCSSPlugin = require("purgecss-webpack-plugin");
+
 module.exports = merge(baseConfig, {
   mode: "production", // 生产模式,会开启tree-shaking和压缩代码,以及其他优化
   plugins: [
@@ -53,7 +54,7 @@ module.exports = merge(baseConfig, {
         },
       }),
     ],
-    plitChunks: {
+    splitChunks: {
       // 分隔代码
       cacheGroups: {
         vendors: {

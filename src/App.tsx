@@ -4,6 +4,7 @@ const LazyDemo = lazy(() => import("@/components/LazyDemo"));
 import { Demo, Demo2 } from "@/components";
 import Lear from "./pages/lear/Lear";
 import Hooks from "./pages/lear/Hooks";
+import Recoil from "./pages/recoil/index";
 import "./app.css";
 function App() {
   const [count, setCounts] = useState("");
@@ -28,8 +29,10 @@ function App() {
           <LazyDemo />
         </Suspense>
       )}
-      <Lear />
-      <Hooks />
+      {/* <Lear />
+      <Hooks /> */}
+
+      <Recoil />
     </>
   );
 }
