@@ -11,6 +11,44 @@ const Qwef = () => {
   当出现使用type和interface声明同名的数据时,type会直接报错interface会进行组合
   type不会自动合并 interface会
   */
+
+  type womenStar = {
+    name: string;
+    age: number;
+  };
+  interface Iw {
+    name: string;
+    age: number;
+  }
+  let star1: womenStar = {
+    name: "张三",
+    age: 18,
+  };
+  let star2: Iw = {
+    name: "张三2",
+    age: 18,
+  };
+  type money = {
+    y1: number;
+  };
+  type money2 = money & {
+    y2: number;
+  };
+  let salary: money2 = {
+    y1: 10,
+    y2: 100,
+  };
+
+  interface a {
+    name: string;
+  }
+  interface b extends a {
+    age: number;
+  }
+  let starInfo: b = {
+    name: "1",
+    age: 18,
+  };
   return <div></div>;
 };
 
