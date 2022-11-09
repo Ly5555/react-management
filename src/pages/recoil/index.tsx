@@ -1,12 +1,14 @@
 import React from "react";
 import { RecoilRoot, useRecoilState, useRecoilValue } from "recoil";
-import { charCountState, textState } from "./store/store";
+import { charCountState, textState, userInfoAtom } from "./store/store";
+import { UserInfo } from "./component/index";
 const Recoil = () => {
   return (
     <div>
       <RecoilRoot>
         <InputNuber />
         <CharCountState />
+        <UserInfo />
       </RecoilRoot>
     </div>
   );

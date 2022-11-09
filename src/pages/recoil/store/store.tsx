@@ -10,4 +10,28 @@ const charCountState = selector({
     return text.length;
   },
 });
-export { textState, charCountState };
+
+const userInfoAtom = atom({
+  key: "userInfoAtom",
+  default: {
+    username: "张三",
+    score: 10,
+  },
+  effects: [
+    ({ node, onSet }) => {
+      onSet((newValue: any, oldValue: any) => {
+        console.log(
+          "🚀 ~ file: store.tsx ~ line 23 ~ onSet ~ oldValue",
+          oldValue
+        );
+        console.log(
+          "🚀 ~ file: store.tsx ~ line 23 ~ onSet ~ newValue",
+          newValue
+        );
+      });
+    },
+  ],
+  dangerouslyAllowMutability: true,
+});
+
+export { textState, charCountState, userInfoAtom };
