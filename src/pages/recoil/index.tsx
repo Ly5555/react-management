@@ -1,7 +1,7 @@
 import React from "react";
 import { RecoilRoot, useRecoilState, useRecoilValue } from "recoil";
 import { charCountState, textState, userInfoAtom } from "./store/store";
-import { UserInfo } from "./component/index";
+import { UserInfo,SelectFontSize,Counter } from "./component/index";
 const Recoil = () => {
   return (
     <div>
@@ -9,6 +9,8 @@ const Recoil = () => {
         <InputNuber />
         <CharCountState />
         <UserInfo />
+        <SelectFontSize/>
+        <Counter/>
       </RecoilRoot>
     </div>
   );

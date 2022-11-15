@@ -33,5 +33,22 @@ const userInfoAtom = atom({
   ],
   dangerouslyAllowMutability: true,
 });
+// 字体大小原子状态
+const fontSizeAtom = atom({
+  key: "fontSizeAtom",
+  default: 16,
+});
+const fontSizeState = selector({
+  key: "fontSizeState",
+  get:({ get }) =>{
+     const fontSizeNum = get(fontSizeAtom);
+     return fontSizeNum  + "px";
+  }})
 
-export { textState, charCountState, userInfoAtom };
+
+// 计数器
+ const CountAtom = atom({
+  key: 'countAtom',
+  default: 0
+});
+export { textState, charCountState, userInfoAtom ,fontSizeAtom,fontSizeState,CountAtom};

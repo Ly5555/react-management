@@ -1,2 +1,5 @@
 import UserInfo from "./userInfo";
-export { UserInfo };
+import SelectFontSize from "./SelectFontSize"
+import Counter from "./Counter";
+
+export { UserInfo,SelectFontSize,Counter };

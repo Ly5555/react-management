@@ -10,7 +10,7 @@ function Type() {
   let func: myFun = (a: string, b: number) => b;
 
   // 3
-  type myInterface = {
+  type myInterface = { 
     name: string;
     age: number;
     sex: string;
