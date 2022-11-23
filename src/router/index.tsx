@@ -1,15 +1,30 @@
 import React, { Suspense, lazy } from "react";
-import { Loading } from "@/components/";
+import { useRoutes } from "react-router-dom";
+import { PieChartOutlined } from "@ant-design/icons";
+import { Loading,  } from "@/components/index";
 // 页面组件
 const Home = lazy(() => import("@/pages/recoil/index"));
-
+const Lear = lazy(() => import("@/pages/lear/Lear"));
+const NotFound =lazy(() => import("@/pages/NotFound/index"));
 const mainRoutes: any = [
   {
     path: "home",
     component: Home,
     title: "首页",
     isNav: true,
-    auth: false,
+    icon: <PieChartOutlined />,
+    children: [
+      {
+        path: "/home/lear",
+        component: Lear,
+        title: "首页",
+        isNav: true,
+      },
+    ],
+  },
+  {
+    path: "*",
+    component: NotFound,
   },
 ];
 interface IRouter {
@@ -35,10 +50,8 @@ const generateRouter = (routes: Array<IRouter>) =>
         <item.component />
       </Suspense>
     );
-    // item.element = <item.component />;
-
     return newItem;
   });
-const MainRouter = generateRouter(mainRoutes);
 
+const MainRouter = generateRouter(mainRoutes);
 export { MainRouter };

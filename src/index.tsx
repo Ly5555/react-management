@@ -1,16 +1,21 @@
 import React from "react";
-import { ConfigProvider } from "antd";
 import { createRoot } from "react-dom/client";
-import zhCN from "antd/lib/locale/zh_CN";
-import { HashRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { MainRouter } from "@/router";
 import App from "./App";
-const root = document.getElementById("root");
+import Home from "./pages/home";
+const root = document.getElementById("root") as HTMLElement;
 if (root) {
   createRoot(root).render(
     <Router>
-      <ConfigProvider locale={zhCN}>
-        <App />
-      </ConfigProvider>
+      <Routes>
+        <Route path="/" element={<App />}>
+          <Route index element={<Home />} />
+          {MainRouter.map((route: any) => (
+            <Route key={route.path}  path={route.path} element={route.element} />
+          ))}
+        </Route>
+      </Routes>
     </Router>
   );
 }

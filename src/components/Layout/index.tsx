@@ -1,45 +1,26 @@
-import {
-    MenuFoldOutlined,
-    MenuUnfoldOutlined,
-  } from "@ant-design/icons";
-  import { Layout, Menu } from "antd";
-  import { Outlet } from 'react-router-dom';
-  import React, { useState } from "react";
-  import "@/components/css/mylayout.less";
-  const { Header, Sider, Content } = Layout;
-  
-  interface IProps {
-    menu: any;
-  }
-  
-  const Mylayout = (children: any) => {
-    const [collapsed, setCollapsed] = useState(false);
-    return (
-      <Layout className='container'
-      >
-          <Header className="site-layout-background" style={{ padding: 0 }}>
-            {React.createElement(
-              collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
-              {
-                className: "trigger",
-                onClick: () => setCollapsed(!collapsed),
-              }
-            )}
-          </Header>
-          <Layout className='content-container'>
-        {/* 左侧导航 */}
-        {/* <MyLeftSide menu={ props.menu } /> */}
 
-        {/* 主内容 */}
-        <Layout >
-          <Content style={{  }}>
-            <Outlet />
-          </Content>
-        </Layout>
-      </Layout>
-      </Layout>
-    );
-  };
-  
-  export default Mylayout;
-  
+import React, { useState } from 'react';
+import { Breadcrumb, Layout, Menu } from 'antd';
+import "@/components/css/mylayout.less";
+import LayoutMenu from './Menu';
+import {Outlet} from "react-router-dom"
+const { Header, Content, Footer, Sider } = Layout;
+const Mylayout = (props:any) => {
+  return (
+    <Layout style={{ minHeight: '100vh' }}>
+    <Sider collapsible>
+      <div className="logo" />
+      <LayoutMenu  menu={props.menu}/>
+    </Sider>
+    <Layout className="site-layout">
+      <Header className="site-layout-background" style={{ padding: 0 }} />
+      <Content style={{ margin: '0 16px' }}>
+       <Outlet />
+      </Content>
+      <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+    </Layout>
+  </Layout>
+  );
+};
+
+export default Mylayout;

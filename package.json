@@ -54,6 +54,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "antd": "^4.23.5",
+    "dayjs": "^1.11.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.3",

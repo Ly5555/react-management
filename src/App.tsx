@@ -1,15 +1,14 @@
-import React, { lazy, Suspense, useState } from "react";
+import React from "react";
 import { ConfigProvider } from "antd";
-import Recoil from "@/pages/recoil/index";
-import "./app.less";
-import { MainRouter } from "./router";
+import zhCN from "antd/lib/locale/zh_CN";
 import { MyLayout } from "@/components/index";
-// 获取导航菜单
-const menu = MainRouter.filter((route: any) => route.isNav === true);
+import { MainRouter } from "./router";
+import "./app.less";
 function App() {
+  const menu = MainRouter.filter((item) => item.isNav === true);
   return (
-    <ConfigProvider>
-      <MyLayout menu={menu} />
+    <ConfigProvider locale={zhCN}>
+      <MyLayout menu={menu}/>
     </ConfigProvider>
   );
 }
