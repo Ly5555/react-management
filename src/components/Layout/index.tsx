@@ -10,14 +10,13 @@ const Mylayout = (props:any) => {
     <Layout style={{ minHeight: '100vh' }}>
     <Sider collapsible>
       <div className="logo" />
-      <LayoutMenu  menu={props.menu}/>
+      <LayoutMenu menu={props.menu} />
     </Sider>
     <Layout className="site-layout">
       <Header className="site-layout-background" style={{ padding: 0 }} />
       <Content style={{ margin: '0 16px' }}>
        <Outlet />
       </Content>
-      <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
     </Layout>
   </Layout>
   );
