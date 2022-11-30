@@ -1,13 +1,18 @@
-import React from "react";
-import "./app.less";
+import React, { Suspense } from "react";
+import { BrowserRouter } from "react-router-dom";
+import { ConfigProvider } from "antd";
+import { Loading } from "./components/index";
 import Router from "@/router";
-import { useRoutes, Routes } from "react-router-dom";
-import Mylayout from "./components/Layout";
+import "./app.less";
 function App() {
   return (
-    <>
-      <Router />
-    </>
+    <ConfigProvider>
+      <BrowserRouter>
+        <Suspense fallback={<Loading />}>
+          <Router />
+        </Suspense>
+      </BrowserRouter>
+    </ConfigProvider>
   );
 }
 export default App;

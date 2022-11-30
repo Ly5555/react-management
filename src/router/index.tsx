@@ -1,7 +1,6 @@
 import React, { Suspense, lazy } from "react";
 import { useRoutes } from "react-router-dom";
-import { PieChartOutlined, AreaChartOutlined } from "@ant-design/icons";
-import { Loading } from "@/components/index";
+import Mylayout  from "@/components/Layout";
 // 页面组件
 const Home = lazy(() => import("@/pages/recoil/index"));
 const LazyDemo = lazy(() => import("@/components/LazyDemo"));
@@ -9,29 +8,33 @@ const Lear = lazy(() => import("@/pages/lear/Lear"));
 const NotFound = lazy(() => import("@/pages/NotFound/index"));
 
 // 页面组件
-export const rootRouter: any = [
+ const rootRouter: any = [
   {
     path: "/",
-    title: "首页",
-    element: <Home />,
-    icon: <PieChartOutlined />,
+    element: <Mylayout />,
     children: [
       {
-        path: "/home/lear",
-        element: <LazyDemo />,
-        title: "测试",
+        path: "/home",
+        title: "首页",
+        element: <Home />,
+      },
+      {
+        path: "/demo2",
+        title: "测试22",
+        element: <Lear />,
+        children: [
+          {
+            path: "/demo2/lear",
+            element: <LazyDemo />,
+            title: "测试",
+          },
+        ],
+      },
+      {
+        path: "*",
+        elment: <NotFound />,
       },
     ],
-  },
-  {
-    path: "/demo2",
-    title: "测试22",
-    element: <Lear />,
-    icon: <AreaChartOutlined />,
-  },
-  {
-    path: "*",
-    elment: <NotFound />,
   },
 ];
 const Router = () => {
