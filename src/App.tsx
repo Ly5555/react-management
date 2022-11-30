@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter,  } from "react-router-dom";
 import { ConfigProvider } from "antd";
 import { Loading } from "./components/index";
 import Router from "@/router";
@@ -9,7 +9,7 @@ function App() {
     <ConfigProvider>
       <BrowserRouter>
         <Suspense fallback={<Loading />}>
-          <Router />
+            <Router />
         </Suspense>
       </BrowserRouter>
     </ConfigProvider>

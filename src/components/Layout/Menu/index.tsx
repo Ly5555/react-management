@@ -1,19 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { Menu } from "antd";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import type { MenuProps } from "antd";
 import * as Icons from "@ant-design/icons";
 
 const LayoutMenu = () => {
   const navigaiteTo = useNavigate();
+  const { pathname } = useLocation();
   const [menuList, setmenuList] = useState<MenuItem[]>([]);
+  const [openKeys, setOpenKeys] = useState<string[]>([]);
+  const [selectedKeys, setSelectedKeys] = useState<string[]>([pathname]);
+  useEffect(() => {
+    setSelectedKeys([pathname]);
+  }, [pathname]);
   useEffect(() => {
     try {
       axios
-        .get(
-          "https://www.fastmock.site/mock/302854084413bb6592dc4c53c7f85991/admin/menu/list"
-        )
+        .get("https://www.fastmock.site/mock/302854084413bb6592dc4c53c7f85991/admin/menu/list")
         .then((res) => {
           const { data } = res.data;
           setmenuList(deepLoopMenu(data));
@@ -45,39 +49,36 @@ const LayoutMenu = () => {
       type,
     } as MenuItem;
   };
-  const handelChangeClick: MenuProps["onClick"] = ({
-    key,
-  }: {
-    key: string;
-  }) => {
+  const handelChangeClick: MenuProps["onClick"] = ({ key }: { key: string }) => {
     navigaiteTo(key);
   };
   // 处理路由
-  const deepLoopMenu = (
-    menuList: Menu.MenuOptions[],
-    newArr: MenuItem[] = []
-  ) => {
+  const deepLoopMenu = (menuList: Menu.MenuOptions[], newArr: MenuItem[] = []) => {
     menuList?.forEach((item) => {
-      if (!item?.children?.length)
-        return newArr.push(getItem(item.title, item.path, addIcon(item.icon!)));
-      newArr.push(
-        getItem(
-          item.title,
-          item.path,
-          addIcon(item.icon!),
-          deepLoopMenu(item.children)
-        )
-      );
+      if (!item?.children?.length) return newArr.push(getItem(item.title, item.path, addIcon(item.icon!)));
+      newArr.push(getItem(item.title, item.path, addIcon(item.icon!), deepLoopMenu(item.children)));
     });
     return newArr;
   };
+  // 设置当前展开的 subMenu
+  const onOpenChange = (openKeys: string[]) => {
+    console.log(openKeys);
 
+    if (openKeys.length === 0 || openKeys.length === 1) return setOpenKeys(openKeys);
+    const latestOpenKey = openKeys[openKeys.length - 1];
+    if (latestOpenKey.includes(openKeys[0])) return setOpenKeys(openKeys);
+    setOpenKeys([latestOpenKey]);
+  };
   return (
     <div>
       <Menu
         theme="dark"
         mode="inline"
+        triggerSubMenuAction="click"
         items={menuList}
+        openKeys={openKeys}
+        onOpenChange={onOpenChange}
+        selectedKeys={selectedKeys}
         onClick={handelChangeClick}
       />
     </div>
