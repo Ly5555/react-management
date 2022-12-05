@@ -28,18 +28,21 @@ module.exports = {
       {
         test: /\.css$/, //匹配所有的 ccs 文件
         include: [path.resolve(__dirname, "../src")],
-        use: [
-          isDev ? "style-loader" : MiniCssExtractPlugin.loader,
-          "css-loader",
-          "postcss-loader",
-        ],
+        use: [isDev ? "style-loader" : MiniCssExtractPlugin.loader, "css-loader", "postcss-loader"],
       },
       {
         test: /\.less$/, //匹配 css和less 文件
         include: [path.resolve(__dirname, "../src")],
         use: [
           isDev ? "style-loader" : MiniCssExtractPlugin.loader,
-          "css-loader",
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                localIdentName: '[name]__[local]___[hash:base64:5]',
+              },              
+            }
+          },
           "postcss-loader",
           "less-loader",
         ],

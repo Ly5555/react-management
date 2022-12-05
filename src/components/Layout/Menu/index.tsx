@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Menu } from "antd";
+import { Menu, Spin } from "antd";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import type { MenuProps } from "antd";
 import * as Icons from "@ant-design/icons";
-
+import { Logo } from "./components/index";
 const LayoutMenu = () => {
   const navigaiteTo = useNavigate();
   const { pathname } = useLocation();
+  const [loading, setLoading] = useState(false);
   const [menuList, setmenuList] = useState<MenuItem[]>([]);
   const [openKeys, setOpenKeys] = useState<string[]>([]);
   const [selectedKeys, setSelectedKeys] = useState<string[]>([pathname]);
@@ -15,10 +16,12 @@ const LayoutMenu = () => {
     setSelectedKeys([pathname]);
   }, [pathname]);
   useEffect(() => {
+    setLoading(true);
     try {
       axios
         .get("https://www.fastmock.site/mock/302854084413bb6592dc4c53c7f85991/admin/menu/list")
         .then((res) => {
+          setLoading(false);
           const { data } = res.data;
           setmenuList(deepLoopMenu(data));
         })
@@ -62,8 +65,6 @@ const LayoutMenu = () => {
   };
   // 设置当前展开的 subMenu
   const onOpenChange = (openKeys: string[]) => {
-    console.log(openKeys);
-
     if (openKeys.length === 0 || openKeys.length === 1) return setOpenKeys(openKeys);
     const latestOpenKey = openKeys[openKeys.length - 1];
     if (latestOpenKey.includes(openKeys[0])) return setOpenKeys(openKeys);
@@ -71,16 +72,19 @@ const LayoutMenu = () => {
   };
   return (
     <div>
-      <Menu
-        theme="dark"
-        mode="inline"
-        triggerSubMenuAction="click"
-        items={menuList}
-        openKeys={openKeys}
-        onOpenChange={onOpenChange}
-        selectedKeys={selectedKeys}
-        onClick={handelChangeClick}
-      />
+      <Spin spinning={loading}>
+        <Logo />
+        <Menu
+          theme="dark"
+          mode="inline"
+          triggerSubMenuAction="click"
+          items={menuList}
+          openKeys={openKeys}
+          onOpenChange={onOpenChange}
+          selectedKeys={selectedKeys}
+          onClick={handelChangeClick}
+        />
+      </Spin>
     </div>
   );
 };

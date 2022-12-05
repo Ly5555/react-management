@@ -1,5 +1,6 @@
 import React, { Suspense, lazy } from "react";
 import { useRoutes } from "react-router-dom";
+import { RouteObject } from './type';
 import Mylayout  from "@/components/Layout";
 // 页面组件
 const Home = lazy(() => import("@/pages/recoil/index"));
@@ -8,7 +9,7 @@ const Lear = lazy(() => import("@/pages/lear/Lear"));
 const NotFound = lazy(() => import("@/pages/NotFound/index"));
 
 // 页面组件
- const rootRouter: any = [
+const rootRouter: any = [
   {
     path: "/",
     element: <Mylayout />,
@@ -34,9 +35,11 @@ const NotFound = lazy(() => import("@/pages/NotFound/index"));
         path: "*",
         elment: <NotFound />,
       },
-    ],
+    ], 
   },
 ];
+export const routerArray: RouteObject[] = [];
+routerArray.push(...rootRouter[0]?.children);
 const Router = () => {
   const routes = useRoutes(rootRouter);
   return routes;
