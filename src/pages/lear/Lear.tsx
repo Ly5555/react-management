@@ -17,7 +17,7 @@ function Lear() {
   };
   // 组合类型 let 变量: 类型1 | 类型2 | 类型3 .... = 初始值
   let arr1: number | string = "1";
-  console.log(typeof arr1);
+  // console.log(typeof arr1);
   // 类型别名
   type s = string | number;
   const str1: s = "abc";

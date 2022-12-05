@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
-import {  Layout} from "antd";
-import LayoutMenu from "./Menu";
-import LayoutTabs from "./Tabs/index";
-import "@/components/css/mylayout.less";
+import { Layout } from "antd";
+import {LayoutMenu,LayoutTabs,LayoutHeader} from "./components";
 import styles from "./css/index.module.less";
 const Mylayout = () => {
   const { Header, Content, Footer, Sider } = Layout;
@@ -13,11 +11,12 @@ const Mylayout = () => {
         <LayoutMenu />
       </Sider>
       <Layout>
-        <Header />
+        <LayoutHeader />
         <LayoutTabs />
-        <Content style={{ margin: "16px" }}>
+        <Content>
           <Outlet />
         </Content>
+        
       </Layout>
     </section>
   );

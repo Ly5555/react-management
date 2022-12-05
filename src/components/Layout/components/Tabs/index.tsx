@@ -3,14 +3,13 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { routerArray } from "@/router/index";
 import { searchRoute } from "@/utils/util";
 import { Tabs } from "antd";
-const LayoutTabs = (props:any) => {
-  const { TabPane } = Tabs;
+import styles from "./css/indexTab.module.less"
+import Home from "@/pages/home";
+const LayoutTabs = (props: any) => {
   const { pathname } = useLocation();
   const useNavigateTo = useNavigate();
-  
   // const { tabsList } = props?.tabs;
-  // console.log(tabsList);
-  
+
   const [activeKey, setActiveKey] = useState<string>(pathname);
   useEffect(() => {
     addTabs();
@@ -22,13 +21,36 @@ const LayoutTabs = (props:any) => {
   const addTabs = () => {
     // const route = searchRoute(pathname, routerArray);
     // let newTabsList = JSON.parse(JSON.stringify(tabsList));
-    setActiveKey(pathname)
+    setActiveKey(pathname);
   };
   // 删除tabs
   const onEdit = () => {};
   return (
-    <div>
-      <Tabs hideAdd onChange={handelClickTabs} activeKey={activeKey} type="editable-card" onEdit={onEdit}></Tabs>
+    <div className={styles.tabsName}>
+      <Tabs
+        hideAdd
+        onChange={handelClickTabs}
+        activeKey={activeKey}
+        type="editable-card"
+        onEdit={onEdit}
+        items={[
+          {
+            label: `首页`,
+            key: "/home",
+            children: <Home/>,
+          },
+          {
+            label: `Tab 2`,
+            key: "2",
+            children: `Content of Tab Pane 2`,
+          },
+          {
+            label: `Tab 3`,
+            key: "3",
+            children: `Content of Tab Pane 3`,
+          },
+        ]}
+      ></Tabs>
     </div>
   );
 };

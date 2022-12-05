@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import type { MenuProps } from "antd";
 import * as Icons from "@ant-design/icons";
-import { Logo } from "./components/index";
+import { LayoutLogo } from "../index";
 const LayoutMenu = () => {
   const navigaiteTo = useNavigate();
   const { pathname } = useLocation();
@@ -73,7 +73,7 @@ const LayoutMenu = () => {
   return (
     <div>
       <Spin spinning={loading}>
-        <Logo />
+        <LayoutLogo />
         <Menu
           theme="dark"
           mode="inline"
