@@ -16,7 +16,6 @@ const Mylayout = () => {
         <Content>
           <Outlet />
         </Content>
-        
       </Layout>
     </section>
   );
