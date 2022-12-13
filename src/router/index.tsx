@@ -38,8 +38,6 @@ const rootRouter: any = [
     ], 
   },
 ];
-export const routerArray: RouteObject[] = [];
-routerArray.push(...rootRouter[0]?.children);
 const Router = () => {
   const routes = useRoutes(rootRouter);
   return routes;

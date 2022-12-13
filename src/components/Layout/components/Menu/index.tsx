@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Menu, Spin } from "antd";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
+import { searchRoute } from "@/utils/util";
 import type { MenuProps } from "antd";
 import * as Icons from "@ant-design/icons";
 import { LayoutLogo } from "../index";
@@ -53,6 +54,8 @@ const LayoutMenu = () => {
     } as MenuItem;
   };
   const handelChangeClick: MenuProps["onClick"] = ({ key }: { key: string }) => {
+    // const route = searchRoute(key, reduxMenuList);
+    // if (route.isLink) window.open(route.isLink, "_blank");
     navigaiteTo(key);
   };
   // 处理路由

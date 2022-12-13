@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { routerArray } from "@/router/index";
 import { searchRoute } from "@/utils/util";
 import { Tabs } from "antd";
 import styles from "./css/indexTab.module.less"
