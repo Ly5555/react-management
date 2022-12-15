@@ -7,7 +7,7 @@ import DecrementButton from "./DecrementButton"
 
 const Counter = () => {
   useEffect(() => console.log('CounterInput render'));
-const count = useRecoilValue(CountAtom)
+  const count = useRecoilValue(CountAtom)
   return (
     <div>
       <Input 

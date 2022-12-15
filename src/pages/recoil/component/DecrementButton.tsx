@@ -8,7 +8,6 @@ function DecrementButton() {
 
   const setCounter = useSetRecoilState(CountAtom);
 
-  useEffect(() => console.log('DecrementButton render'));
 
   const decrement = () => {
     setCounter(count => count-1);

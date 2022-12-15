@@ -2,9 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Menu, Spin } from "antd";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
+import { useSetRecoilState } from "recoil";
+import { menuLists } from "@/store/store";
 import type { MenuProps } from "antd";
 import * as Icons from "@ant-design/icons";
 import { LayoutLogo } from "../index";
+type MenuItem = Required<MenuProps>["items"][number];
 const LayoutMenu = () => {
   const navigaiteTo = useNavigate();
   const { pathname } = useLocation();
@@ -12,32 +15,31 @@ const LayoutMenu = () => {
   const [menuList, setmenuList] = useState<MenuItem[]>([]);
   const [openKeys, setOpenKeys] = useState<string[]>([]);
   const [selectedKeys, setSelectedKeys] = useState<string[]>([pathname]);
+  const setMenlists = useSetRecoilState(menuLists);
   useEffect(() => {
     setSelectedKeys([pathname]);
   }, [pathname]);
   useEffect(() => {
     setLoading(true);
     try {
-      
       axios
         .get("https://www.fastmock.site/mock/302854084413bb6592dc4c53c7f85991/admin/menu/list")
         .then((res) => {
           setLoading(false);
           const { data } = res.data;
           setmenuList(deepLoopMenu(data));
+          setMenlists(menuList as any)
         })
         .catch((error) => {
           console.log(error);
         });
     } catch (error) {}
   }, []);
-
   // 动态Icon处理
   const customIcons: { [key: string]: any } = Icons;
   const addIcon = (name: string) => {
     return React.createElement(customIcons[name]);
   };
-  type MenuItem = Required<MenuProps>["items"][number];
   const getItem = (
     label: React.ReactNode,
     key: React.Key | null,
@@ -54,8 +56,6 @@ const LayoutMenu = () => {
     } as MenuItem;
   };
   const handelChangeClick: MenuProps["onClick"] = ({ key }: { key: string }) => {
-    // const route = searchRoute(key, reduxMenuList);
-    // if (route.isLink) window.open(route.isLink, "_blank");
     navigaiteTo(key);
   };
   // 处理路由

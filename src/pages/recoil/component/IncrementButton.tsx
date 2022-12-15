@@ -8,7 +8,6 @@ function IncrementButton() {
 
   const setCounter = useSetRecoilState(CountAtom);
 
-  useEffect(() => console.log('IncrementButton render'));
 
   const increment = () => {
     setCounter(count => count+1);

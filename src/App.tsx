@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import { RecoilRoot } from "recoil";
+
 import { BrowserRouter } from "react-router-dom";
 import { ConfigProvider } from "antd";
 
@@ -8,7 +8,6 @@ import Router from "@/router";
 import "./app.css";
 function App() {
   return (
-    <RecoilRoot>
       <ConfigProvider>
         <BrowserRouter>
           <Suspense fallback={<Loading />}>
@@ -16,7 +15,6 @@ function App() {
           </Suspense>
         </BrowserRouter>
       </ConfigProvider>
-    </RecoilRoot>
   );
 }
 export default App;
