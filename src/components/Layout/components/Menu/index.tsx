@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Menu, Spin } from "antd";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
-import { searchRoute } from "@/utils/util";
 import type { MenuProps } from "antd";
 import * as Icons from "@ant-design/icons";
 import { LayoutLogo } from "../index";
@@ -19,6 +18,7 @@ const LayoutMenu = () => {
   useEffect(() => {
     setLoading(true);
     try {
+      
       axios
         .get("https://www.fastmock.site/mock/302854084413bb6592dc4c53c7f85991/admin/menu/list")
         .then((res) => {

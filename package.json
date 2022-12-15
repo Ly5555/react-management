@@ -53,6 +53,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
+    "ahooks": "^3.7.2",
     "antd": "^4.23.5",
     "axios": "^1.2.0",
     "babel-plugin-import": "^1.13.5",
@@ -63,5 +64,4 @@
     "recoil": "^0.7.6",
     "serve": "^14.0.1"
   }
-  
 }
