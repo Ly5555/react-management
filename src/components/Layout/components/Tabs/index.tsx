@@ -1,36 +1,38 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { searchRoute } from "@/utils/util";
 import { Tabs } from "antd";
-import styles from "./css/indexTab.module.less"
-import Home from "@/pages/home";
-import { menuLists } from "@/store/store";
-console.log(menuLists);
-
+import styles from "./css/indexTab.module.less";
+import { menuLists, charMenulist } from "@/store/store";
 const LayoutTabs = (props: any) => {
   const { pathname } = useLocation();
   const useNavigateTo = useNavigate();
-  const tabsList = useRecoilValue(menuLists)
+  const { TabPane } = Tabs;
+  const [tabsList, setTabsList] = useRecoilState(menuLists);
   const [activeKey, setActiveKey] = useState<string>(pathname);
   useEffect(() => {
     addTabs();
   }, [pathname]);
+
   const handelClickTabs = (path: string) => {
     useNavigateTo(path);
   };
+
   // 添加 tabs
   const addTabs = () => {
-    const route = searchRoute(pathname, tabsList);
+    const route = searchRoute(pathname, []);
     let newTabsList = JSON.parse(JSON.stringify(tabsList));
-		if (tabsList.every((item: any) => item.path !== route.path)) {
-			newTabsList.push({ title: 123, path: route.path });
-		}
-		// dispatch(setTabsList(newTabsList));
+    if (tabsList.every((item: any) => item.path !== route.path)) {
+      newTabsList.push({ title: route.title, path: route.path });
+    }
+    setTabsList(newTabsList);
     setActiveKey(pathname);
   };
+
   // 删除tabs
   const onEdit = () => {};
+
   return (
     <div className={styles.tabsName}>
       <Tabs
@@ -39,8 +41,22 @@ const LayoutTabs = (props: any) => {
         activeKey={activeKey}
         type="editable-card"
         onEdit={onEdit}
-        items={tabsList}
-      ></Tabs>
+        // items={tabsList}
+      >
+        {tabsList.map((item: Menu.MenuOptions) => {
+          return (
+            <TabPane
+              key={item.path}
+              tab={
+                <span>
+                  {item.path}
+                  {item.title}
+                </span>
+              }
+            ></TabPane>
+          );
+        })}
+      </Tabs>
     </div>
   );
 };

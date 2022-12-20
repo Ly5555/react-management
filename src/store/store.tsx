@@ -6,11 +6,12 @@ const menuLists = atom({
 const charMenulist = selector({
     key: "charMenulist",
     get({ get }) {
-      const text = get(menuLists);
+      const text = get(menuLists);   
+      
       return text;
     },
   });
 
 
 
-export { menuLists, };
+export { menuLists,charMenulist };

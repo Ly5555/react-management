@@ -3,6 +3,7 @@ import { Menu, Spin } from "antd";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { useSetRecoilState } from "recoil";
+import { searchRoute } from "@/utils/util";
 import { menuLists } from "@/store/store";
 import type { MenuProps } from "antd";
 import * as Icons from "@ant-design/icons";
@@ -28,7 +29,7 @@ const LayoutMenu = () => {
           setLoading(false);
           const { data } = res.data;
           setmenuList(deepLoopMenu(data));
-          setMenlists(menuList as any)
+          setMenlists(data)
         })
         .catch((error) => {
           console.log(error);
@@ -56,6 +57,8 @@ const LayoutMenu = () => {
     } as MenuItem;
   };
   const handelChangeClick: MenuProps["onClick"] = ({ key }: { key: string }) => {
+    const route = searchRoute(key, menuList as any);
+    if (route.isLink) window.open(route.isLink, "_blank");
     navigaiteTo(key);
   };
   // 处理路由
