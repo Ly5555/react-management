@@ -43,19 +43,6 @@ const LayoutTabs = (props: any) => {
         onEdit={onEdit}
         // items={tabsList}
       >
-        {tabsList.map((item: Menu.MenuOptions) => {
-          return (
-            <TabPane
-              key={item.path}
-              tab={
-                <span>
-                  {item.path}
-                  {item.title}
-                </span>
-              }
-            ></TabPane>
-          );
-        })}
       </Tabs>
     </div>
   );

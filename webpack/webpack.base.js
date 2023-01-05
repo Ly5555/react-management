@@ -23,6 +23,7 @@ module.exports = {
       "process.env.BASE_ENV": JSON.stringify(process.env.BASE_ENV),
     }),
   ],
+
   module: {
     rules: [
       {
@@ -54,7 +55,7 @@ module.exports = {
       },
       {
         test: /.(png|jpg|jpeg|gif|svg)$/, // 匹配图片文件
-        type: "asset", // type选择asset
+        type: "asset", // 
         parser: {
           dataUrlCondition: {
             maxSize: 10 * 1024, // 小于10kb转base64位
@@ -91,7 +92,7 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: [".js", ".tsx", ".ts"],
+    extensions: [".js", ".tsx", ".ts",".css"],
     alias: {
       "@": path.resolve(__dirname, "../src"),
     },

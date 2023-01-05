@@ -6,6 +6,7 @@ import Mylayout from "@/components/Layout";
 const Home = lazy(() => import("@/pages/recoil/index"));
 const LazyDemo = lazy(() => import("@/components/LazyDemo"));
 const Lear = lazy(() => import("@/pages/lear/Lear"));
+const CarouselChart = lazy(() => import("@/pages/carouselChart"));
 const NotFound = lazy(() => import("@/pages/NotFound/index"));
 export const routerArray: RouteObject[] = [];
 
@@ -18,10 +19,25 @@ const rootRouter: any = [
       {
         path: "/home",
         title: "首页",
-        element: <Home />,
-        meta: {
-          title: "首页",
-        },
+        // element: <Home />,
+        children: [
+          {
+            path: "/home/home",
+            element: <Home />,
+            title: "首页",
+            meta: {
+              title: "首页",
+            },
+          },
+          {
+            path: "/home/carouselChart",
+            element: <CarouselChart />,
+            title: "轮播图",
+            meta: {
+              title: "轮播图",
+            },
+          },
+        ],
       },
       {
         path: "/demo2",
