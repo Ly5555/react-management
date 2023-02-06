@@ -3,7 +3,7 @@ import { Menu, Spin } from "antd";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { useSetRecoilState } from "recoil";
-import { searchRoute } from "@/utils/util";
+import { searchRoute,handleRouter } from "@/utils/util";
 import { menuLists } from "@/store/store";
 import type { MenuProps } from "antd";
 import * as Icons from "@ant-design/icons";
@@ -78,7 +78,7 @@ const LayoutMenu = () => {
   };
   return (
     <div>
-      <Spin spinning={loading}>
+      <Spin spinning={loading} tip='loading....'>
         <LayoutLogo />
         <Menu
           theme="dark"
