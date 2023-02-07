@@ -10,13 +10,9 @@ import "./app.css";
 // import "slick-carousel/slick/slick-theme.css";
 function App() {
   return (
-      <ConfigProvider>
         <BrowserRouter>
-          {/* <Suspense fallback={<Loading />}> */}
             <Router />
-           {/* </Suspense>  */}
         </BrowserRouter>
-      </ConfigProvider>
   );
 }
 export default App;

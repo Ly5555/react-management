@@ -1,4 +1,4 @@
-import React from "react";
+// 状态管理
 import { atom, selector } from "recoil";
 const menuLists = atom({
   key: "menuLists",
@@ -10,18 +10,15 @@ const tabLists = atom({
   default: [],
 });
 
-
 //
 const tabListState = selector({
   key: "tabListState",
   get: ({ get }) => {
     const tabList = get(tabLists);
-    console.log(tabList,'store');
-    return tabList.map((item: any,index) => {
+    return tabList.map((item: Menu.MenuOptions,index) => {
       return {
         key: item?.path,
         label: item?.title,
-        children:item?.element
       };
     });
   },
