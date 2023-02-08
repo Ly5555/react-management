@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, } from "react";
 import { Menu, Spin } from "antd";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { useSetRecoilState } from "recoil";
-import { searchRoute,handleRouter } from "@/utils/util";
+import { searchRoute,  } from "@/utils/util";
 import { menuLists } from "@/store/store";
 import type { MenuProps } from "antd";
 import * as Icons from "@ant-design/icons";
@@ -29,7 +29,7 @@ const LayoutMenu = () => {
           setLoading(false);
           const { data } = res.data;
           setmenuList(deepLoopMenu(data));
-          setMenlists(data)
+          setMenlists(data);
         })
         .catch((error) => {
           console.log(error);
@@ -78,7 +78,7 @@ const LayoutMenu = () => {
   };
   return (
     <div>
-      <Spin spinning={loading} tip='loading....'>
+      <Spin spinning={loading} tip="loading....">
         <LayoutLogo />
         <Menu
           theme="dark"

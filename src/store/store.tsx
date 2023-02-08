@@ -9,8 +9,7 @@ const tabLists = atom({
   key: "tabLists",
   default: [],
 });
-
-//
+//tabs
 const tabListState = selector({
   key: "tabListState",
   get: ({ get }) => {
@@ -23,4 +22,9 @@ const tabListState = selector({
     });
   },
 });
-export { menuLists, tabLists, tabListState };
+// 是否开展菜单
+const IsExpand = atom({
+  key: "IsExpand",
+  default: false,
+});
+export { menuLists, tabLists, tabListState,IsExpand };
