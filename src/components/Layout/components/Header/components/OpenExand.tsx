@@ -6,6 +6,7 @@ const OpenExand = () => {
   const [isExpandMenu, setIsExpandMenu] = useRecoilState(IsExpand);
   return (
     <div
+      className="collapsed"
       onClick={() => {
         setIsExpandMenu(!isExpandMenu);
       }}

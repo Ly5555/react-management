@@ -4,9 +4,35 @@
   background-color: #ffffff;
   padding: 0 16px;
   box-shadow: 0 1px 4px rgba(0, 21, 41, 8%);
+  .header_lf {
+    display: flex;
+    align-items: center;
+    :global {
+      .collapsed {
+        margin-right: 20px;
+        font-size: 18px;
+        cursor: pointer;
+        transition: color 0.3s;
+      }
+    }
+  }
+  .header_ri {
+    display: flex;
+    align-items: center;
+    :global {
+      .icon-style {
+        margin-right: 22px;
+        font-size: 19px;
+        line-height: 19px;
+        color: rgb(77 77 77);
+        cursor: pointer;
+      }
+    }
+  }
   :global {
     .ant-layout-header {
       height: 48px;
+      line-height: 48px;
       display: flex;
       align-items: center;
       justify-content: space-between;

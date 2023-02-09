@@ -2,30 +2,29 @@ import React, { Suspense, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import { Layout } from "antd";
 import { LayoutMenu, LayoutTabs, LayoutHeader } from "./components";
-import { RecoilRoot, useRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { IsExpand } from "@/store/store";
 import styles from "./css/index.module.less";
 const Mylayout = () => {
   const { Content, Footer, Sider } = Layout;
-  // const [isExpandMenu, setIsExpandMenu] = useRecoilState(IsExpand);
+  const [isExpandMenu, setIsExpandMenu] = useRecoilState(IsExpand);
   useEffect(() => {
     listeningWindow();
-  },[]);
+  }, []);
   // 监听窗口大小变化
   const listeningWindow = () => {
     window.onresize = () => {
       return (() => {
         let screenWidth = document.body.clientWidth;
-        // if (!isExpandMenu && screenWidth < 1200) setIsExpandMenu(true);
-        // if (!isExpandMenu && screenWidth > 1200) setIsExpandMenu(false);
+        if (!isExpandMenu && screenWidth < 1200) setIsExpandMenu(true);
+        if (!isExpandMenu && screenWidth > 1200) setIsExpandMenu(false);
       })();
     };
   };
   return (
     <Suspense>
-      <RecoilRoot>
         <section className={styles.container}>
-          <Sider trigger={null}  >
+          <Sider trigger={null} collapsed={isExpandMenu}>
             <LayoutMenu />
           </Sider>
           <Layout>
@@ -36,7 +35,6 @@ const Mylayout = () => {
             </Content>
           </Layout>
         </section>
-      </RecoilRoot>
     </Suspense>
   );
 };

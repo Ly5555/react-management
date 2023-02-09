@@ -1,9 +1,9 @@
 // 状态管理
 import { atom, selector } from "recoil";
-const menuLists = atom({
-  key: "menuLists",
-  default: [],
-});
+// const menuLists = atom({
+//   key: "menuLists",
+//   default: [],
+// });
 // 监听打开的页面
 const tabLists = atom({
   key: "tabLists",
@@ -27,4 +27,9 @@ const IsExpand = atom({
   key: "IsExpand",
   default: false,
 });
-export { menuLists, tabLists, tabListState,IsExpand };
+// 面包屑
+const breadcrumbNameMap = atom({
+  key: "breadcrumbNameMap",
+  default: [],
+});
+export {  tabLists, tabListState,IsExpand,breadcrumbNameMap };

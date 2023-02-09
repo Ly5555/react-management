@@ -1,14 +1,15 @@
-import React, { useState, useEffect, } from "react";
+import React, { useState, useEffect } from "react";
 import { Menu, Spin } from "antd";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
-import { useSetRecoilState } from "recoil";
-import { searchRoute,  } from "@/utils/util";
-import { menuLists } from "@/store/store";
+import { useSetRecoilState, useRecoilValue } from "recoil";
+import { searchRoute, getOpenKeys,findAllBreadcrumb } from "@/utils/util";
+import { IsExpand ,breadcrumbNameMap} from "@/store/store";
 import type { MenuProps } from "antd";
 import * as Icons from "@ant-design/icons";
 import { LayoutLogo } from "../index";
 type MenuItem = Required<MenuProps>["items"][number];
+
 const LayoutMenu = () => {
   const navigaiteTo = useNavigate();
   const { pathname } = useLocation();
@@ -16,9 +17,11 @@ const LayoutMenu = () => {
   const [menuList, setmenuList] = useState<MenuItem[]>([]);
   const [openKeys, setOpenKeys] = useState<string[]>([]);
   const [selectedKeys, setSelectedKeys] = useState<string[]>([pathname]);
-  const setMenlists = useSetRecoilState(menuLists);
+  const isCollapse = useRecoilValue(IsExpand);
+  const setBreadcrumbList = useSetRecoilState(breadcrumbNameMap)
   useEffect(() => {
     setSelectedKeys([pathname]);
+    isCollapse ? null : setOpenKeys(getOpenKeys(pathname));
   }, [pathname]);
   useEffect(() => {
     setLoading(true);
@@ -29,7 +32,7 @@ const LayoutMenu = () => {
           setLoading(false);
           const { data } = res.data;
           setmenuList(deepLoopMenu(data));
-          setMenlists(data);
+          setBreadcrumbList(findAllBreadcrumb(data) as any)
         })
         .catch((error) => {
           console.log(error);
