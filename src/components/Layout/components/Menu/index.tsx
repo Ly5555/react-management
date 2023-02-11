@@ -8,6 +8,7 @@ import { IsExpand ,breadcrumbNameMap} from "@/store/store";
 import type { MenuProps } from "antd";
 import * as Icons from "@ant-design/icons";
 import { LayoutLogo } from "../index";
+import styles from "./css/menu.module.less"
 type MenuItem = Required<MenuProps>["items"][number];
 
 const LayoutMenu = () => {
@@ -80,7 +81,7 @@ const LayoutMenu = () => {
     setOpenKeys([latestOpenKey]);
   };
   return (
-    <div>
+    <div className={styles.menu}>
       <Spin spinning={loading} tip="loading....">
         <LayoutLogo />
         <Menu
