@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
-
+import { ConfigProvider } from "antd";
 import { BrowserRouter } from "react-router-dom";
-import { RecoilRoot,  } from "recoil";
+import { RecoilRoot } from "recoil";
 import { Loading } from "./components/index";
 import Router from "@/router";
 import "@/styles/reset.module.less";
@@ -10,11 +10,17 @@ import "./app.css";
 // import "slick-carousel/slick/slick-theme.css";
 function App() {
   return (
-    <RecoilRoot>
+    <ConfigProvider
+      // theme={{
+      //   token: {
+      //     colorPrimary: "#00b96b",
+      //   },
+      // }}
+    >
       <BrowserRouter>
         <Router />
       </BrowserRouter>
-    </RecoilRoot>
+    </ConfigProvider>
   );
 }
 export default App;
