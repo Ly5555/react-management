@@ -4,18 +4,20 @@
 import React, { useState } from "react";
 import { Drawer, Radio, Space } from "antd";
 import { SettingOutlined } from "@ant-design/icons";
+import { useSetRecoilState } from "recoil";
+import { themeColor } from "@/store/store";
 import styles from "../css/theme.module.less";
-// SkinOutlined
 const Theme = () => {
-  const [open, setOpen] = useState(true);
-  const [value, setValue] = useState(1);
+  const [open, setOpen] = useState(false);
+  const [values, setValues] = useState<number>(1);
+  const useThemeColor = useSetRecoilState(themeColor);
   const showDrawer = () => {
     setOpen(true);
   };
   const onClose = () => {
     setOpen(false);
   };
-  const RadioColor = [
+  const RadioColor: { name: string; color: string; value: number }[] = [
     {
       name: "蓝色",
       color: "#1677FF",
@@ -26,43 +28,76 @@ const Theme = () => {
       color: "#5A54F9",
       value: 2,
     },
+    {
+      name: "紫红",
+      color: "#9E339F",
+      value: 3,
+    },
+    {
+      name: "粉色",
+      color: "#ED4192",
+      value: 4,
+    },
+    {
+      name: "红色",
+      color: "#E0282E",
+      value: 5,
+    },
+    {
+      name: "橘黄",
+      color: "#F4801A",
+      value: 6,
+    },
+    {
+      name: "黄色",
+      color: "#F2BD27",
+      value: 7,
+    },
+    {
+      name: "绿色",
+      color: "#00B96B",
+      value: 8,
+    },
   ];
-  const colorStyles = {
-    display: "inline-block",
-    marginRight: 8,
-    height: "16px",
-    lineHeight: "16px",
-    verticalAlign: "middle",
-  };
-
-  const radioStyle1 = {
-    ...colorStyles,
-    borderColor: "#1890ff",
-    // backgroundColor:"#1890ff"
-  };
-  const radioStyle2 = {
-    ...colorStyles,
-    borderColor: "#52c41a",
-  };
-  const radioStyle3 = {
-    ...colorStyles,
-    borderColor: "#f50",
-  };
-  const onChange = (e: any) => {
-    setValue(e.target.value);
-    console.log(e.target.value);
+  const handleRadioChange = (e:{value:number,color:string}) => {
+    setValues(e.value);
+    useThemeColor(e.color);
   };
   return (
     <>
       <SettingOutlined onClick={showDrawer} style={{ fontSize: 19, marginRight: 16 }} />
       <Drawer title="修改主题" placement="right" closable={false} onClose={onClose} open={open}>
-        <Radio.Group>
-       
-        </Radio.Group>
+        <Space>
+          <h3>主色:</h3>
+          {RadioColor &&
+            RadioColor.map((item, index) => {
+              return (
+                <label
+                  key={index}
+                  onClick={() => handleRadioChange(item)}
+                  className={styles.themeLabel}
+                  style={{
+                    background: item.color,
+                    boxShadow: values === item.value ? `0 0 0 1px #ffffff, 0 0 0 5px ${item.color}` : "",
+                  }}
+                >
+                  <input
+                    type="radio"
+                    name="color"
+                    value={item.color}
+                    style={{
+                      width: 0,
+                      height: 0,
+                      opacity: 0,
+                    }}
+                  />
+                </label>
+              );
+            })}
+        </Space>
       </Drawer>
     </>
   );
 };
-
 
 export default Theme;
