@@ -1,7 +1,10 @@
+/*
+轮播图
+*/
+import { Button } from "antd";
 import React from "react";
 import Slider from "react-slick";
-//  import "slick-carousel/slick/slick.css";
-//  import "slick-carousel/slick/slick-theme.css";
+import styles from "./css/carousel.module.less";
 const CarouselChart = () => {
   const settings = {
     dots: true,
@@ -11,8 +14,9 @@ const CarouselChart = () => {
     slidesToScroll: 1,
   };
   return (
-    <div>
-      <h2> Single Item</h2>
+    <div className={styles.carousel}>
+      <h2> Single Item </h2>
+      <h2>官网:<Button type="link">https://react-slick.neostack.com/</Button></h2>
       <Slider {...settings}>
         <div>
           <h3>1</h3>
@@ -36,5 +40,4 @@ const CarouselChart = () => {
     </div>
   );
 };
-
 export default CarouselChart;

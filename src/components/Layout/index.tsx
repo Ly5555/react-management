@@ -5,7 +5,7 @@ import { LayoutMenu, LayoutTabs, LayoutHeader } from "./components";
 import { useRecoilState } from "recoil";
 import { IsExpand } from "@/store/store";
 import styles from "./css/index.module.less";
-const Mylayout = () => {
+const LayoutIndex = () => {
   const { Content, Footer, Sider } = Layout;
   const [isExpandMenu, setIsExpandMenu] = useRecoilState(IsExpand);
   useEffect(() => {
@@ -23,7 +23,7 @@ const Mylayout = () => {
   };
   return (
     <Suspense>
-        <section className={styles.container}>
+        <Layout className={styles.container}>
           <Sider trigger={null} collapsed={isExpandMenu}>
             <LayoutMenu />
           </Sider>
@@ -34,9 +34,9 @@ const Mylayout = () => {
               <Outlet />
             </Content>
           </Layout>
-        </section>
+        </Layout>
     </Suspense>
   );
 };
 
-export default Mylayout;
+export default LayoutIndex;

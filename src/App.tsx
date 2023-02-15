@@ -5,7 +5,7 @@ import { useRecoilValue } from "recoil";
 import { themeColor } from "@/store/store";
 import { Loading } from "./components/index";
 import Router from "@/router";
-import "@/styles/reset.module.less";
+// import "@/styles/reset.module.less";
 import "./app.css";
 // import "slick-carousel/slick/slick.css";
 // import "slick-carousel/slick/slick-theme.css";

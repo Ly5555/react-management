@@ -1,6 +1,6 @@
 import React, { Suspense, lazy } from "react";
 import { useRoutes } from "react-router-dom";
-import Mylayout from "@/components/Layout";
+import LayoutIndex from "@/components/Layout";
 // 页面组件
 const Home = lazy(() => import("@/pages/recoil/index"));
 const LazyDemo = lazy(() => import("@/components/LazyDemo"));
@@ -11,7 +11,7 @@ const NotFound = lazy(() => import("@/pages/NotFound/index"));
 const rootRouter: any = [
   {
     path: "/",
-    element: <Mylayout />,
+    element: <LayoutIndex />,
     children: [
       {
         path: "/home",
