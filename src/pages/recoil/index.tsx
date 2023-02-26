@@ -1,28 +1,39 @@
 import React from "react";
-import { RecoilRoot, useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { charCountState, textState, userInfoAtom } from "./store/store";
-import { UserInfo,SelectFontSize,Counter } from "./component/index";
+import { UserInfo, SelectFontSize, Counter } from "./component/index";
 const Recoil = () => {
   return (
-    <div>
-      <RecoilRoot>
-        <InputNuber />
-        <CharCountState />
-        <UserInfo />
-        <SelectFontSize/>
-        <Counter/>
-      </RecoilRoot>
-    </div>
+    <>
+      <InputNuber />
+      <CharCountState />
+      <UserInfo />
+      <SelectFontSize />
+      <Counter />
+      <div>
+        <h2>Recoli Hooks(同步)</h2>
+        <h3>声明状态</h3>
+        const recoilStae = atom ｜ atomFamily | selector | selectorFamily
+        <h3>读和写</h3>
+        const [stateValue,setStateValue] = useRecoilState(recoilStae)
+        <h3>读</h3>
+        const stateValue = useRecoilValue(recoilStae)
+        <h3>写</h3>
+        const setStateValue = useSetRecoilState(recoilStae)
+      </div>
+    </>
   );
 };
 const InputNuber: React.FC = (props) => {
   const [text, setText] = useRecoilState(textState);
-  const handeleChange = (e: any) => {
-    setText(e.target.value);
+  const handeleChange = (e: any,name:any) => {
+    console.log(name);
+    
+    // setText(e.target.value);
   };
   return (
     <div className="TextBox">
-      <input type="text" value={text} onChange={handeleChange} />
+      <input type="text" value={text} onChange={(e:any)=>handeleChange(e,name='userName')} />
     </div>
   );
 };

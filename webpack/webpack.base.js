@@ -18,6 +18,8 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "../public/index.html"), // 模板取定义root节点的模板
       inject: true, // 自动注入静态资源
+      collapseWhitespace: true, //去除所有的空格
+      removeComments: true, //去除所有的注释
     }),
     new webpack.DefinePlugin({
       "process.env.BASE_ENV": JSON.stringify(process.env.BASE_ENV),
@@ -37,12 +39,12 @@ module.exports = {
         use: [
           isDev ? "style-loader" : MiniCssExtractPlugin.loader,
           {
-            loader: 'css-loader',
+            loader: "css-loader",
             options: {
               modules: {
-                localIdentName: '[name]__[local]___[hash:base64:5]',
-              },              
-            }
+                localIdentName: "[name]__[local]___[hash:base64:5]",
+              },
+            },
           },
           "postcss-loader",
           "less-loader",
@@ -55,7 +57,7 @@ module.exports = {
       },
       {
         test: /.(png|jpg|jpeg|gif|svg)$/, // 匹配图片文件
-        type: "asset", // 
+        type: "asset", //
         parser: {
           dataUrlCondition: {
             maxSize: 10 * 1024, // 小于10kb转base64位
@@ -92,7 +94,7 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: [".js", ".tsx", ".ts",".css"],
+    extensions: [".js", ".tsx", ".ts", ".css"],
     alias: {
       "@": path.resolve(__dirname, "../src"),
     },
