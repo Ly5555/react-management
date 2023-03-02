@@ -6,6 +6,7 @@ const Home = lazy(() => import("@/pages/recoil/index"));
 const LazyDemo = lazy(() => import("@/components/LazyDemo"));
 const Lear = lazy(() => import("@/pages/lear/Lear"));
 const CarouselChart = lazy(() => import("@/pages/carouselChart"));
+const TypeScripct = lazy(() => import("@/pages/TypeScripct"));
 const NotFound = lazy(() => import("@/pages/NotFound/index"));
 // 页面组件
 const rootRouter: any = [
@@ -38,7 +39,6 @@ const rootRouter: any = [
       {
         path: "/demo2",
         title: "测试22",
-        element: <Lear />,
         children: [
           {
             path: "/demo2/lear",
@@ -47,6 +47,11 @@ const rootRouter: any = [
             meta: {
               title: "测试",
             },
+          },
+          {
+            path: "/demo2/TypeScripct",
+            element: <TypeScripct />,
+            title: "TypeScripct",
           },
         ],
       },
