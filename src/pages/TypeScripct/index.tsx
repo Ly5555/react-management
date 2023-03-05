@@ -31,11 +31,13 @@ const TypeScripct = () => {
   }
   let arrArray: INewArray = [1, 2, 3, 5];
   interface ISearch {
-    (a:string,b:string):number;
+    (a: string, b: string): number;
   }
-  const fn1:ISearch = function(a:string,b:string):number{
-    return 1
-  }
+  const fn1: ISearch = function (a: string, b: string): number {
+    return 1;
+  };
+  // 函数声明和函数表达式
+
   return (
     <div>
       <h2>数组和对象《引用数据类型》</h2>
@@ -48,6 +50,7 @@ const TypeScripct = () => {
       规范：可有可无前面加上? 不能添加没有定义的属性,[propName] 任意属性任意值 只读属性 readonly 只读
       <h3>数组类型</h3>
       <h3>函数类型</h3>
+      <h3>函数声明和函数表达式（命名函数 和 函数表达式）</h3>
     </div>
   );
 };

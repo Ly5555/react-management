@@ -2,7 +2,7 @@ import React, { Suspense, lazy } from "react";
 import { useRoutes } from "react-router-dom";
 import LayoutIndex from "@/components/Layout";
 // 页面组件
-const Home = lazy(() => import("@/pages/recoil/index"));
+const Home = lazy(() => import("@/pages/home"));
 const LazyDemo = lazy(() => import("@/components/LazyDemo"));
 const Lear = lazy(() => import("@/pages/lear/Lear"));
 const CarouselChart = lazy(() => import("@/pages/carouselChart"));
