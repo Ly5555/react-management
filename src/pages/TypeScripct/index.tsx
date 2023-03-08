@@ -37,7 +37,24 @@ const TypeScripct = () => {
     return 1;
   };
   // 函数声明和函数表达式
-
+  //可选参数和默认参数  ? 可有可无
+  let getName = function (name: string = "李", age?: string): string {
+    return name + age;
+  };
+  // 剩余参数
+  function name(x: string, ...args: number[]) {
+    console.log(x, args);
+  }
+  name("zhangsan", 1, 2, 3);
+  // 函数重载 函数名字相同,形参不同的多个函数
+  const newAdd = (a: number | string, b: number | string): string | number => {
+    if (typeof a === "string" && typeof b === "string") {
+      return a + b
+    }else  if (typeof a === "number" && typeof b === "number") {
+      return a + b
+    }
+    return 1
+  };
   return (
     <div>
       <h2>数组和对象《引用数据类型》</h2>
@@ -51,6 +68,13 @@ const TypeScripct = () => {
       <h3>数组类型</h3>
       <h3>函数类型</h3>
       <h3>函数声明和函数表达式（命名函数 和 函数表达式）</h3>
+      <h3>可选参数和默认参数</h3>
+      必须参数不能位于可选参数后面
+      <h3>剩余参数</h3>
+      主要用Es6 ...rest
+      <h3> 函数重载 函数名字相同,形参不同的多个函数</h3>
+      <h3>类型断言</h3>
+      第一种 as  第二种 {'<类型>'} 变量
     </div>
   );
 };
