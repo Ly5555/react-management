@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-
+import styles from "./css/index.module.less";
 const TypeScripct = () => {
   // 定义数组一
   let arr: number[] = [1, 2, 3];
@@ -49,14 +49,21 @@ const TypeScripct = () => {
   // 函数重载 函数名字相同,形参不同的多个函数
   const newAdd = (a: number | string, b: number | string): string | number => {
     if (typeof a === "string" && typeof b === "string") {
-      return a + b
-    }else  if (typeof a === "number" && typeof b === "number") {
-      return a + b
+      return a + b;
+    } else if (typeof a === "number" && typeof b === "number") {
+      return a + b;
     }
-    return 1
+    return 1;
   };
+  // 类型别用 常用于联合类型
+  type all = string | number | boolean;
+  let str: all = "123";
+  let str2: all = 123;
+  let str3: all = true;
+  type stringType = "张三" | "李四" | "王五";
+  let nameS : stringType = "张三";
   return (
-    <div>
+    <div className={styles.typescripct}>
       <h2>数组和对象《引用数据类型》</h2>
       <div>function name() :void 没有返回值</div>
       <h3>类型推断(ts在没有明确的指定类型的时候推测一个类型)</h3>
@@ -74,7 +81,10 @@ const TypeScripct = () => {
       主要用Es6 ...rest
       <h3> 函数重载 函数名字相同,形参不同的多个函数</h3>
       <h3>类型断言</h3>
-      第一种 as  第二种 {'<类型>'} 变量
+      第一种 as 第二种 {"<类型>"} 变量 将任何一个类型为any,尽量不使用any
+      {((window as any).a = 10)}
+      <h2>类型别名,常用于联合类型</h2>
+      <h2>字符串字面量类型，用来约束取值只能是某几个字符串中的一个</h2>
     </div>
   );
 };

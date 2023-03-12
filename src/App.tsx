@@ -5,6 +5,7 @@ import { useRecoilValue } from "recoil";
 import { themeColor } from "@/store/store";
 import { Loading } from "./components/index";
 import Router from "@/router";
+import "@/styles/reset.module.less"
 import "./app.css";
 function App() {
   const colorPrimary = useRecoilValue(themeColor);
