@@ -6,13 +6,16 @@ import { breadcrumbNameMap } from "@/store/store";
 const BreadcrumbNav = () => {
   const { pathname } = useLocation();
   const breadcrumbState: any = useRecoilValue(breadcrumbNameMap);
-  const breadcrumbList = breadcrumbState[pathname] || [];
+  const breadcrumbList =
+    breadcrumbState[pathname].map((item: string) => {
+      return {
+        title: item,
+      };
+    }) || [];
   return (
-      <Breadcrumb>
-        {breadcrumbList.map((item: string) => {
-          return <Breadcrumb.Item key={item}>{item}</Breadcrumb.Item>;
-        })}
-      </Breadcrumb>
+    <Breadcrumb items={breadcrumbList} />
+    // >=5.3.0 可用，推荐的写法 ✅
+    //  return <Breadcrumb items={[{ title: 'sample' }]} />;
   );
 };
 
