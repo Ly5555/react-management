@@ -15,7 +15,7 @@ const tabListState = selector({
         key: item?.path,
         label: item?.title,
       };
-    });
+    }).filter((item)=>item.key);;
   },
 });
 // 是否开展菜单

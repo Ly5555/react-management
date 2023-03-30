@@ -7,7 +7,7 @@ const BreadcrumbNav = () => {
   const { pathname } = useLocation();
   const breadcrumbState: any = useRecoilValue(breadcrumbNameMap);
   const breadcrumbList =
-    breadcrumbState[pathname].map((item: string) => {
+    breadcrumbState[pathname]?.map((item: string) => {
       return {
         title: item,
       };
