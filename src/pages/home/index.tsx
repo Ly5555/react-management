@@ -1,14 +1,13 @@
 import React, { useState } from "react";
-import { HooksMemo } from "./components";
+import { HooksMemo, PieChat } from "./components";
 
 //  react Hoooks的学习
 function Home() {
- 
-
   return (
     <>
-      <h3>HooksMemo</h3>
-      <HooksMemo/>
+      <h3>React学习和antV</h3>
+      <HooksMemo />
+      <PieChat />
     </>
   );
 }

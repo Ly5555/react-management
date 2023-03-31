@@ -4,12 +4,8 @@ import { ChildMemo } from "./index";
 //  react Hoooks的学习
 const HooksMemo = () => {
   const [count, setCount] = useState(0);
-  const [count2, setCount2] = useState(0);
   const handleClick = () => {
     setCount(count + 1);
-  };
-  const handleClick2 = () => {
-    setCount2(count + 1);
   };
   return (
     <div>
@@ -18,7 +14,7 @@ const HooksMemo = () => {
         <Button type="primary" onClick={handleClick}>
           useMemo子组件不会渲染
         </Button>
-        <Button type="primary" onClick={handleClick2}>
+        <Button type="primary" onClick={handleClick}>
           子组件不会渲染
         </Button>
       </Space>
