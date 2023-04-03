@@ -3,7 +3,7 @@ import { useRoutes } from "react-router-dom";
 import LayoutIndex from "@/components/Layout";
 // 页面组件
 const Home = lazy(() => import("@/pages/home"));
-const LazyDemo = lazy(() => import("@/components/LazyDemo"));
+const LazyDemo = lazy(() => import("@/pages/javascripct/LazyDemo"));
 const Lear = lazy(() => import("@/pages/lear/Lear"));
 const CarouselChart = lazy(() => import("@/pages/carouselChart"));
 const TypeScripct = lazy(() => import("@/pages/TypeScripct"));
@@ -43,9 +43,9 @@ const rootRouter: any = [
           {
             path: "/demo2/lear",
             element: <LazyDemo />,
-            title: "测试",
+            title: "js学习",
             meta: {
-              title: "测试",
+              title: "js学习",
             },
           },
           {

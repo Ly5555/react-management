@@ -1,6 +1,6 @@
 import React, { lazy, Suspense, useState } from "react";
 import "./app.less";
-const LazyDemo = lazy(() => import("@/components/LazyDemo"));
+const LazyDemo = lazy(() => import("@/pages/javascripct/LazyDemo"));
 import { Demo, Demo2 } from "@/components";
 import Lear from "./pages/lear/Lear";
 import Recoil from "./pages/recoil/index";
