@@ -1,0 +1,26 @@
+.login_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100vw;
+  .login_card {
+    min-width: 300px;
+    box-sizing: border-box;
+    text-align: center;
+  }
+  @keyframes printer {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
+  .printer {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    animation: printer 5s linear infinite;
+  }
+}

@@ -1,7 +1,8 @@
 import React, { Suspense, lazy } from "react";
-import { useRoutes } from "react-router-dom";
+import { Navigate, useRoutes } from "react-router-dom";
 import LayoutIndex from "@/components/Layout";
 // 页面组件
+import Login from "@/pages/LoginPage";
 const Home = lazy(() => import("@/pages/home"));
 const LazyDemo = lazy(() => import("@/pages/javascripct/LazyDemo"));
 const Lear = lazy(() => import("@/pages/lear/Lear"));
@@ -10,6 +11,10 @@ const TypeScripct = lazy(() => import("@/pages/TypeScripct"));
 const NotFound = lazy(() => import("@/pages/NotFound/index"));
 // 页面组件
 const rootRouter: any = [
+  {
+    path: "/",
+    element: <Navigate to={"/login"} />,
+  },
   {
     path: "/",
     element: <LayoutIndex />,
@@ -55,11 +60,19 @@ const rootRouter: any = [
           },
         ],
       },
-      {
-        path: "*",
-        elment: <NotFound />,
-      },
     ],
+  },
+  {
+    path: "/login",
+    element: <Login />,
+    meta: {
+      title: "登录页",
+      key: "login",
+    },
+  },
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ];
 

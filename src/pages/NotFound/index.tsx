@@ -8,7 +8,7 @@ function NotFound() {
       status='404'
       title='404'
       subTitle='迷路了'
-      extra={<Button type='primary'><Link to='/home'>首页</Link></Button>}
+      extra={<Button type='primary'><Link to='/home/home'>首页</Link></Button>}
     />
   );
 }
