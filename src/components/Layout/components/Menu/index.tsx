@@ -1,14 +1,15 @@
-import React, { useState, useEffect,startTransition } from "react";
+import React, { useState, useEffect } from "react";
 import { Menu, Spin } from "antd";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { useSetRecoilState, useRecoilValue } from "recoil";
-import { searchRoute, getOpenKeys,findAllBreadcrumb } from "@/utils/util";
-import { IsExpand ,breadcrumbNameMap} from "@/store/store";
+import { searchRoute, getOpenKeys, findAllBreadcrumb } from "@/utils/util";
+import { IsExpand, breadcrumbNameMap } from "@/store/store";
+import { Loading } from "@/components";
 import type { MenuProps } from "antd";
 import * as Icons from "@ant-design/icons";
 import { LayoutLogo } from "../index";
-import styles from "./css/menu.module.less"
+import styles from "./css/menu.module.less";
 type MenuItem = Required<MenuProps>["items"][number];
 
 const LayoutMenu = () => {
@@ -19,7 +20,7 @@ const LayoutMenu = () => {
   const [openKeys, setOpenKeys] = useState<string[]>([]);
   const [selectedKeys, setSelectedKeys] = useState<string[]>([pathname]);
   const isCollapse = useRecoilValue(IsExpand);
-  const setBreadcrumbList = useSetRecoilState(breadcrumbNameMap)
+  const setBreadcrumbList = useSetRecoilState(breadcrumbNameMap);
   useEffect(() => {
     setSelectedKeys([pathname]);
     isCollapse ? null : setOpenKeys(getOpenKeys(pathname));
@@ -33,7 +34,7 @@ const LayoutMenu = () => {
           setLoading(false);
           const { data } = res.data;
           setmenuList(deepLoopMenu(data));
-          setBreadcrumbList(findAllBreadcrumb(data) as any)
+          setBreadcrumbList(findAllBreadcrumb(data) as any);
         })
         .catch((error) => {
           console.log(error);
@@ -83,18 +84,17 @@ const LayoutMenu = () => {
   return (
     <div className={styles.menu}>
       <Spin spinning={loading} tip="loading....">
-        <LayoutLogo />
-        
-        <Menu
-          theme="dark"
-          mode="inline"
-          triggerSubMenuAction="click"
-          items={menuList}
-          openKeys={openKeys}
-          onOpenChange={onOpenChange}
-          selectedKeys={selectedKeys}
-          onClick={handelChangeClick}
-        />
+      <LayoutLogo />
+      <Menu
+        theme="dark"
+        mode="inline"
+        triggerSubMenuAction="click"
+        items={menuList}
+        openKeys={openKeys}
+        onOpenChange={onOpenChange}
+        selectedKeys={selectedKeys}
+        onClick={handelChangeClick}
+      />
       </Spin>
     </div>
   );
