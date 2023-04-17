@@ -1,7 +1,6 @@
 import React, { lazy, Suspense, useState } from "react";
 import "./app.less";
 const LazyDemo = lazy(() => import("@/pages/javascripct/LazyDemo"));
-import { Demo, Demo2 } from "@/components";
 import Lear from "./pages/lear/Lear";
 import Recoil from "./pages/recoil/index";
 import "./app.css";
@@ -19,7 +18,6 @@ function App() {
   return (
     <>
       <h2 onClick={onClick}>webpack5+react+ts</h2>
-      <Demo />
       <input type="text" value={count} onChange={onChange} />
       <br />
       {/* show为true时加载LazyDemo组件 */}

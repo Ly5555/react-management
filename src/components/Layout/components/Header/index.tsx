@@ -1,6 +1,6 @@
 import React from "react";
 import { Layout } from "antd";
-import { CollapseIcon, BreadcrumbNav, Theme } from "./components/index";
+import { CollapseIcon, BreadcrumbNav, Theme,AvatarIcon } from "./components/index";
 import styles from "./css/header.module.less";
 const LayoutHeader = () => {
   const { Header } = Layout;
@@ -13,7 +13,8 @@ const LayoutHeader = () => {
         </div>
         <div className={styles.header_ri}>
           <Theme />
-          <span className={styles.username}>Hooks</span>
+          <AvatarIcon/>
+          {/* <span className={styles.username}>Hooks</span> */}
         </div>
       </Header>
     </div>
