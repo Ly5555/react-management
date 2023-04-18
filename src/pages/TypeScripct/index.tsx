@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, {useEffect} from "react";
 import styles from "./css/index.module.less";
 const TypeScripct = () => {
   // 定义数组一
@@ -24,7 +24,7 @@ const TypeScripct = () => {
     name: string;
     age: number;
   }
-  let per: IPerseon = { id: 10, name: "zhangsan", age: 18 };
+  let per: IPerseon = {id: 10, name: "zhangsan", age: 18};
   // 不是很常用
   interface INewArray {
     [index: number]: number;
@@ -61,7 +61,8 @@ const TypeScripct = () => {
   let str2: all = 123;
   let str3: all = true;
   type stringType = "张三" | "李四" | "王五";
-  let nameS : stringType = "张三";
+  let nameS: stringType = "张三";
+
   return (
     <div className={styles.typescripct}>
       <h2>数组和对象《引用数据类型》</h2>

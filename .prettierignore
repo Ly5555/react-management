@@ -1,0 +1,13 @@
+**/.png**/.svg
+.npmrc
+nginx.conf.template
+package.json
+package-lock.json
+.gitignore
+.prettierignore
+.history
+/.idea
+/node_modules/
+/public/*
+.husky
+.editorconfig
