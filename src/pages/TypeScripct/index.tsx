@@ -62,7 +62,47 @@ const TypeScripct = () => {
   let str3: all = true;
   type stringType = "张三" | "李四" | "王五";
   let nameS: stringType = "张三";
+  // 泛型 多个泛型参数的函数
+  // [123,"123"]--->["123",123]'
+  function UpdateArr<T, U>(t: [T, U]): [U, T] {
+    return [t[1], t[0]];
+  }
+  UpdateArr(["123", 123]);
+  // 泛型约束
+  // 获取参数的长度
+  interface IGetLength {
+    length: number;
+  }
+  function getLength<T extends IGetLength>(x: T): number {
+    return x.length;
+  }
+  console.log(getLength([1, 23]));
+  // 泛型接口
+  interface IArr {
+    <T>(value: T, count: number): T[];
+  }
 
+  const getArr: IArr = function <T>(value: T, count: number): T[] {
+    const arr: T[] = [];
+    for (let i = 0; i < count; i++) {
+      arr.push(value);
+    }
+    return arr;
+  };
+  interface IArr2<T> {
+    (value: T, count: number): T[];
+  }
+  const getArr2: IArr2<string> = function <T>(value: T, count: number): T[] {
+    const arr: T[] = [];
+    for (let i = 0; i < count; i++) {
+      arr.push(value);
+    }
+    return arr;
+  };
+  console.log(getArr2("123", 3));
+  interface Iperson<T> {
+    name: T;
+  }
   return (
     <div className={styles.typescripct}>
       <h2>数组和对象《引用数据类型》</h2>

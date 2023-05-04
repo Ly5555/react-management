@@ -5,9 +5,9 @@ import LayoutIndex from "@/components/Layout";
 import Login from "@/pages/LoginPage";
 const Home = lazy(() => import("@/pages/home"));
 const LazyDemo = lazy(() => import("@/pages/javascripct/LazyDemo"));
-const Lear = lazy(() => import("@/pages/lear/Lear"));
 const CarouselChart = lazy(() => import("@/pages/carouselChart"));
 const TypeScripct = lazy(() => import("@/pages/TypeScripct"));
+const DataScreen = lazy(() =>import("@/pages/dataScreen"));
 const NotFound = lazy(() => import("@/pages/NotFound/index"));
 // 页面组件
 const rootRouter: any = [
@@ -60,6 +60,11 @@ const rootRouter: any = [
           },
         ],
       },
+      {
+        path: "/dataScreen",
+        title: "数据展示",
+        element: <DataScreen />,
+      }
     ],
   },
   {
