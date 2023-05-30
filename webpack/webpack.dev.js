@@ -13,6 +13,11 @@ module.exports = merge(baseConfig, {
     // 解决路由跳转404问题
     historyApiFallback: true,
     hot: true,
+    client:{
+      overlay:{
+        runtimeErrors:false
+      }
+    },
     static: {
       //托管静态资源文件
       directory: path.join(__dirname, "../public"),

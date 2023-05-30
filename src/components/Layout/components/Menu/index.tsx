@@ -5,7 +5,6 @@ import axios from "axios";
 import { useSetRecoilState, useRecoilValue } from "recoil";
 import { searchRoute, getOpenKeys, findAllBreadcrumb } from "@/utils/util";
 import { IsExpand, breadcrumbNameMap } from "@/store/store";
-import { Loading } from "@/components";
 import type { MenuProps } from "antd";
 import * as Icons from "@ant-design/icons";
 import { LayoutLogo } from "../index";
