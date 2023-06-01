@@ -24,7 +24,6 @@ const LoginPage = () => {
           <LoginForm />
       </div>
       </div>
-   
     </div>
   );
 };

@@ -15,7 +15,6 @@ const LoginForm = () => {
       console.log(error);
     }
   };
-
   const tailLayout = {
     wrapperCol: {
       offset: 2,
@@ -31,27 +30,30 @@ const LoginForm = () => {
         <Form.Item name="password" rules={[{required: true, message: "请输入密码"}]}>
           <Input.Password prefix={<LockOutlined />} type="password" placeholder="Your password" />
         </Form.Item>
-        <Form.Item >
-        <Space>
-          <Form.Item name='remember' valuePropName='checked' noStyle>
-            <Checkbox>记住密码</Checkbox>
-          </Form.Item>
-          <a>
-            忘记密码?
-          </a>
-        </Space>
-      </Form.Item>
+        <Form.Item>
+          <Space>
+            <Form.Item name="remember" valuePropName="checked" noStyle>
+              <Checkbox>记住密码</Checkbox>
+            </Form.Item>
+            <a>忘记密码?</a>
+          </Space>
+        </Form.Item>
         <Form.Item
           name="agreement"
           valuePropName="checked"
-        >
+          rules={[
+            {
+              validator: (_, value) =>
+              value ? Promise.resolve() : Promise.reject(new Error('请先阅读并同意用户协议'))
+            },
+          ]}>
           <Checkbox>
             已阅读并同意 <a>《用户协议》</a>
           </Checkbox>
         </Form.Item>
-        <Form.Item {...tailLayout}>
-          <Button type="primary" onClick={handleOnFinish} style={{marginRight: 8}}>
-            登录
+        <Form.Item >
+          <Button type="primary" htmlType="submit" className="login-form-button" onClick={handleOnFinish} >
+            登 录
           </Button>
         </Form.Item>
       </Form>

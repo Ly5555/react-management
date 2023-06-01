@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect } from "react";
+import React, {  useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import { Layout } from "antd";
 import { LayoutMenu, LayoutTabs, LayoutHeader } from "./components";
@@ -22,7 +22,6 @@ const LayoutIndex = () => {
     };
   };
   return (
-    <Suspense>
         <Layout className={styles.container}>
           <Sider trigger={null} collapsed={isExpandMenu}>
             <LayoutMenu />
@@ -35,7 +34,6 @@ const LayoutIndex = () => {
             </Content>
           </Layout>
         </Layout>
-    </Suspense>
   );
 };
 

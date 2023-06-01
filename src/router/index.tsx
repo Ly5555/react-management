@@ -1,14 +1,16 @@
-import React, { Suspense, lazy } from "react";
+import React, { lazy } from "react";
+import lazyLoad from "@/utils/lazyLoad"
 import { Navigate, useRoutes } from "react-router-dom";
 import LayoutIndex from "@/components/Layout";
 // 页面组件
 import Login from "@/pages/LoginPage";
-const Home = lazy(() => import("@/pages/home"));
-const LazyDemo = lazy(() => import("@/pages/javascripct/LazyDemo"));
-const CarouselChart = lazy(() => import("@/pages/carouselChart"));
-const TypeScripct = lazy(() => import("@/pages/TypeScripct"));
-const DataScreen = lazy(() =>import("@/pages/dataScreen"));
-const NotFound = lazy(() => import("@/pages/NotFound/index"));
+const Home = lazyLoad(lazy(() => import("@/pages/home")));
+const LazyDemo = lazyLoad(lazy(() => import("@/pages/javascripct/LazyDemo")));
+const CarouselChart = lazyLoad(lazy(() => import("@/pages/carouselChart")));
+const TypeScripct = lazyLoad(lazy(() => import("@/pages/TypeScripct")));
+const DataScreen = lazyLoad(lazy(() =>import("@/pages/dataScreen")));
+const NotFound = lazyLoad(lazy(() => import("@/pages/NotFound/index")));
+
 // 页面组件
 const rootRouter: any = [
   {
@@ -25,19 +27,13 @@ const rootRouter: any = [
         children: [
           {
             path: "/home/home",
-            element: <Home />,
+            element: Home,
             title: "首页",
-            meta: {
-              title: "首页",
-            },
           },
           {
             path: "/home/carouselChart",
-            element: <CarouselChart />,
+             element: CarouselChart,
             title: "轮播图",
-            meta: {
-              title: "轮播图",
-            },
           },
         ],
       },
@@ -47,15 +43,14 @@ const rootRouter: any = [
         children: [
           {
             path: "/demo2/lear",
-            element: <LazyDemo />,
+            // element: lazyLoad(<LazyDemo />),
+            element:LazyDemo,
             title: "js学习",
-            meta: {
-              title: "js学习",
-            },
           },
           {
             path: "/demo2/TypeScripct",
-            element: <TypeScripct />,
+            // element: lazyLoad(<TypeScripct />),
+            element: TypeScripct,
             title: "TypeScripct",
           },
         ],
@@ -63,21 +58,17 @@ const rootRouter: any = [
       {
         path: "/dataScreen",
         title: "数据展示",
-        element: <DataScreen />,
+        element: DataScreen,
       }
     ],
   },
   {
     path: "/login",
     element: <Login />,
-    meta: {
-      title: "登录页",
-      key: "login",
-    },
   },
   {
     path: "*",
-    element: <NotFound />,
+    element: NotFound ,
   },
 ];
 

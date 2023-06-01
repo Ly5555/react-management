@@ -25,7 +25,7 @@ const AvatarIcon = () => {
     {
       key: "4",
       icon: <UserOutlined />,
-      label: <span className="dropdown-item">退出登录</span>,
+      label: <span className="dropdown-item" onClick={()=>useNavigateTo("/login")}>退出登录</span>,
     },
   ];
   return (

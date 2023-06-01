@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, } from "react";
 import { Menu, Spin } from "antd";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
@@ -50,17 +50,16 @@ const LayoutMenu = () => {
     key: React.Key | null,
     icon?: React.ReactNode,
     children?: MenuItem[],
-    type?: "group"
   ): MenuItem => {
     return {
       key,
       icon,
       children,
       label,
-      type,
     } as MenuItem;
   };
   const handelChangeClick: MenuProps["onClick"] = ({ key }: { key: string }) => {
+    console.log(key);
     const route = searchRoute(key, menuList as any);
     if (route.isLink) window.open(route.isLink, "_blank");
     navigaiteTo(key);
@@ -75,11 +74,12 @@ const LayoutMenu = () => {
   };
   // 设置当前展开的 subMenu
   const onOpenChange = (openKeys: string[]) => {
-    if (openKeys.length === 0 || openKeys.length === 1) return setOpenKeys(openKeys);
+    if (openKeys?.length === 0 || openKeys.length === 1) return setOpenKeys(openKeys);
     const latestOpenKey = openKeys[openKeys.length - 1];
     if (latestOpenKey.includes(openKeys[0])) return setOpenKeys(openKeys);
     setOpenKeys([latestOpenKey]);
   };
+ 
   return (
     <div className={styles.menu}>
       <Spin spinning={loading} tip="loading....">

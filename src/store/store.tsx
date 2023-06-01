@@ -14,6 +14,7 @@ const tabListState = selector({
       return {
         key: item?.path,
         label: item?.title,
+        closable:item.title === "首页" ?false :true
       };
     }).filter((item)=>item.key);;
   },
@@ -33,4 +34,9 @@ const themeColor = atom({
   key: "themeColor",
   default: "#1677FF",
 });
-export { tabLists, tabListState, IsExpand, breadcrumbNameMap, themeColor };
+ const globalTokenAtom = atom({
+  key: 'globalTokenState',
+  default: '',
+  effects_UNSTABLE: [],
+})
+export { tabLists, tabListState, IsExpand, breadcrumbNameMap, themeColor,globalTokenAtom };
