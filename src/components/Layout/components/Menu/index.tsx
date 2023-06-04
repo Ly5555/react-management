@@ -1,6 +1,7 @@
 import React, { useState, useEffect, } from "react";
 import { Menu, Spin } from "antd";
 import { useNavigate, useLocation } from "react-router-dom";
+
 import axios from "axios";
 import { useSetRecoilState, useRecoilValue } from "recoil";
 import { searchRoute, getOpenKeys, findAllBreadcrumb } from "@/utils/util";
@@ -47,19 +48,20 @@ const LayoutMenu = () => {
   };
   const getItem = (
     label: React.ReactNode,
-    key: React.Key | null,
-    icon?: React.ReactNode,
+    key: React.Key,
+    icon?: React.ReactNode| null,
     children?: MenuItem[],
+    type?: "group"
   ): MenuItem => {
     return {
       key,
       icon,
       children,
       label,
+      type
     } as MenuItem;
   };
   const handelChangeClick: MenuProps["onClick"] = ({ key }: { key: string }) => {
-    console.log(key);
     const route = searchRoute(key, menuList as any);
     if (route.isLink) window.open(route.isLink, "_blank");
     navigaiteTo(key);
@@ -67,11 +69,12 @@ const LayoutMenu = () => {
   // 处理路由
   const deepLoopMenu = (menuList: Menu.MenuOptions[], newArr: MenuItem[] = []) => {
     menuList?.forEach((item) => {
-      if (!item?.children?.length) return newArr.push(getItem(item.title, item.path, addIcon(item.icon!)));
-      newArr.push(getItem(item.title, item.path, addIcon(item.icon!), deepLoopMenu(item.children)));
+      if (!item?.children) return newArr.push(getItem(item.title, item.path));
+      newArr.push(getItem(item.title, item.path,addIcon(item.icon!), deepLoopMenu(item.children)));
     });
     return newArr;
   };
+
   // 设置当前展开的 subMenu
   const onOpenChange = (openKeys: string[]) => {
     if (openKeys?.length === 0 || openKeys.length === 1) return setOpenKeys(openKeys);

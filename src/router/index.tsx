@@ -1,9 +1,10 @@
 import React, { lazy } from "react";
-import lazyLoad from "@/utils/lazyLoad"
+import lazyLoad from "@/components/lazyLoad"
 import { Navigate, useRoutes } from "react-router-dom";
-import LayoutIndex from "@/components/Layout";
+
 // 页面组件
 import Login from "@/pages/LoginPage";
+const LayoutIndex = lazyLoad(lazy(() => import("@/components/Layout")));
 const Home = lazyLoad(lazy(() => import("@/pages/home")));
 const LazyDemo = lazyLoad(lazy(() => import("@/pages/javascripct/LazyDemo")));
 const CarouselChart = lazyLoad(lazy(() => import("@/pages/carouselChart")));
@@ -13,13 +14,13 @@ const NotFound = lazyLoad(lazy(() => import("@/pages/NotFound/index")));
 
 // 页面组件
 const rootRouter: any = [
+  // {
+  //   path: "/",
+  //   element: <Navigate to={"/login"} />,
+  // },
   {
     path: "/",
-    element: <Navigate to={"/login"} />,
-  },
-  {
-    path: "/",
-    element: <LayoutIndex />,
+    element: LayoutIndex,
     children: [
       {
         path: "/home",
