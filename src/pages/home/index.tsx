@@ -1,7 +1,7 @@
 import React, {Children, useEffect, useState} from "react";
 import {HooksMemo, PieChat, LoadingModal} from "./components";
 import {Button} from "antd";
-import ReactDOM from "react-dom";
+import request from "@/utils/request";
 
 //  react Hoooks的学习
 function Home() {
@@ -9,9 +9,15 @@ function Home() {
   useEffect(() => {
     console.log("监听number变化，此时的number是:  " + number);
   }, [number]);
-  const handleClick = () => {
-    setNumber(prev => prev + 1
-    );
+  const handleClick = async() => {
+    const res = await request({
+      url: "https://www.fastmock.site/mock/302854084413bb6592dc4c53c7f85991/admin/menu/list",
+      isLoading:true
+    }); 
+    console.log(res);
+    
+    setNumber(prev => prev + 1);
+
   };
   const HomeProps = {
     name:"Home",

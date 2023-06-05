@@ -4,7 +4,7 @@ import { Spin } from "antd";
 // 加载中组件
 const Loading = () => {
   return (
-    <div style={{ textAlign: "center", padding: "50vh 0" }}>
+    <div className="loading" style={{ textAlign: "center", padding: "50vh 0" }}>
       <Spin />
     </div>
   );
