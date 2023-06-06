@@ -11,7 +11,7 @@ const pendingRequests = new Map();
 
 // 生成请求标识符
 const getRequestKey = (config) => {
-  const {method, url, params,data} = config || {};
+  const {method, url, params, data} = config || {};
   return [url, method, qs.stringify(params), qs.stringify(data)].join("&");
 };
 
@@ -30,7 +30,7 @@ const cancelPendingRequest = (config) => {
   const requestKey = getRequestKey(config);
   if (pendingRequests.has(requestKey)) {
     const cancelRequest = pendingRequests.get(requestKey);
-    // cancelRequest("Request canceled")
+    cancelRequest("Request canceled");
     pendingRequests.delete(requestKey);
   }
 };
@@ -53,11 +53,9 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (response) => {
     cancelPendingRequest(response.config);
-    console.log(response);
     return response.data;
   },
   (error) => {
-    console.log("error", error);
     cancelPendingRequest(error.config);
     return Promise.reject(error);
   },
