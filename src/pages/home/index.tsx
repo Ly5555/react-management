@@ -14,10 +14,7 @@ function Home() {
       url: "https://www.fastmock.site/mock/302854084413bb6592dc4c53c7f85991/admin/menu/list",
       isLoading:true
     }); 
-    console.log(res);
-    
     setNumber(prev => prev + 1);
-
   };
   const HomeProps = {
     name:"Home",

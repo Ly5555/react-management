@@ -1,11 +1,16 @@
 import { Button, Space } from "antd";
 import React, { useState, useEffect, memo } from "react";
 import { ChildMemo } from "./index";
+import request from "@/utils/request"
 //  react Hoooks的学习
 const HooksMemo = () => {
   const [count, setCount] = useState(0);
   const [loading, setLoading] = useState(false);
-  const handleClick = () => {
+  const handleClick = async() => {
+    const res = await request({
+      url: "https://www.fastmock.site/mock/302854084413bb6592dc4c53c7f85991/admin/menu/list",
+      isLoading:true
+    }); 
     setCount(count + 1);
     setLoading(true);
     // 模拟数据加载
