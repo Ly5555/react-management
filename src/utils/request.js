@@ -56,6 +56,9 @@ instance.interceptors.response.use(
     return response.data;
   },
   (error) => {
+    if (error && error.response) {
+      //   请求发生错误 message 
+    }
     cancelPendingRequest(error.config);
     return Promise.reject(error);
   },
