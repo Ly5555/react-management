@@ -8,6 +8,7 @@ import {
   ChildUseMemo,
   ChilduseCallback,
   ChilidRef,
+  CustomHooks,
 } from "./components";
 import Grandp from "./components/Grandpa";
 import {Button} from "antd";
@@ -21,6 +22,8 @@ const Home = () => {
   return (
     <div>
       <h3>React学习和antV</h3>
+      <CustomHooks />
+      <>==================================</>
       <Grandp />
       <Button onClick={handleClick}>{number}</Button>
       <HOC name={"hello"} />

@@ -8,8 +8,10 @@ import ChildUseMemo from "./ChildUseMemo";
 import ChilduseCallback from "./ChilduseCallback";
 import ChilidRef from "./ChilidRef";
 import ChilduseImperativeHandle from "./ChilduseImperativeHandle";
+import CustomHooks from "./CustomHooks";
 export {
   HooksMemo,
+  CustomHooks,
   ChilduseImperativeHandle,
   ChildMemo,
   PieChat,
