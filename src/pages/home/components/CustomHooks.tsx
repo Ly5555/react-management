@@ -20,8 +20,8 @@ const UseSetState = () => {
   // }, [count]);
   useEffect(() => {
     const interval = setInterval(() => {
-      console.log("count:", count);
-      console.log("ref:", ref);
+      // console.log("count:", count);
+      // console.log("ref:", ref);
       setCount(ref.current + 1);
     }, 1000);
     return () => clearInterval(interval);
