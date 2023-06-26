@@ -9,15 +9,15 @@ const Home = lazyLoad(lazy(() => import("@/pages/home")));
 const LazyDemo = lazyLoad(lazy(() => import("@/pages/javascripct/LazyDemo")));
 const CarouselChart = lazyLoad(lazy(() => import("@/pages/carouselChart")));
 const TypeScripct = lazyLoad(lazy(() => import("@/pages/TypeScripct")));
-const DataScreen = lazyLoad(lazy(() =>import("@/pages/dataScreen")));
+const DataScreen = lazyLoad(lazy(() => import("@/pages/dataScreen")));
 const NotFound = lazyLoad(lazy(() => import("@/pages/NotFound/index")));
 
 // 页面组件
 const rootRouter: any = [
-  // {
-  //   path: "/",
-  //   element: <Navigate to={"/login"} />,
-  // },
+  {
+    path: "/",
+    element: <Navigate to={"/login"} />,
+  },
   {
     path: "/",
     element: LayoutIndex,
@@ -33,7 +33,7 @@ const rootRouter: any = [
           },
           {
             path: "/home/carouselChart",
-             element: CarouselChart,
+            element: CarouselChart,
             title: "轮播图",
           },
         ],
@@ -45,7 +45,7 @@ const rootRouter: any = [
           {
             path: "/demo2/lear",
             // element: lazyLoad(<LazyDemo />),
-            element:LazyDemo,
+            element: LazyDemo,
             title: "js学习",
           },
           {
@@ -69,7 +69,7 @@ const rootRouter: any = [
   },
   {
     path: "*",
-    element: NotFound ,
+    element: NotFound,
   },
 ];
 
