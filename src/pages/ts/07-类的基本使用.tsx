@@ -9,7 +9,6 @@ const Re = () => {
       this.age = age;
     }
     sayHello(): void {
-      console.log("1");
     }
   }
 

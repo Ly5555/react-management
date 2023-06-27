@@ -35,12 +35,10 @@ const LayoutTabs = () => {
 			tabsList.forEach((item: Menu.MenuOptions, index: number) => {
 				if (item.path !== pathname) return;
 				const nextTab:Menu.MenuOptions = tabsList[index + 1] || tabsList[index - 1];
-        console.log(nextTab,"38");
 				if (!nextTab) return;
 			  useNavigateTo(nextTab.path) ;
 			});
 		}
-    console.log(tabPath);
 		setTabsList(tabsList.filter((item: Menu.MenuOptions) => item.path !== tabPath))
   };
   return (

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import {
   HooksMemo,
   PieChat,
@@ -11,21 +11,28 @@ import {
   CustomHooks,
 } from "./components";
 import Grandp from "./components/Grandpa";
-import {Button} from "antd";
-import request from "@/utils/request";
+import { Button } from "antd";
+import request from "@/utils/request/request";
 
 const Home = () => {
-  const [number, setNumber] = useState(0);
+  useEffect(() => {
+    request({
+      url: "https://www.fastmock.site/mock/302854084413bb6592dc4c53c7f85991/admin/menu/list1",
+      loading: true
+    }).then((res) => {
+      console.log(res);
+    })
+  }, [])
   const handleClick = () => {
-    setNumber((prev) => prev + 1);
+
   };
   return (
     <div>
       <h3>React学习和antV</h3>
+      <Button onClick={handleClick}>接口测试</Button>
       <CustomHooks />
       <>==================================</>
       <Grandp />
-      <Button onClick={handleClick}>{number}</Button>
       <HOC name={"hello"} />
       <ChildUseMemo />
       <HooksMemo />

@@ -11,7 +11,7 @@ const pendingRequests = new Map();
 
 // 生成请求标识符
 const getRequestKey = (config) => {
-  const {method, url, params, data} = config || {};
+  const { method, url, params, data } = config || {};
   return [url, method, qs.stringify(params), qs.stringify(data)].join("&");
 };
 
@@ -64,10 +64,10 @@ instance.interceptors.response.use(
   },
 );
 
-const request = async (options) => {
-  const {url, method = "get", data = {}, params = {}, ...restOptions} = options;
+const request = (options) => {
+  const { url, method = "get", data = {}, params = {}, ...restOptions } = options;
   try {
-    const response = await instance({
+    const response = instance({
       url,
       method,
       params: method === "get" ? params : undefined, // 使用 undefined 替代 null
