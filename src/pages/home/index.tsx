@@ -15,16 +15,12 @@ import { Button } from "antd";
 import request from "@/utils/request/request";
 
 const Home = () => {
-  useEffect(() => {
-    request({
-      url: "https://www.fastmock.site/mock/302854084413bb6592dc4c53c7f85991/admin/menu/list1",
+  const handleClick = async () => {
+    const { data } = await request({
+      url: "https://www.fastmock.site/mock/302854084413bb6592dc4c53c7f85991/admin/menu/list",
       loading: true
-    }).then((res) => {
-      console.log(res);
     })
-  }, [])
-  const handleClick = () => {
-
+    console.log(data);
   };
   return (
     <div>

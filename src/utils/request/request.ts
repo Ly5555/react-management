@@ -5,7 +5,6 @@ import { showFullScreenLoading, tryHideFullScreenLoading } from "@/utils/request
 // 请求拦截器 引入加载圈
 export const baseURL = process.env.NODE_ENV; //服务
 axios.defaults.baseURL = baseURL;
-
 const config = {
   // 默认地址请求地址，可在 .env 开头文件中修改
   baseURL: baseURL,
@@ -83,13 +82,13 @@ export function downloadGet(url: string, filename: string) {
  * @param data 请求参数
  * @param config 参数配置
  */
-// interface RequestParams<R> {
-// 	url: string;
-// 	method?: string;
-// 	data?: R;
-// 	loading: boolean
-// 	config?: AxiosRequestConfig;
-// }
+interface RequestParams<R> {
+  url: string;
+  method?: string;
+  data?: R;
+  loading: boolean
+  config?: AxiosRequestConfig;
+}
 /**
  * 响应参数
  * @param code 状态码
@@ -97,12 +96,12 @@ export function downloadGet(url: string, filename: string) {
  * @param data 响应数据
  * @param total 条数
  */
-// export type ResponseData<T> = {
-// 	code: number;
-// 	message: string;
-// 	data: T;
-// 	total: number;
-// };
+export type ResponseData<T> = {
+  code: number;
+  message: string;
+  data: T;
+  total: number;
+};
 
 /**
  * @method

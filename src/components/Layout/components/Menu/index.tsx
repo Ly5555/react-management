@@ -14,7 +14,6 @@ type MenuItem = Required<MenuProps>["items"][number];
 const LayoutMenu = () => {
   const navigaiteTo = useNavigate();
   const { pathname } = useLocation();
-  // const [loading, setLoading] = useState(false);
   const [menuList, setmenuList] = useState<MenuItem[]>([]);
   const [openKeys, setOpenKeys] = useState<string[]>([]);
   const [selectedKeys, setSelectedKeys] = useState<string[]>([pathname]);
@@ -40,7 +39,9 @@ const LayoutMenu = () => {
   // 动态Icon处理
   const customIcons: { [key: string]: any } = Icons;
   const addIcon = (name: string) => {
-    return React.createElement(customIcons[name]);
+    // return React.createElement(customIcons[name]);
+    const CustomIcon = customIcons[name];
+    return <CustomIcon />;
   };
   const getItem = (
     label: React.ReactNode,
@@ -51,26 +52,26 @@ const LayoutMenu = () => {
   ): MenuItem => {
     return {
       key,
-      icon,
+      icon: icon || null,
       children,
       label,
       type,
     } as MenuItem;
+  };
+  // 处理路由
+  const deepLoopMenu = (menuList: Menu.MenuOptions[], newArr: MenuItem[] = []) => {
+    menuList?.forEach((item) => {
+      const icon = item.icon ? addIcon(item.icon) : null;
+      if (!item?.children) return newArr.push(getItem(item.title, item.path, icon));
+      newArr.push(getItem(item.title, item.path, icon, deepLoopMenu(item.children)));
+    });
+    return newArr;
   };
   const handelChangeClick: MenuProps["onClick"] = ({ key }: { key: string }) => {
     const route = searchRoute(key, menuList as any);
     if (route.isLink) window.open(route.isLink, "_blank");
     navigaiteTo(key);
   };
-  // 处理路由
-  const deepLoopMenu = (menuList: Menu.MenuOptions[], newArr: MenuItem[] = []) => {
-    menuList?.forEach((item) => {
-      if (!item?.children) return newArr.push(getItem(item.title, item.path));
-      newArr.push(getItem(item.title, item.path, addIcon(item.icon!), deepLoopMenu(item.children)));
-    });
-    return newArr;
-  };
-
   // 设置当前展开的 subMenu
   const onOpenChange = (openKeys: string[]) => {
     if (openKeys?.length === 0 || openKeys.length === 1) return setOpenKeys(openKeys);

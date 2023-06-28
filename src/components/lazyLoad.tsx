@@ -1,5 +1,5 @@
-import React, {Suspense} from "react";
-import {Spin} from "antd";
+import React, { Suspense } from "react";
+import Loading from "@/components/Loading";
 
 /**
  * @description 路由懒加载
@@ -10,8 +10,7 @@ const lazyLoad = (Comp: any) => {
   return (
     <Suspense
       fallback={
-        <Spin
-          size="large"
+        <Loading
         />
       }>
       <Comp />

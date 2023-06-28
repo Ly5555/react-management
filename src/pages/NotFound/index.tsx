@@ -1,16 +1,27 @@
-import React from 'react';
-import { Result, Button } from 'antd';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Result, Button } from "antd";
 
-function NotFound() {
+import { useNavigate } from "react-router-dom";
+const NotFound = () => {
+  const navigaiteTo = useNavigate();
   return (
-    <Result
-      status='404'
-      title='404'
-      subTitle='迷路了'
-      extra={<Button type='primary'><Link to='/home/home'>首页</Link></Button>}
-    />
+    <div>
+      <Result
+        status="404"
+        title="404"
+        subTitle="迷路了"
+        extra={
+          <Button
+            type="primary"
+            onClick={() => {
+              navigaiteTo("/home/home");
+            }}>
+            首页
+          </Button>
+        }
+      />
+    </div>
   );
-}
+};
 
 export default NotFound;

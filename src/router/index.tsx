@@ -60,16 +60,16 @@ const rootRouter: any = [
         path: "/dataScreen",
         title: "数据展示",
         element: DataScreen,
-      }
+      },
+      {
+        path: "*",
+        element: NotFound,
+      },
     ],
   },
   {
     path: "/login",
     element: <Login />,
-  },
-  {
-    path: "*",
-    element: NotFound,
   },
 ];
 
