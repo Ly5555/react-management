@@ -1,7 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const webpack = require("webpack");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const webpack = require("webpack");
 
 const isDev = process.env.NODE_ENV === "development"; // 是否是开发模式
 
@@ -14,18 +14,6 @@ module.exports = {
     clean: true, // webpack4需要配置clean-webpack-plugin来删除dist文件,webpack5内置了
     publicPath: "/", // 打包后文件的公共前缀路径
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, "../public/index.html"), // 模板取定义root节点的模板
-      inject: true, // 自动注入静态资源
-      collapseWhitespace: true, //去除所有的空格
-      removeComments: true, //去除所有的注释
-    }),
-    new webpack.DefinePlugin({
-      "process.env.BASE_ENV": JSON.stringify(process.env.BASE_ENV),
-    }),
-  ],
-
   module: {
     rules: [
       {
@@ -100,6 +88,17 @@ module.exports = {
     },
     modules: [path.resolve(__dirname, "../node_modules")],
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, "../public/index.html"), // 模板取定义root节点的模板
+      inject: true, // 自动注入静态资源
+      collapseWhitespace: true, //去除所有的空格
+      removeComments: true, //去除所有的注释
+    }),
+    new webpack.DefinePlugin({
+      "process.env.BASE_ENV": JSON.stringify(process.env.BASE_ENV),
+    }),
+  ],
   cache: {
     type: "filesystem", // 使用文件缓存
   },
