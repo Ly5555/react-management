@@ -1,4 +1,4 @@
-import {RouteObject} from "@/router/type";
+import { RouteObject } from "@/routers/type";
 import { DefaultValue } from 'recoil'
 /**
  * @description 递归查询对应的路由
@@ -71,7 +71,7 @@ export const getBreadcrumbList = (path: string, menuList: Menu.MenuOptions[]) =>
  * @param {String} menuList 当前菜单列表
  * @returns object
  */
-export const findAllBreadcrumb = (menuList: Menu.MenuOptions[]): {[key: string]: any} => {
+export const findAllBreadcrumb = (menuList: Menu.MenuOptions[]): { [key: string]: any } => {
   let handleBreadcrumbList: any = {};
   const loop = (menuItem: Menu.MenuOptions) => {
     // 下面判断代码解释 *** !item?.children?.length   ==>   (item.children && item.children.length > 0)
@@ -94,6 +94,3 @@ export function handleRouter(routerList: Menu.MenuOptions[], newArr: string[] = 
   });
   return newArr;
 }
-/**
- * @description 数据持久化
- */

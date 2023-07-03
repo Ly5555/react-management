@@ -1,7 +1,10 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
-import abortController from './abortController';
 import { showFullScreenLoading, tryHideFullScreenLoading } from "@/utils/request/serviceLoading";
-
+import { ResultEnum } from "@/enums/httpEnum";
+import abortController from './abortController';
+import { tokenAtom } from '@/store/store';
+import { useRecoilValue } from 'recoil';
+import { message } from 'antd';
 // 请求拦截器 引入加载圈
 export const baseURL = process.env.NODE_ENV; //服务
 axios.defaults.baseURL = baseURL;
@@ -16,6 +19,9 @@ const config = {
 // 创建axios实例
 let instance = axios.create(config);
 
+// const globalToken = useRecoilValue(tokenAtom);
+// console.log(globalToken);
+
 /**
  * 请求拦截器
  * 每次请求前，如果存在token则在请求头中携带token
@@ -24,7 +30,7 @@ instance.interceptors.request.use(
   (config: any) => {
     abortController.addPending(config);
     config?.loading && showFullScreenLoading();
-    return config;
+    return { ...config, headers: { ...config.headers, "x-access-token": 1 } };
   },
   (error: AxiosError) => {
     console.log(error);
@@ -39,6 +45,17 @@ instance.interceptors.response.use(
     const { data, config } = response;
     abortController.removePending(config);
     tryHideFullScreenLoading();
+
+    if (data.code == ResultEnum.OVERDUE) {
+      // store.dispatch(setToken(""));
+      message.error(data.msg);
+      window.location.hash = "/login";
+      return Promise.reject(data);
+    }
+    if (data.code && data.code !== ResultEnum.SUCCESS) {
+      message.error(data.msg);
+      return Promise.reject(data);
+    }
     return data;
   },
   // 请求失败

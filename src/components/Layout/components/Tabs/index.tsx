@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { tabLists, tabListState } from "@/store/store";
-import { routerArray } from "@/router";
+import { routerArray } from "@/routers";
 import { Tabs } from "antd";
 import { searchRoute } from "@/utils/util";
 import styles from "./css/indexTab.module.less";
@@ -15,7 +15,7 @@ const LayoutTabs = () => {
   useEffect(() => {
     addTabs();
   }, [pathname]);
-  
+
   const handelClickTabs = (path: string) => {
     useNavigateTo(path);
   };
@@ -31,15 +31,15 @@ const LayoutTabs = () => {
   };
   // 删除tabs
   const deleteTabs = (tabPath: string) => {
-		if (pathname === tabPath) {
-			tabsList.forEach((item: Menu.MenuOptions, index: number) => {
-				if (item.path !== pathname) return;
-				const nextTab:Menu.MenuOptions = tabsList[index + 1] || tabsList[index - 1];
-				if (!nextTab) return;
-			  useNavigateTo(nextTab.path) ;
-			});
-		}
-		setTabsList(tabsList.filter((item: Menu.MenuOptions) => item.path !== tabPath))
+    if (pathname === tabPath) {
+      tabsList.forEach((item: Menu.MenuOptions, index: number) => {
+        if (item.path !== pathname) return;
+        const nextTab: Menu.MenuOptions = tabsList[index + 1] || tabsList[index - 1];
+        if (!nextTab) return;
+        useNavigateTo(nextTab.path);
+      });
+    }
+    setTabsList(tabsList.filter((item: Menu.MenuOptions) => item.path !== tabPath))
   };
   return (
     <div className={styles.tabsName}>
@@ -49,7 +49,7 @@ const LayoutTabs = () => {
         onChange={handelClickTabs}
         activeKey={activeKey}
         type="editable-card"
-        onEdit={path =>deleteTabs(path as string)}
+        onEdit={path => deleteTabs(path as string)}
         items={tabListStateL}
       />
     </div>

@@ -1,18 +1,37 @@
 //登陆页
-import React, {useState} from "react";
-import {LockOutlined, UserOutlined} from "@ant-design/icons";
-import {Avatar, Button, Checkbox, Form, Input, Space} from "antd";
-import {useNavigate} from "react-router-dom";
+import React, { useState } from "react";
+import md5 from "js-md5";
+import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { Button, Checkbox, Form, Input, Space, message } from "antd";
+import { useNavigate } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
+import { tokenAtom } from "@/store/store"
+import request from "@/utils/request/request";
+import { tabLists, tabListState } from "@/store/store";
 const LoginForm = () => {
   const navigaiteTo = useNavigate();
+  const [loading, setLoading] = useState<boolean>(false);
   const [form] = Form.useForm();
+  const setTokenAtom = useSetRecoilState(tokenAtom);
+  const setTabsList = useSetRecoilState(tabLists);
   // 提交
   const handleOnFinish = async () => {
     try {
+      setLoading(true);
       const values = await form.validateFields();
+      const { data } = await request({
+        url: "https://www.fastmock.site/mock/302854084413bb6592dc4c53c7f85991/admin/login",
+        method: 'post',
+        data: { ...values, password: md5(values.password) }
+      })
+      setTokenAtom(data?.access_token)
+      setTabsList([]);
+      message.success("登录成功！");
       navigaiteTo("/home/home");
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
   const tailLayout = {
@@ -23,11 +42,11 @@ const LoginForm = () => {
   };
   return (
     <>
-      <Form form={form} style={{maxWidth: 500}} initialValues={{remember: true}}>
-        <Form.Item name="username" rules={[{required: true, message: "请输入你的账号"}]}>
+      <Form form={form} style={{ maxWidth: 500 }} initialValues={{ remember: true }}>
+        <Form.Item name="username" rules={[{ required: true, message: "请输入你的账号" }]}>
           <Input allowClear prefix={<UserOutlined />} placeholder="admin or user" />
         </Form.Item>
-        <Form.Item name="password" rules={[{required: true, message: "请输入密码"}]}>
+        <Form.Item name="password" rules={[{ required: true, message: "请输入密码" }]}>
           <Input.Password prefix={<LockOutlined />} type="password" placeholder="Your password" />
         </Form.Item>
         <Form.Item>
@@ -44,7 +63,7 @@ const LoginForm = () => {
           rules={[
             {
               validator: (_, value) =>
-              value ? Promise.resolve() : Promise.reject(new Error('请先阅读并同意用户协议'))
+                value ? Promise.resolve() : Promise.reject(new Error('请先阅读并同意用户协议'))
             },
           ]}>
           <Checkbox>
@@ -52,7 +71,7 @@ const LoginForm = () => {
           </Checkbox>
         </Form.Item>
         <Form.Item >
-          <Button type="primary" htmlType="submit" className="login-form-button" onClick={handleOnFinish} >
+          <Button type="primary" loading={loading} htmlType="submit" className="login-form-button" onClick={handleOnFinish} >
             登 录
           </Button>
         </Form.Item>

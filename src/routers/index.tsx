@@ -13,7 +13,7 @@ const DataScreen = lazyLoad(lazy(() => import("@/pages/dataScreen")));
 const NotFound = lazyLoad(lazy(() => import("@/pages/NotFound/index")));
 
 // 页面组件
-const rootRouter: any = [
+export const rootRouter: any = [
   {
     path: "/",
     element: <Navigate to={"/login"} />,
