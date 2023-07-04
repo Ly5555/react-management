@@ -1,6 +1,6 @@
 //登陆页
 import React from "react";
-import {LoginForm} from "./components";
+import { LoginForm } from "./components";
 import styles from "./css/index.module.less";
 import BGIMG from "@/assets/login_bg.png";
 const LoginPage = () => {
@@ -14,7 +14,7 @@ const LoginPage = () => {
           </div>
         </div>
         <div className={styles.right_container}>
-        <div className={styles.logo} />
+          <div className={styles.logo} />
           <div className={styles.logo_tip} >
             Welcome back
           </div>
@@ -22,7 +22,7 @@ const LoginPage = () => {
             Sign in to continue
           </div>
           <LoginForm />
-      </div>
+        </div>
       </div>
     </div>
   );

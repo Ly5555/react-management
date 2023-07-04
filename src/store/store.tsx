@@ -36,7 +36,6 @@ const themeColor = atom({
 });
 const localStorageEffect = (key: string) => ({ setSelf, onSet }: any) => {
   const savedValue = localStorage.getItem(key)
-  console.log(savedValue);
   if (savedValue != null) {
     setSelf(JSON.parse(savedValue));
   }
@@ -51,9 +50,7 @@ const localStorageEffect = (key: string) => ({ setSelf, onSet }: any) => {
 // token
 const tokenAtom = atom({
   key: 'tokenAtom',
-  default: {
-    token: {}
-  },
+  default: "",
   effects_UNSTABLE: [
     localStorageEffect('token'),
   ]

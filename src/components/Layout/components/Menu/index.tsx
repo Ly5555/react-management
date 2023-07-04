@@ -34,12 +34,13 @@ const LayoutMenu = () => {
         setBreadcrumbList(findAllBreadcrumb(data) as any);
       };
       menu();
-    } catch (error) { }
+    } catch (error) {
+      console.log(error);
+    }
   }, []);
   // 动态Icon处理
   const customIcons: { [key: string]: any } = Icons;
   const addIcon = (name: string) => {
-    // return React.createElement(customIcons[name]);
     const CustomIcon = customIcons[name];
     return <CustomIcon />;
   };
