@@ -3,12 +3,13 @@ export interface MetaProps {
     requiresAuth?: boolean;
     title: string;
     key?: string;
+    path?: string;
 }
 export interface RouteObject {
     children?: RouteObject[];
     element?: React.ReactNode;
     title?: string;
-    path?: string;
+    key?: string;
     isLink?: string;
     meta?: MetaProps;
 }

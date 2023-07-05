@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Menu, Spin } from "antd";
+import { Menu, } from "antd";
 import { useNavigate, useLocation } from "react-router-dom";
 import request from "@/utils/request/request";
 import { useSetRecoilState, useRecoilValue } from "recoil";
@@ -80,7 +80,6 @@ const LayoutMenu = () => {
     if (latestOpenKey.includes(openKeys[0])) return setOpenKeys(openKeys);
     setOpenKeys([latestOpenKey]);
   };
-
   return (
     <div className={styles.menu}>
       <LayoutLogo />

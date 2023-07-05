@@ -25,7 +25,7 @@ const Home = () => {
   return (
     <div>
       <h3>React学习和antV</h3>
-      <Button onClick={handleClick}>接口测试</Button>
+      {/* <Button onClick={handleClick}>接口测试</Button>
       <CustomHooks />
       <>==================================</>
       <Grandp />
@@ -37,7 +37,7 @@ const Home = () => {
       <ChilduseCallback />
       <ChilidRef />
       <>ChilduseImperativeHandle</>
-      <ChilduseImperativeHandle />
+      <ChilduseImperativeHandle /> */}
     </div>
   );
 };

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { tabLists, tabListState } from "@/store/store";
-import { routerArray } from "@/routers";
+import { routerArray } from "@/routers/index";
 import { Tabs } from "antd";
 import { searchRoute } from "@/utils/util";
 import styles from "./css/indexTab.module.less";

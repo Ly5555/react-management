@@ -1,4 +1,4 @@
-import React, {  useEffect } from "react";
+import React, { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import { Layout } from "antd";
 import { LayoutMenu, LayoutTabs, LayoutHeader } from "./components";
@@ -22,18 +22,18 @@ const LayoutIndex = () => {
     };
   };
   return (
-        <Layout className={styles.container}>
-          <Sider trigger={null} collapsed={isExpandMenu}>
-            <LayoutMenu />
-          </Sider>
-          <Layout>
-            <LayoutHeader />
-            <LayoutTabs />
-            <Content>
-              <Outlet />
-            </Content>
-          </Layout>
-        </Layout>
+    <Layout className={styles.container}>
+      <Sider trigger={null} collapsed={isExpandMenu}>
+        <LayoutMenu />
+      </Sider>
+      <Layout>
+        <LayoutHeader />
+        <LayoutTabs />
+        <Content>
+          <Outlet />
+        </Content>
+      </Layout>
+    </Layout>
   );
 };
 

@@ -1,5 +1,4 @@
 import { RouteObject } from "@/routers/type";
-import { DefaultValue } from 'recoil'
 /**
  * @description 递归查询对应的路由
  * @param {String} path 当前访问地址
@@ -7,9 +6,9 @@ import { DefaultValue } from 'recoil'
  * @returns array
  */
 export const searchRoute = (path: string, routes: RouteObject[] = []): RouteObject => {
-  let result: RouteObject = {};
+  let result = {};
   for (let item of routes) {
-    if (item.path === path) return item;
+    if (item.key === path) return item;
     if (item.children) {
       const res = searchRoute(path, item.children);
       if (Object.keys(res).length) result = res;
@@ -23,6 +22,7 @@ export const searchRoute = (path: string, routes: RouteObject[] = []): RouteObje
  * @returns array
  */
 export const getOpenKeys = (path: string) => {
+  console.log(path.split("/"));
   let newStr: string = "";
   let newArr: any[] = [];
   let arr = path.split("/").map((i) => "/" + i);
