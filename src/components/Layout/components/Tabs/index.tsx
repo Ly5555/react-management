@@ -24,7 +24,7 @@ const LayoutTabs = () => {
     const route = searchRoute(pathname, routerArray);
     let newTabsList = JSON.parse(JSON.stringify(tabsList));
     if (tabsList.every((item: any) => item.path !== route.path)) {
-      newTabsList.push({ ...route, title: route.title, path: route.path });
+      newTabsList.push({ title: route?.meta!?.title, path: route.path });
     }
     setTabsList(newTabsList);
     setActiveKey(pathname);

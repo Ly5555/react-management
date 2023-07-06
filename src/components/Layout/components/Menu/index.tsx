@@ -24,19 +24,19 @@ const LayoutMenu = () => {
     isCollapse ? null : setOpenKeys(getOpenKeys(pathname));
   }, [pathname]);
   useEffect(() => {
-    try {
-      const menu = async () => {
+    const fetchMenu = async () => {
+      try {
         const { data } = await request({
           url: "https://www.fastmock.site/mock/302854084413bb6592dc4c53c7f85991/admin/menu/list",
           loading: true
         });
         setmenuList(deepLoopMenu(data));
         setBreadcrumbList(findAllBreadcrumb(data) as any);
-      };
-      menu();
-    } catch (error) {
-      console.log(error);
-    }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchMenu();
   }, []);
   // 动态Icon处理
   const customIcons: { [key: string]: any } = Icons;

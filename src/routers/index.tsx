@@ -1,6 +1,6 @@
 import React, { lazy } from "react";
-import lazyLoad from "@/components/lazyLoad"
-import { useRoutes } from "react-router-dom";
+import lazyLoad from "@/components/lazyLoad";
+import { Navigate, useRoutes } from "react-router-dom";
 
 // 页面组件
 const LoginPage = lazyLoad(lazy(() => import("@/pages/LoginPage")));
@@ -18,62 +18,65 @@ export const routerArray: any = [
     path: "/login",
     element: LoginPage,
   },
+  // {
+  //   path: "/",
+  //   title: "首页",
+  //   element: Home,
+  // },
   {
-    path: "/",
-    title: "首页",
-    element: Home,
-  },
-  {
-    path: "/home",
-    title: "首页",
+    meta: { title: "首页" },
     children: [
       {
-        path: "/home/home",
+        path: "/home/homes",
         element: Home,
-        title: "首页",
-        meta: { requiresAuth: true, },
+        meta: { requiresAuth: true, title: "首页", key: "homes" },
       },
       {
         path: "/home/carouselChart",
         element: CarouselChart,
-        title: "轮播图",
-        meta: { requiresAuth: true, },
+        meta: { requiresAuth: true, title: "轮播图", key: "carouselChart" },
       },
     ],
   },
   {
-    path: "/demo2",
-    title: "测试22",
+    meta: { title: "测试22" },
     children: [
       {
         path: "/demo2/lear",
-        meta: { requiresAuth: true, },
+        meta: { requiresAuth: true, title: "js学习", key: "lear" },
         element: LazyDemo,
-        title: "js学习",
       },
       {
         path: "/demo2/TypeScripct",
-        meta: { requiresAuth: true, },
+        meta: { requiresAuth: true, title: "TypeScripct", key: "TypeScripct" },
         element: TypeScripct,
-        title: "TypeScripct",
       },
     ],
   },
   {
     path: "/dataScreen",
-    title: "数据展示",
     element: DataScreen,
-    meta: { requiresAuth: true, },
+    meta: { requiresAuth: true, title: "数据展示" },
+  },
+  {
+    path: "/404",
+    element: NotFound,
+    meta: {
+      requiresAuth: false, title: "404页面", key: "404",
+    },
   },
   {
     path: "*",
-    element: NotFound,
-  },
+    element: <Navigate to="/404" />
+  }
 ];
 
 const Router = () => {
-  const rootRouter = [{ element: LayoutIndex, children: routerArray }]
+  const rootRouter = [{ element: LayoutIndex, children: routerArray }];
+  console.log(rootRouter);
+
   const routes = useRoutes(rootRouter);
+
   return routes;
 };
 

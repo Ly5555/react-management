@@ -6,9 +6,9 @@ import { RouteObject } from "@/routers/type";
  * @returns array
  */
 export const searchRoute = (path: string, routes: RouteObject[] = []): RouteObject => {
-  let result = {};
+  let result: RouteObject = {};
   for (let item of routes) {
-    if (item.key === path) return item;
+    if (item.path === path) return item;
     if (item.children) {
       const res = searchRoute(path, item.children);
       if (Object.keys(res).length) result = res;
@@ -22,15 +22,9 @@ export const searchRoute = (path: string, routes: RouteObject[] = []): RouteObje
  * @returns array
  */
 export const getOpenKeys = (path: string) => {
-  console.log(path.split("/"));
-  let newStr: string = "";
-  let newArr: any[] = [];
-  let arr = path.split("/").map((i) => "/" + i);
-  for (let i = 1; i < arr.length - 1; i++) {
-    newStr += arr[i];
-    newArr.push(newStr);
-  }
-  return newArr;
+  const arr: any[] = path.split("/").filter(item => item !== ""); // 使用 filter 过滤掉空字符串
+  const newArr: any[] = arr.map((_, index) => `/${arr.slice(0, index + 1).join("/")}`); // 使用 slice 和 join 优化字符串拼接
+  return newArr
 };
 /**
  * @description 递归当前路由的 所有 关联的路由，生成面包屑导航栏

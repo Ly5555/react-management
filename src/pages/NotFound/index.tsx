@@ -14,7 +14,7 @@ const NotFound = () => {
           <Button
             type="primary"
             onClick={() => {
-              navigaiteTo("/home/home");
+              navigaiteTo("/home/homes");
             }}>
             首页
           </Button>
