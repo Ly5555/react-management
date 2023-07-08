@@ -13,18 +13,18 @@ import {
 import Grandp from "./components/Grandpa";
 import { Button } from "antd";
 import request from "@/utils/request/request";
-
+import welcome from "@/assets/images/welcome.png";
+import styles from "./index.mouule.less";
 const Home = () => {
-  const handleClick = async () => {
-    const { data } = await request({
-      url: "https://www.fastmock.site/mock/302854084413bb6592dc4c53c7f85991/admin/menu/list",
-      loading: true
-    })
-    console.log(data);
-  };
+  return (
+    <div className={styles.home_card}>
+      <img src={welcome} alt="welcome" />
+    </div>
+  );
   return (
     <div>
       <h3>React学习和antV</h3>
+      <LoadingModal />
       {/* <Button onClick={handleClick}>接口测试</Button>
       <CustomHooks />
       <>==================================</>
@@ -33,7 +33,7 @@ const Home = () => {
       <ChildUseMemo />
       <HooksMemo />
       <PieChat />
-      <LoadingModal />
+      // 
       <ChilduseCallback />
       <ChilidRef />
       <>ChilduseImperativeHandle</>

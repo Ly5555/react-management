@@ -1,7 +1,7 @@
 import React from "react";
 import { Result, Button } from "antd";
-
 import { useNavigate } from "react-router-dom";
+import { HOME_URL } from "@/config/config"
 const NotFound = () => {
   const navigaiteTo = useNavigate();
   return (
@@ -14,7 +14,7 @@ const NotFound = () => {
           <Button
             type="primary"
             onClick={() => {
-              navigaiteTo("/home/homes");
+              navigaiteTo(HOME_URL);
             }}>
             首页
           </Button>

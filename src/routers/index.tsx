@@ -15,29 +15,24 @@ const NotFound = lazyLoad(lazy(() => import("@/pages/NotFound/index")));
 // 页面组件
 export const routerArray: any = [
   {
-    path: "/login",
-    element: LoginPage,
+    path: "/home",
+    meta: { title: "首页" },
+    element: Home,
   },
   // {
-  //   path: "/",
-  //   title: "首页",
-  //   element: Home,
+  //   children: [
+  //     {
+  //       path: "/home/homes",
+  //       element: Home,
+  //       meta: { requiresAuth: true, title: "首页", key: "homes" },
+  //     },
+  //     {
+  //       path: "/home/carouselChart",
+  //       element: CarouselChart,
+  //       meta: { requiresAuth: true, title: "轮播图", key: "carouselChart" },
+  //     },
+  //   ],
   // },
-  {
-    meta: { title: "首页" },
-    children: [
-      {
-        path: "/home/homes",
-        element: Home,
-        meta: { requiresAuth: true, title: "首页", key: "homes" },
-      },
-      {
-        path: "/home/carouselChart",
-        element: CarouselChart,
-        meta: { requiresAuth: true, title: "轮播图", key: "carouselChart" },
-      },
-    ],
-  },
   {
     meta: { title: "测试22" },
     children: [
@@ -72,7 +67,13 @@ export const routerArray: any = [
 ];
 
 const Router = () => {
-  const rootRouter = [{ element: LayoutIndex, children: routerArray }];
+  const rootRouter = [{
+    path: "/",
+    element: <Navigate to="/login" />
+  }, {
+    path: "/login",
+    element: LoginPage,
+  }, { element: LayoutIndex, children: routerArray }];
   console.log(rootRouter);
 
   const routes = useRoutes(rootRouter);

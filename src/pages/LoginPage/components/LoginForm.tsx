@@ -8,6 +8,7 @@ import { useSetRecoilState } from "recoil";
 import { tokenAtom } from "@/store/store"
 import request from "@/utils/request/request";
 import { tabLists, tabListState } from "@/store/store";
+import { HOME_URL } from "@/config/config"
 const LoginForm = () => {
   const navigaiteTo = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
@@ -27,7 +28,7 @@ const LoginForm = () => {
       setTokenAtom(data?.access_token)
       setTabsList([]);
       message.success("登录成功！");
-      navigaiteTo("/home/home");
+      navigaiteTo(HOME_URL);
     } catch (error) {
       console.log(error);
     } finally {

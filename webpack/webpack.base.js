@@ -1,8 +1,10 @@
+// 公共配置
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const webpack = require("webpack");
 
+const webpack = require("webpack");
+const WebpackBar = require("webpackbar");
 const isDev = process.env.NODE_ENV === "development"; // 是否是开发模式
 
 module.exports = {
@@ -98,6 +100,7 @@ module.exports = {
     new webpack.DefinePlugin({
       "process.env.BASE_ENV": JSON.stringify(process.env.BASE_ENV),
     }),
+    new WebpackBar()
   ],
   cache: {
     type: "filesystem", // 使用文件缓存

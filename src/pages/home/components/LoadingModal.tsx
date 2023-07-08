@@ -3,16 +3,13 @@ import { Button, Modal, Spin } from "antd";
 import { Loading } from "./index";
 const LoadingModal = () => {
   const [open, setOpen] = useState(false);
-  const [loading, setLoading] = useState<boolean>(false);
+  // const [loading, setLoading] = useState<boolean>(false);
   const showModal = () => {
     setOpen(true);
   };
   useEffect(() => {
     if (open) {
-      setLoading(true);
-      setTimeout(() => {
-        setLoading(false);
-      }, 2000);
+      console.log("子组件会不会渲染执行");
     }
   }, [open]);
   const handleOk = () => {
@@ -27,11 +24,11 @@ const LoadingModal = () => {
         Open Modal
       </Button>
       <Modal title="Basic Modal" open={open} onOk={handleOk} onCancel={handleCancel}>
-        <Loading loading={loading}>
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-        </Loading>
+        {/* <Loading loading={loading}> */}
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+        {/* </Loading> */}
       </Modal>
     </>
   );
