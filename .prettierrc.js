@@ -1,7 +1,7 @@
 module.exports = {
   semi: true, // 指定是否应该在语句末尾添加分号
   arrowParens: "always", //指定在箭头函数中是否应该添加括号
-  bracketSpacing: false, //指定是否应该在对象字面量中的括号内添加空格。默认为 true
+  bracketSpacing: true, //指定是否应该在对象字面量中的括号内添加空格。默认为 true
   embeddedLanguageFormatting: "auto",
   htmlWhitespaceSensitivity: "css",
   insertPragma: false,
