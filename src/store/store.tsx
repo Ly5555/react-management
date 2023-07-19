@@ -29,11 +29,16 @@ const breadcrumbNameMap = atom({
   key: "breadcrumbNameMap",
   default: [],
 });
-// 主题
+// ant 样式主题
 const themeColor = atom({
   key: "themeColor",
   default: "#1677FF",
 });
+//全局主题 暗黑正常
+const algorithm = atom({
+  key: "algorithm",
+  default: "light"
+})
 const localStorageEffect = (key: string) => ({ setSelf, onSet }: any) => {
   const savedValue = localStorage.getItem(key)
   if (savedValue != null) {
@@ -57,4 +62,4 @@ const tokenAtom = atom({
 })
 
 
-export { tabLists, tabListState, IsExpand, breadcrumbNameMap, themeColor, tokenAtom };
+export { tabLists, tabListState, IsExpand, breadcrumbNameMap, themeColor, tokenAtom, algorithm };

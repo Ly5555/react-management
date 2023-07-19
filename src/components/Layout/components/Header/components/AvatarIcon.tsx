@@ -25,17 +25,17 @@ const AvatarIcon = () => {
     {
       key: "4",
       icon: <UserOutlined />,
-      label: <span className="dropdown-item" onClick={()=>useNavigateTo("/login")}>退出登录</span>,
+      label: <span className="dropdown-item" onClick={() => useNavigateTo("/login")}>退出登录</span>,
     },
   ];
   return (
     <>
       <Dropdown menu={{ items }} arrow={{ pointAtCenter: true }}>
-       
+
         <Space>
-          <Avatar style={{ backgroundColor: "#87d068" }} icon={<UserOutlined />}></Avatar>
+          <Avatar icon={<UserOutlined />}></Avatar>
           <a onClick={(e) => e.preventDefault()}>
-          	Hooks
+            Hooks
           </a>
         </Space>
       </Dropdown>

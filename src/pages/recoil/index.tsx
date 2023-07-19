@@ -26,14 +26,14 @@ const Recoil = () => {
 };
 const InputNuber: React.FC = (props) => {
   const [text, setText] = useRecoilState(textState);
-  const handeleChange = (e: any,name:any) => {
+  const handeleChange = (e: any, name: any) => {
     console.log(name);
-    
+
     // setText(e.target.value);
   };
   return (
     <div className="TextBox">
-      <input type="text" value={text} onChange={(e:any)=>handeleChange(e,name='userName')} />
+      {/* <input type="text" value={text} onChange={(e:any)=>handeleChange(e,name='userName')} /> */}
     </div>
   );
 };

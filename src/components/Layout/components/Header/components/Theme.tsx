@@ -2,15 +2,16 @@
 主题
 */
 import React, { useState } from "react";
-import { Drawer, Radio, Space } from "antd";
+import { Drawer, Radio, Space, Switch } from "antd";
 import { SettingOutlined } from "@ant-design/icons";
 import { useSetRecoilState } from "recoil";
-import { themeColor } from "@/store/store";
+import { themeColor, algorithm } from "@/store/store";
 import styles from "../css/theme.module.less";
 const Theme = () => {
   const [open, setOpen] = useState(false);
   const [values, setValues] = useState<number>(1);
   const useThemeColor = useSetRecoilState(themeColor);
+  const useColorPrimary = useSetRecoilState(algorithm);
   const showDrawer = () => {
     setOpen(true);
   };
@@ -59,14 +60,27 @@ const Theme = () => {
       value: 8,
     },
   ];
-  const handleRadioChange = (e:{value:number,color:string}) => {
+  const handleRadioChange = (e: { value: number, color: string }) => {
     setValues(e.value);
     useThemeColor(e.color);
+  };
+  const handeleThemeColor = (checked: boolean) => {
+    useColorPrimary(checked ? 'light' : "dark")
   };
   return (
     <>
       <SettingOutlined onClick={showDrawer} style={{ fontSize: 19, marginRight: 16 }} />
       <Drawer title="修改主题" placement="right" closable={false} onClose={onClose} open={open}>
+        <Space>
+          <h3>主题:</h3>
+          <Switch
+            className="dark"
+            checkedChildren={<>🌞</>}
+            unCheckedChildren={<>🌜</>}
+            onChange={handeleThemeColor}
+          />
+        </Space>
+        <div>=============</div>
         <Space>
           <h3>主色:</h3>
           {RadioColor &&

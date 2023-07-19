@@ -1,7 +1,7 @@
 //登陆页
 import React, { useState } from "react";
 import md5 from "js-md5";
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { LockOutlined, UserOutlined, } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input, Space, message } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
@@ -35,12 +35,6 @@ const LoginForm = () => {
       setLoading(false);
     }
   };
-  const tailLayout = {
-    wrapperCol: {
-      offset: 2,
-      span: 16,
-    },
-  };
   return (
     <>
       <Form form={form} style={{ maxWidth: 500 }} initialValues={{ remember: true }}>
@@ -71,6 +65,7 @@ const LoginForm = () => {
             已阅读并同意 <a>《用户协议》</a>
           </Checkbox>
         </Form.Item>
+
         <Form.Item >
           <Button type="primary" loading={loading} htmlType="submit" className="login-form-button" onClick={handleOnFinish} >
             登 录
