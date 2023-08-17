@@ -6,7 +6,7 @@ import { Drawer, Radio, Space, Switch } from "antd";
 import { SettingOutlined } from "@ant-design/icons";
 import { useSetRecoilState } from "recoil";
 import { themeColor, algorithm } from "@/store/store";
-import styles from "../css/theme.module.less";
+import styles from "./theme.module.less";
 const Theme = () => {
   const [open, setOpen] = useState(false);
   const [values, setValues] = useState<number>(1);

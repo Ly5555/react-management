@@ -1,3 +1,11 @@
+/*
+ * @Author: liuyongqing
+ * @Date: 2023-07-06 20:26:58
+ * @LastEditors: liuyongqing
+ * @LastEditTime: 2023-08-17 21:45:07
+ * @FilePath: /个人/react-webpack-ts/src/components/Layout/components/Tabs/index.tsx
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -5,7 +13,7 @@ import { tabLists, tabListState } from "@/store/store";
 import { routerArray } from "@/routers/index";
 import { Tabs } from "antd";
 import { searchRoute } from "@/utils/util";
-import styles from "./css/indexTab.module.less";
+import styles from "./indexTab.module.less";
 const LayoutTabs = () => {
   const { pathname } = useLocation();
   const useNavigateTo = useNavigate();

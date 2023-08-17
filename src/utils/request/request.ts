@@ -48,12 +48,12 @@ instance.interceptors.response.use(
 
     if (data.code == ResultEnum.OVERDUE) {
       // store.dispatch(setToken(""));
-      message.error(data.msg);
+      // message.error(data.msg);
       window.location.hash = "/login";
       return Promise.reject(data);
     }
     if (data.code && data.code !== ResultEnum.SUCCESS) {
-      message.error(data.msg);
+      // message.error(data.msg);
       return Promise.reject(data);
     }
     return data;

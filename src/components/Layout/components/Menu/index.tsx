@@ -8,7 +8,7 @@ import { IsExpand, breadcrumbNameMap } from "@/store/store";
 import type { MenuProps } from "antd";
 import * as Icons from "@ant-design/icons";
 import { LayoutLogo } from "../index";
-import styles from "./css/menu.module.less";
+import styles from "./menu.module.less";
 type MenuItem = Required<MenuProps>["items"][number];
 
 const LayoutMenu = () => {

@@ -4,7 +4,7 @@
 import { Button, Form, Input, Modal } from "antd";
 import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
-import styles from "./css/carousel.module.less";
+import styles from "./carousel.module.less";
 const CarouselChart = () => {
   const settings = {
     dots: true,
