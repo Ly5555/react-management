@@ -33,7 +33,7 @@ const Home = () => {
       <ChildUseMemo />
       <HooksMemo />
       <PieChat />
-      // 
+      //
       <ChilduseCallback />
       <ChilidRef />
       <>ChilduseImperativeHandle</>

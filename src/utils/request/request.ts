@@ -2,8 +2,6 @@ import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { showFullScreenLoading, tryHideFullScreenLoading } from "@/utils/request/serviceLoading";
 import { ResultEnum } from "@/enums/httpEnum";
 import abortController from './abortController';
-import { tokenAtom } from '@/store/store';
-import { useRecoilValue } from 'recoil';
 import { message } from 'antd';
 // 请求拦截器 引入加载圈
 export const baseURL = process.env.NODE_ENV; //服务
@@ -19,8 +17,7 @@ const config = {
 // 创建axios实例
 let instance = axios.create(config);
 
-// const globalToken = useRecoilValue(tokenAtom);
-// console.log(globalToken);
+
 
 /**
  * 请求拦截器

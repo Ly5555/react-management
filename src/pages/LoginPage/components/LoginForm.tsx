@@ -27,7 +27,7 @@ const LoginForm = () => {
       })
       setTokenAtom(data?.access_token)
       setTabsList([]);
-      message.success("登录成功！");
+      // message.success("登录成功！");
       navigaiteTo(HOME_URL);
     } catch (error) {
       console.log(error);

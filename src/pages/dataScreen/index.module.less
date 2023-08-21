@@ -1,7 +1,53 @@
 .dataScreen {
 	display: flex;
-	height: 100%;
-	overflow: hidden;
+	margin-top: 16px;
+
+	.good_left_icon {
+		margin-left: 16px;
+		min-width: 160px;
+		border-radius: 2px;
+		height: 100%;
+		background: #ffffff;
+
+		.good_left_data {
+			border-radius: 2px;
+			margin-top: 16px;
+			margin-bottom: 16px;
+
+			a {
+				font-size: 14px;
+				font-family: PingFangSC-Regular, PingFang SC;
+				font-weight: 400;
+				color: #666666;
+
+				.good_left_curr {
+					font-size: 14px;
+					font-family: PingFangSC-Regular, PingFang SC;
+					font-weight: 400;
+					padding-left: 20px;
+					height: 40px;
+					line-height: 40px;
+					cursor: pointer;
+					position: relative;
+				}
+
+				.actived {
+					background: #f0f6ff;
+					color: #0268ff;
+				}
+
+				.actived::before {
+					content: "";
+					position: absolute;
+					left: 0;
+					width: 4px;
+					height: 40px;
+					background: #0268ff;
+					border-radius: 0px 100px 100px 0px;
+				}
+			}
+		}
+	}
 
 	&_right {
 		flex: 1;
