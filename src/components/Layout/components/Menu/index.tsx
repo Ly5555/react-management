@@ -33,7 +33,7 @@ const LayoutMenu = () => {
         setmenuList(deepLoopMenu(data));
         setBreadcrumbList(findAllBreadcrumb(data) as any);
       } catch (error) {
-        console.log(error);
+        console.log(error, "1");
       }
     };
     fetchMenu();
@@ -81,19 +81,21 @@ const LayoutMenu = () => {
     setOpenKeys([latestOpenKey]);
   };
   return (
-    <div className={styles.menu}>
-      <LayoutLogo />
-      <Menu
-        theme="dark"
-        mode="inline"
-        triggerSubMenuAction="click"
-        items={menuList}
-        openKeys={openKeys}
-        onOpenChange={onOpenChange}
-        selectedKeys={selectedKeys}
-        onClick={handelChangeClick}
-      />
-    </div>
+    <>
+      <div className={styles.menu}>
+        <LayoutLogo />
+        <Menu
+          theme="dark"
+          mode="inline"
+          triggerSubMenuAction="click"
+          items={menuList}
+          openKeys={openKeys}
+          onOpenChange={onOpenChange}
+          selectedKeys={selectedKeys}
+          onClick={handelChangeClick}
+        />
+      </div>
+    </>
   );
 };
 

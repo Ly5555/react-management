@@ -30,7 +30,7 @@ instance.interceptors.request.use(
     return { ...config, headers: { ...config.headers, "x-access-token": 1 } };
   },
   (error: AxiosError) => {
-    console.log(error);
+    console.log(error, "333");
     return Promise.reject(error)
   }
 );
@@ -57,7 +57,6 @@ instance.interceptors.response.use(
   },
   // 请求失败
   async (error: AxiosError) => {
-    console.log(error);
     const { response } = error;
     tryHideFullScreenLoading();
     return Promise.reject(error);

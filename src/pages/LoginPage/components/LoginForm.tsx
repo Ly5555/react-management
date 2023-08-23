@@ -20,6 +20,7 @@ const LoginForm = () => {
     try {
       setLoading(true);
       const values = await form.validateFields();
+      console.log(values);
       const { data } = await request({
         url: "https://www.fastmock.site/mock/302854084413bb6592dc4c53c7f85991/admin/login",
         method: 'post',
@@ -27,7 +28,6 @@ const LoginForm = () => {
       })
       setTokenAtom(data?.access_token)
       setTabsList([]);
-      // message.success("登录成功！");
       navigaiteTo(HOME_URL);
     } catch (error) {
       console.log(error);

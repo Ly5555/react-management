@@ -5,13 +5,12 @@ import React, { useState } from "react";
 import { Drawer, Radio, Space, Switch } from "antd";
 import { SettingOutlined } from "@ant-design/icons";
 import { useSetRecoilState } from "recoil";
-import { themeColor, algorithm } from "@/store/store";
+import { themeColor, } from "@/store/store";
 import styles from "./theme.module.less";
 const Theme = () => {
   const [open, setOpen] = useState(false);
   const [values, setValues] = useState<number>(1);
   const useThemeColor = useSetRecoilState(themeColor);
-  const useColorPrimary = useSetRecoilState(algorithm);
   const showDrawer = () => {
     setOpen(true);
   };
@@ -64,9 +63,7 @@ const Theme = () => {
     setValues(e.value);
     useThemeColor(e.color);
   };
-  const handeleThemeColor = (checked: boolean) => {
-    useColorPrimary(checked ? 'light' : "dark")
-  };
+
   return (
     <>
       <SettingOutlined onClick={showDrawer} style={{ fontSize: 19, marginRight: 16 }} />
@@ -77,7 +74,6 @@ const Theme = () => {
             className="dark"
             checkedChildren={<>🌞</>}
             unCheckedChildren={<>🌜</>}
-            onChange={handeleThemeColor}
           />
         </Space>
         <div>=============</div>

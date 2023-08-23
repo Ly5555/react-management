@@ -1,7 +1,7 @@
 import React from "react";
 
 const LayoutFooter = () => {
-  return <div></div>;
+  return <></>;
 };
 
 export default LayoutFooter;
