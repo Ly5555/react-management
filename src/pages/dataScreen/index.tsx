@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import dayjs from "dayjs";
-
+import { useThrottleFn } from 'ahooks';
 import styles from "./index.module.less";
 
 const DataScreen = () => {
   const [currentId, setCurrentId] = useState("1");
+  const scrollRef: any = useRef(null)
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll, true);
+    window.addEventListener("scroll", handleScroll);
     return () => {
-      window.removeEventListener("scroll", handleScroll, true);
+      window.removeEventListener("scroll", handleScroll,);
     };
   }, []);
+
   const navArr = [
     { name: "基础信息", id: "1" },
     { name: "价格库存", id: "2" },
@@ -19,16 +21,23 @@ const DataScreen = () => {
   ];
   const handleScrollClick = (id: string) => {
     setCurrentId(id);
-    handleScroll()
-  };
+    if (id) { //元素id
+      const anchorElement = document.getElementById(id); //找到滚动到的元素
+      if (anchorElement) {
+        anchorElement.scrollIntoView({ behavior: 'smooth', block: 'start' }); // 让页面滚动到元素所在位置
+      }
+    };
+  }
   // 滚动条滚动选中
   const handleScroll = () => {
+    console.log(1);
     let scrollTop = document.getElementById("right")?.scrollTop as number;
     let section = Array.from(document.querySelector("#right")?.children || []);
     let activeChannel = ""
+    console.log(scrollRef.current);
     section.map((item: any) => {
       let itemTop = item?.offsetTop;
-      if (scrollTop > itemTop - 110) {
+      if (scrollRef.current.scrollTop > itemTop) {
         activeChannel = item.id
       }
     })
@@ -52,7 +61,7 @@ const DataScreen = () => {
             })}
           </div>
         </div>
-        <div className={styles.goodRight} id="right">
+        <div className={styles.goodRight} id="right" ref={scrollRef}>
           <div id="1" className={styles.goodRightBanner}>1</div>
           <div id="2" className={styles.goodRightBanner}>2</div>
           <div id="3" className={styles.goodRightBanner}>3</div>
