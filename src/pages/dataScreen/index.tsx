@@ -33,7 +33,7 @@ const DataScreen = () => {
     console.log(id);
     let targetOffset = 0;
     setCurrentId(id);
-    const container = document.getElementById("right");
+    const container = document.getElementById("right") || window;
     const scrollTop = getScroll(container, true);
     const sharpLinkMatch = sharpMatcherRegex.exec(`#${id}`);
     if (!sharpLinkMatch) {

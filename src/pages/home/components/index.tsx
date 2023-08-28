@@ -9,6 +9,7 @@ import ChilduseCallback from "./ChilduseCallback";
 import ChilidRef from "./ChilidRef";
 import ChilduseImperativeHandle from "./ChilduseImperativeHandle";
 import CustomHooks from "./CustomHooks";
+import Son from "./Son"
 export {
   HooksMemo,
   CustomHooks,
@@ -21,4 +22,5 @@ export {
   ChildUseMemo,
   ChilidRef,
   ChilduseCallback,
+  Son
 };
