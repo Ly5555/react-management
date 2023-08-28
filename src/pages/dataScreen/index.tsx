@@ -1,54 +1,97 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import dayjs from "dayjs";
 import { useThrottleFn } from 'ahooks';
+import request from "@/utils/request/request";
+import scrollTo from "antd/lib/_util/scrollTo";
+import getScroll from "antd/lib/_util/getScroll";
 import styles from "./index.module.less";
 
+const sharpMatcherRegex = /#(\S+)$/;
+export type AnchorContainer = HTMLElement | Window;
 const DataScreen = () => {
-  const [currentId, setCurrentId] = useState("1");
-  const scrollRef: any = useRef(null)
+  const [currentId, setCurrentId] = useState("aaaa");
+  const [detail, setDetail] = useState({});
+  const animating = useRef(false);
+  const getDetail = async () => {
+    const { data } = await request({ url: 'https://www.fastmock.site/mock/302854084413bb6592dc4c53c7f85991/admin/detail', method: 'post' })
+    console.log(data);
+  }
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
+    document.getElementById("right")?.addEventListener("scroll", handleScroll,);
     return () => {
-      window.removeEventListener("scroll", handleScroll,);
+      document.getElementById("right")?.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
   const navArr = [
-    { name: "基础信息", id: "1" },
-    { name: "价格库存", id: "2" },
-    { name: "图文信息", id: "3" },
-    { name: "商品资质", id: "4" },
+    { name: "基础信息", id: "aaaa" },
+    { name: "价格库存", id: "bbbb" },
+    { name: "图文信息", id: "cccc" },
+    { name: "商品资质", id: "dddd" },
   ];
   const handleScrollClick = (id: string) => {
+    console.log(id);
+    let targetOffset = 0;
     setCurrentId(id);
-    if (id) { //元素id
-      const anchorElement = document.getElementById(id); //找到滚动到的元素
-      if (anchorElement) {
-        anchorElement.scrollIntoView({ behavior: 'smooth', block: 'start' }); // 让页面滚动到元素所在位置
-      }
-    };
+    const container = document.getElementById("right");
+    const scrollTop = getScroll(container, true);
+    const sharpLinkMatch = sharpMatcherRegex.exec(`#${id}`);
+    if (!sharpLinkMatch) {
+      return;
+    }
+    const targetElement = document.getElementById(sharpLinkMatch[1]);
+    if (!targetElement) {
+      return;
+    }
+    const eleOffsetTop = getOffsetTop(targetElement, container);
+    let y = scrollTop + eleOffsetTop;
+    y -= targetOffset !== undefined ? targetOffset : 0;
+    animating.current = true;
+    scrollTo(y, {
+      getContainer: getContainer as any,
+      callback: () => {
+        animating.current = false;
+      },
+    });
   }
+  const getOffsetTop = (element: HTMLElement, container: AnchorContainer) => {
+    if (!element.getClientRects().length) {
+      return 0;
+    }
+    const rect = element.getBoundingClientRect();
+    if (rect.width || rect.height) {
+      if (container === window) {
+        container = element.ownerDocument!.documentElement!;
+        return rect.top - container.clientTop;
+      }
+      return rect.top - (container as HTMLElement).getBoundingClientRect().top;
+    }
+
+    return rect.top;
+  };
+  const getContainer = () => {
+    return document.getElementById("right");
+  };
   // 滚动条滚动选中
   const handleScroll = () => {
-    console.log(1);
     let scrollTop = document.getElementById("right")?.scrollTop as number;
-    let section = Array.from(document.querySelector("#right")?.children || []);
-    let activeChannel = ""
-    console.log(scrollRef.current);
+    let section = Array.from(document.querySelector("#right")?.children as any);
+    let activeChannel;
     section.map((item: any) => {
       let itemTop = item?.offsetTop;
-      if (scrollRef.current.scrollTop > itemTop) {
+
+      if (scrollTop > itemTop - 110) {
         activeChannel = item.id
       }
     })
-    setCurrentId(activeChannel);
+    setCurrentId(String(activeChannel));
   };
   return (
     <>
       <div className={styles.dataScreen}>
         <div className={styles.good_left_icon}>
           <div className={styles.good_left_data}>
-            {navArr.map((item) => {
+            {navArr && navArr.map((item) => {
               return (
                 <a key={item.id} >
                   <div
@@ -61,11 +104,11 @@ const DataScreen = () => {
             })}
           </div>
         </div>
-        <div className={styles.goodRight} id="right" ref={scrollRef}>
-          <div id="1" className={styles.goodRightBanner}>1</div>
-          <div id="2" className={styles.goodRightBanner}>2</div>
-          <div id="3" className={styles.goodRightBanner}>3</div>
-          <div id="4" className={styles.goodRightBanner}>4</div>
+        <div className={styles.goodRight} id="right">
+          <div id="aaaa" className={styles.goodRightBanner}>1</div>
+          <div id="bbbb" className={styles.goodRightBanner}>2</div>
+          <div id="cccc" className={styles.goodRightBanner}>3</div>
+          <div id="dddd" className={styles.goodRightBanner}>4</div>
         </div>
       </div>
     </>
