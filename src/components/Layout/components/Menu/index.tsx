@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Menu, } from "antd";
+import { Menu } from "antd";
 import { useNavigate, useLocation } from "react-router-dom";
 import request from "@/utils/request/request";
 import { useSetRecoilState, useRecoilValue } from "recoil";
@@ -28,7 +28,7 @@ const LayoutMenu = () => {
       try {
         const { data } = await request({
           url: "https://www.fastmock.site/mock/302854084413bb6592dc4c53c7f85991/admin/menu/list",
-          loading: true
+          loading: true,
         });
         setmenuList(deepLoopMenu(data));
         setBreadcrumbList(findAllBreadcrumb(data) as any);
@@ -81,21 +81,19 @@ const LayoutMenu = () => {
     setOpenKeys([latestOpenKey]);
   };
   return (
-    <>
-      <div className={styles.menu}>
-        <LayoutLogo />
-        <Menu
-          theme="dark"
-          mode="inline"
-          triggerSubMenuAction="click"
-          items={menuList}
-          openKeys={openKeys}
-          onOpenChange={onOpenChange}
-          selectedKeys={selectedKeys}
-          onClick={handelChangeClick}
-        />
-      </div>
-    </>
+    <div className={styles.menu}>
+      <LayoutLogo />
+      <Menu
+        theme="dark"
+        mode="inline"
+        triggerSubMenuAction="click"
+        items={menuList}
+        openKeys={openKeys}
+        onOpenChange={onOpenChange}
+        selectedKeys={selectedKeys}
+        onClick={handelChangeClick}
+      />
+    </div>
   );
 };
 

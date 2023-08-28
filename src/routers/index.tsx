@@ -19,39 +19,26 @@ export const routerArray: any = [
     meta: { title: "首页" },
     element: Home,
   },
-  // {
-  //   children: [
-  //     {
-  //       path: "/home/homes",
-  //       element: Home,
-  //       meta: { requiresAuth: true, title: "首页", key: "homes" },
-  //     },
-  //     {
-  //       path: "/home/carouselChart",
-  //       element: CarouselChart,
-  //       meta: { requiresAuth: true, title: "轮播图", key: "carouselChart" },
-  //     },
-  //   ],
-  // },
   {
+    path: "/demo2",
     meta: { title: "测试22" },
     children: [
       {
         path: "/demo2/lear",
-        meta: { requiresAuth: true, title: "js学习", key: "lear" },
+        meta: { requiresAuth: true, title: "js学习" },
         element: LazyDemo,
       },
       {
         path: "/demo2/TypeScripct",
-        meta: { requiresAuth: true, title: "TypeScripct", key: "TypeScripct" },
+        meta: { requiresAuth: true, title: "TypeScripct" },
         element: TypeScripct,
       },
     ],
   },
   {
-    path: "/dataScreen",
-    element: DataScreen,
+    path: "/datascreen",
     meta: { requiresAuth: true, title: "数据展示" },
+    element: DataScreen,
   },
   {
     path: "/404",

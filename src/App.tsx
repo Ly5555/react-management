@@ -1,12 +1,12 @@
 import React from "react";
-import { ConfigProvider, } from "antd";
-import { BrowserRouter, } from "react-router-dom";
+import { ConfigProvider } from "antd";
+import { BrowserRouter } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { themeColor, } from "@/store/store";
-import AuthRouter from "@/components/AuthRouter"
+import { themeColor } from "@/store/store";
+import AuthRouter from "@/components/AuthRouter";
 import Router from "@/routers/index";
-import zhCN from 'antd/locale/zh_CN';
-import "./styles/reset.less"
+import zhCN from "antd/locale/zh_CN";
+import "./styles/reset.less";
 import "./app.css";
 function App() {
   const colorPrimary = useRecoilValue(themeColor);
@@ -17,12 +17,11 @@ function App() {
         token: {
           colorPrimary,
         },
-      }}
-    >
+      }}>
       <BrowserRouter>
-        <AuthRouter>
-          <Router />
-        </AuthRouter>
+        {/* <AuthRouter> */}
+        <Router />
+        {/* </AuthRouter> */}
       </BrowserRouter>
     </ConfigProvider>
   );

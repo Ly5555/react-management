@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import dayjs from "dayjs";
-import { useThrottleFn } from 'ahooks';
+import { useThrottleFn } from "ahooks";
 import request from "@/utils/request/request";
 import scrollTo from "antd/lib/_util/scrollTo";
 import getScroll from "antd/lib/_util/getScroll";
@@ -13,11 +13,14 @@ const DataScreen = () => {
   const [detail, setDetail] = useState({});
   const animating = useRef(false);
   const getDetail = async () => {
-    const { data } = await request({ url: 'https://www.fastmock.site/mock/302854084413bb6592dc4c53c7f85991/admin/detail', method: 'post' })
+    const { data } = await request({
+      url: "https://www.fastmock.site/mock/302854084413bb6592dc4c53c7f85991/admin/detail",
+      method: "post",
+    });
     console.log(data);
-  }
+  };
   useEffect(() => {
-    document.getElementById("right")?.addEventListener("scroll", handleScroll,);
+    document.getElementById("right")?.addEventListener("scroll", handleScroll);
     return () => {
       document.getElementById("right")?.removeEventListener("scroll", handleScroll);
     };
@@ -30,7 +33,6 @@ const DataScreen = () => {
     { name: "商品资质", id: "dddd" },
   ];
   const handleScrollClick = (id: string) => {
-    console.log(id);
     let targetOffset = 0;
     setCurrentId(id);
     const container = document.getElementById("right") || window;
@@ -53,7 +55,7 @@ const DataScreen = () => {
         animating.current = false;
       },
     });
-  }
+  };
   const getOffsetTop = (element: HTMLElement, container: AnchorContainer) => {
     if (!element.getClientRects().length) {
       return 0;
@@ -81,19 +83,20 @@ const DataScreen = () => {
       let itemTop = item?.offsetTop;
 
       if (scrollTop > itemTop - 110) {
-        activeChannel = item.id
+        activeChannel = item.id;
       }
-    })
+    });
     setCurrentId(String(activeChannel));
   };
+  return <>123</>;
   return (
-    <>
-      <div className={styles.dataScreen}>
-        <div className={styles.good_left_icon}>
-          <div className={styles.good_left_data}>
-            {navArr && navArr.map((item) => {
+    <div className={styles.dataScreen}>
+      <div className={styles.good_left_icon}>
+        <div className={styles.good_left_data}>
+          {navArr &&
+            navArr.map((item) => {
               return (
-                <a key={item.id} >
+                <a key={item.id}>
                   <div
                     className={`${styles.good_left_curr} ${currentId === item.id ? styles.actived : ""}`}
                     onClick={() => handleScrollClick(item.id)}>
@@ -102,16 +105,23 @@ const DataScreen = () => {
                 </a>
               );
             })}
-          </div>
-        </div>
-        <div className={styles.goodRight} id="right">
-          <div id="aaaa" className={styles.goodRightBanner}>1</div>
-          <div id="bbbb" className={styles.goodRightBanner}>2</div>
-          <div id="cccc" className={styles.goodRightBanner}>3</div>
-          <div id="dddd" className={styles.goodRightBanner}>4</div>
         </div>
       </div>
-    </>
+      <div className={styles.goodRight} id="right">
+        <div id="aaaa" className={styles.goodRightBanner}>
+          1
+        </div>
+        <div id="bbbb" className={styles.goodRightBanner}>
+          2
+        </div>
+        <div id="cccc" className={styles.goodRightBanner}>
+          3
+        </div>
+        <div id="dddd" className={styles.goodRightBanner}>
+          4
+        </div>
+      </div>
+    </div>
   );
 };
 export default DataScreen;

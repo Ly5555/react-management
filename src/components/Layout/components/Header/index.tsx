@@ -13,21 +13,19 @@ import styles from "./header.module.less";
 const LayoutHeader = () => {
   const { Header } = Layout;
   return (
-    <>
-      <div className={styles.header}>
-        <Header>
-          <div className={styles.header_lf}>
-            <CollapseIcon />
-            <BreadcrumbNav />
-          </div>
-          <div className={styles.header_ri}>
-            <Theme />
-            <AvatarIcon />
-            {/* <span className={styles.username}>Hooks</span> */}
-          </div>
-        </Header>
-      </div>
-    </>
+    <div className={styles.header}>
+      <Header>
+        <div className={styles.header_lf}>
+          <CollapseIcon />
+          <BreadcrumbNav />
+        </div>
+        <div className={styles.header_ri}>
+          <Theme />
+          <AvatarIcon />
+          {/* <span className={styles.username}>Hooks</span> */}
+        </div>
+      </Header>
+    </div>
   );
 };
 

@@ -10,13 +10,15 @@ const tabListState = selector({
   key: "tabListState",
   get: ({ get }) => {
     const tabList = get(tabLists);
-    return tabList.map((item: Menu.MenuOptions, index) => {
-      return {
-        key: item?.path,
-        label: item?.title,
-        closable: item.title === "首页" ? false : true
-      };
-    }).filter((item) => item.key);;
+    return tabList
+      .map((item: Menu.MenuOptions, index) => {
+        return {
+          key: item?.path,
+          label: item?.title,
+          closable: item.title === "首页" ? false : true,
+        };
+      })
+      .filter((item) => item.key);
   },
 });
 // 是否开展菜单
@@ -35,27 +37,26 @@ const themeColor = atom({
   default: "#1677FF",
 });
 
-const localStorageEffect = (key: string) => ({ setSelf, onSet }: any) => {
-  const savedValue = localStorage.getItem(key)
-  if (savedValue != null) {
-    setSelf(JSON.parse(savedValue));
-  }
-  onSet((newValue: any) => {
-    if (newValue instanceof DefaultValue) {
-      localStorage.removeItem(key);
-    } else {
-      localStorage.setItem(key, JSON.stringify(newValue));
+const localStorageEffect =
+  (key: string) =>
+  ({ setSelf, onSet }: any) => {
+    const savedValue = localStorage.getItem(key);
+    if (savedValue != null) {
+      setSelf(JSON.parse(savedValue));
     }
-  });
-};
+    onSet((newValue: any) => {
+      if (newValue instanceof DefaultValue) {
+        localStorage.removeItem(key);
+      } else {
+        localStorage.setItem(key, JSON.stringify(newValue));
+      }
+    });
+  };
 // token
 const tokenAtom = atom({
-  key: 'tokenAtom',
+  key: "tokenAtom",
   default: "",
-  effects_UNSTABLE: [
-    localStorageEffect('token'),
-  ]
-})
+  effects_UNSTABLE: [localStorageEffect("token")],
+});
 
-
-export { tabLists, tabListState, IsExpand, breadcrumbNameMap, themeColor, tokenAtom, };
+export { tabLists, tabListState, IsExpand, breadcrumbNameMap, themeColor, tokenAtom };
