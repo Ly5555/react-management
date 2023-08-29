@@ -5,12 +5,13 @@ import React, { useState } from "react";
 import { Drawer, Radio, Space, Switch } from "antd";
 import { SettingOutlined } from "@ant-design/icons";
 import { useSetRecoilState } from "recoil";
-import { themeColor, } from "@/store/store";
+import { themeColor, isManyTabs } from "@/store/store";
 import styles from "./theme.module.less";
 const Theme = () => {
   const [open, setOpen] = useState(false);
   const [values, setValues] = useState<number>(1);
   const useThemeColor = useSetRecoilState(themeColor);
+  const useIsManyTabs = useSetRecoilState(isManyTabs);
   const showDrawer = () => {
     setOpen(true);
   };
@@ -59,22 +60,20 @@ const Theme = () => {
       value: 8,
     },
   ];
-  const handleRadioChange = (e: { value: number, color: string }) => {
+  const handleRadioChange = (e: { value: number; color: string }) => {
     setValues(e.value);
     useThemeColor(e.color);
   };
-
+  const handelManyTabs = (checked: boolean) => {
+    useIsManyTabs(checked);
+  };
   return (
     <>
       <SettingOutlined onClick={showDrawer} style={{ fontSize: 19, marginRight: 16 }} />
-      <Drawer title="修改主题" placement="right" closable={false} onClose={onClose} open={open}>
+      <Drawer title="XXXX" placement="right" closable={false} onClose={onClose} open={open}>
         <Space>
-          <h3>主题:</h3>
-          <Switch
-            className="dark"
-            checkedChildren={<>🌞</>}
-            unCheckedChildren={<>🌜</>}
-          />
+          <h3>是否展示多Tabs:</h3>
+          <Switch onChange={handelManyTabs} />
         </Space>
         <div>=============</div>
         <Space>
@@ -89,8 +88,7 @@ const Theme = () => {
                   style={{
                     background: item.color,
                     boxShadow: values === item.value ? `0 0 0 1px #ffffff, 0 0 0 5px ${item.color}` : "",
-                  }}
-                >
+                  }}>
                   <input
                     type="radio"
                     name="color"

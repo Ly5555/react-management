@@ -1,4 +1,5 @@
 // 状态管理
+import { HOME_URL } from "@/config/config";
 import { DefaultValue, atom, selector } from "recoil";
 // 监听打开的页面
 const tabLists = atom({
@@ -6,20 +7,9 @@ const tabLists = atom({
   default: [],
 });
 //tabs
-const tabListState = selector({
-  key: "tabListState",
-  get: ({ get }) => {
-    const tabList = get(tabLists);
-    return tabList
-      .map((item: Menu.MenuOptions, index) => {
-        return {
-          key: item?.path,
-          label: item?.title,
-          closable: item.title === "首页" ? false : true,
-        };
-      })
-      .filter((item) => item.key);
-  },
+const isManyTabs = atom({
+  key: "ismanytabs",
+  default: false,
 });
 // 是否开展菜单
 const IsExpand = atom({
@@ -59,4 +49,4 @@ const tokenAtom = atom({
   effects_UNSTABLE: [localStorageEffect("token")],
 });
 
-export { tabLists, tabListState, IsExpand, breadcrumbNameMap, themeColor, tokenAtom };
+export { tabLists, isManyTabs, IsExpand, breadcrumbNameMap, themeColor, tokenAtom };

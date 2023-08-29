@@ -8,21 +8,29 @@ import React, { useState, useEffect } from "react";
 import { Tabs } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { tabLists, tabListState } from "@/store/store";
+import { tabLists, isManyTabs } from "@/store/store";
 import { routerArray } from "@/routers/index";
-
+import { HOME_URL } from "@/config/config";
 import { searchRoute } from "@/utils/util";
+
 import styles from "./indexTab.module.less";
+
 const LayoutTabs = () => {
   const { pathname } = useLocation();
   const useNavigateTo = useNavigate();
   const [tabsList, setTabsList] = useRecoilState(tabLists || []);
-  const tabListStateL = useRecoilValue(tabListState || []);
   const [activeKey, setActiveKey] = useState<string>(pathname);
+  const IsTabs = useRecoilValue(isManyTabs);
   useEffect(() => {
     addTabs();
   }, [pathname]);
-
+  const newTabsList = tabsList.map((item: any, index) => {
+    return {
+      key: item?.path,
+      label: item?.title,
+      ...(item.path === HOME_URL ? { closable: false } : {}),
+    };
+  });
   const handelClickTabs = (path: string) => {
     useNavigateTo(path);
   };
@@ -49,8 +57,6 @@ const LayoutTabs = () => {
     }
     setTabsList(tabsList.filter((item: any) => item.path !== tabPath));
   };
-  console.log(tabListStateL);
-
   return (
     <div className={styles.tabsName}>
       <Tabs
@@ -60,7 +66,7 @@ const LayoutTabs = () => {
         activeKey={activeKey}
         type="editable-card"
         onEdit={deleteTabs}
-        items={tabListStateL}
+        items={IsTabs ? newTabsList : tabsList}
       />
     </div>
   );
