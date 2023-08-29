@@ -9,6 +9,7 @@ import styles from "./index.module.less";
 const sharpMatcherRegex = /#(\S+)$/;
 export type AnchorContainer = HTMLElement | Window;
 const DataScreen = () => {
+  return <>123</>;
   const [currentId, setCurrentId] = useState("aaaa");
   const [detail, setDetail] = useState({});
   const animating = useRef(false);
@@ -88,7 +89,6 @@ const DataScreen = () => {
     });
     setCurrentId(String(activeChannel));
   };
-  return <>123</>;
   return (
     <div className={styles.dataScreen}>
       <div className={styles.good_left_icon}>

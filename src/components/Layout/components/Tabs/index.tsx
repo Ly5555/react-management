@@ -6,13 +6,11 @@
  */
 import React, { useState, useEffect } from "react";
 import { Tabs } from "antd";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Outlet } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { tabLists, isManyTabs } from "@/store/store";
 import { routerArray } from "@/routers/index";
-import { HOME_URL } from "@/config/config";
 import { searchRoute } from "@/utils/util";
-
 import styles from "./indexTab.module.less";
 
 const LayoutTabs = () => {
@@ -28,7 +26,7 @@ const LayoutTabs = () => {
     return {
       key: item?.path,
       label: item?.title,
-      ...(item.path === HOME_URL ? { closable: false } : {}),
+      closable: tabsList.length > 1,
     };
   });
   const handelClickTabs = (path: string) => {
@@ -66,7 +64,7 @@ const LayoutTabs = () => {
         activeKey={activeKey}
         type="editable-card"
         onEdit={deleteTabs}
-        items={IsTabs ? newTabsList : tabsList}
+        items={newTabsList}
       />
     </div>
   );
