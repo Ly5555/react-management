@@ -1,3 +1,9 @@
+/*
+ * @Author: liuyongqing
+ * @Date: 2023-08-29 21:42:01
+ * @LastEditors: liuyongqing
+ * @LastEditTime: 2023-09-04 21:19:16
+ */
 import React from "react";
 import { Result, Button } from "antd";
 import { useNavigate } from "react-router-dom";

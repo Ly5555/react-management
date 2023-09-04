@@ -2,7 +2,7 @@
  * @Author: liuyongqing
  * @Date: 2023-08-30 20:30:01
  * @LastEditors: liuyongqing
- * @LastEditTime: 2023-09-04 14:13:30
+ * @LastEditTime: 2023-09-04 19:47:16
  */
 import React, { useState, useEffect } from "react";
 import { Button, Col, Form, Input, Row, Select, Space, Table } from "antd";
@@ -80,6 +80,7 @@ const SearchForm = () => {
     </Form>
   );
 };
+// form 表单封装初体验
 const Index = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [dataSource, setDataSource] = useState([]);
@@ -87,12 +88,12 @@ const Index = () => {
     getData();
   }, []);
   const getData = async () => {
-    // const { data } = await request({
-    //   url: "https://www.fastmock.site/mock/302854084413bb6592dc4c53c7f85991/admin/channelOrder/list",
-    //   method: "post",
-    // });
-    // const { dataList } = data || [];
-    // setDataSource(dataList);
+    const { data } = await request({
+      url: "https://www.fastmock.site/mock/302854084413bb6592dc4c53c7f85991/admin/channelOrder/list",
+      method: "post",
+    });
+    const { dataList } = data || [];
+    setDataSource(dataList);
   };
   const data = [];
 
@@ -145,7 +146,7 @@ const Index = () => {
   };
   return (
     <>
-      <SearchForm />
+      {/* <SearchForm /> */}
       <Space style={{ display: "flex", padding: "10px 0" }}>
         <Space align={"center"}>
           <div

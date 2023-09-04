@@ -2,7 +2,7 @@
  * @Author: liuyongqing
  * @Date: 2023-08-29 21:03:53
  * @LastEditors: liuyongqing
- * @LastEditTime: 2023-09-04 14:10:19
+ * @LastEditTime: 2023-09-04 19:37:29
  */
 import React from "react";
 import { ConfigProvider } from "antd";
@@ -26,9 +26,9 @@ function App() {
         },
       }}>
       <BrowserRouter>
-        <AuthRouter>
-          <Router />
-        </AuthRouter>
+        {/* <AuthRouter> */}
+        <Router />
+        {/* </AuthRouter> */}
       </BrowserRouter>
     </ConfigProvider>
   );

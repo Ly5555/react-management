@@ -25,12 +25,9 @@ const CarouselChart = () => {
   }, [isModalOpen]);
   const handleOk = async () => {
     try {
-      const values = await form.validateFields()
-      console.log(values)
-    } catch (error) {
-
-    }
-
+      const values = await form.validateFields();
+      console.log(values);
+    } catch (error) {}
   };
   const handleCancel = () => {
     setIsModalOpen(false);
@@ -40,13 +37,8 @@ const CarouselChart = () => {
       <Button type="primary" onClick={showModal}>
         Open Modal
       </Button>
-      <Modal title="Basic Modal"
-        destroyOnClose open={isModalOpen}
-        onCancel={handleCancel} onOk={handleOk}>
-        <Form
-          form={form}
-          name="control-hooks"
-        >
+      <Modal title="Basic Modal" destroyOnClose open={isModalOpen} onCancel={handleCancel} onOk={handleOk}>
+        <Form form={form} name="control-hooks">
           <Form.Item name="note1" label="Note1" rules={[{ required: true }]}>
             <Input />
           </Form.Item>
@@ -56,7 +48,9 @@ const CarouselChart = () => {
         </Form>
       </Modal>
       <h2> Single Item </h2>
-      <h2>官网:<Button type="link">https://react-slick.neostack.com/</Button></h2>
+      <h2>
+        官网:<Button type="link">https://react-slick.neostack.com/</Button>
+      </h2>
       <Slider {...settings}>
         <div>
           <h3>1</h3>

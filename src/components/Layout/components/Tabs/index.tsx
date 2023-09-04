@@ -2,18 +2,17 @@
  * @Author: liuyongqing
  * @Date: 2023-07-06 20:26:58
  * @LastEditors: liuyongqing
- * @LastEditTime: 2023-09-04 16:03:47
+ * @LastEditTime: 2023-09-04 20:26:21
  */
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { Tabs } from "antd";
-// <CloseCircleOutlined />
-import { DeleteOutlined, CloseCircleOutlined } from "@ant-design/icons";
+import { CloseCircleFilled, DeleteFilled } from "@ant-design/icons";
 import { useLocation, useNavigate, Outlet } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { tabLists, isManyTabs } from "@/store/store";
 import { routerArray } from "@/routers/index";
 import { searchRoute } from "@/utils/util";
-import styles from "./indexTab.module.less";
+import styles from "./index.module.less";
 
 const LayoutTabs = () => {
   const { pathname } = useLocation();
@@ -30,7 +29,7 @@ const LayoutTabs = () => {
         return {
           key: item?.path,
           label: item?.title,
-          closeIcon: <DeleteOutlined />,
+          closeIcon: <CloseCircleFilled />,
           closable: tabsList.filter((obj) => Object.keys(obj).length !== 0).length > 1,
         };
       })

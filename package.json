@@ -54,7 +54,7 @@
     "webpackbar": "^5.0.2"
   },
   "dependencies": {
-    "@ant-design/icons": "^4.8.0",
+    "@ant-design/icons": "^4.8.1",
     "@ant-design/plots": "^1.2.5",
     "ahooks": "^3.7.7",
     "antd": "^5.8.6",

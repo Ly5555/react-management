@@ -93,6 +93,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "../public/index.html"), // 模板取定义root节点的模板
+      title: "个人学习记录",
       inject: true, // 自动注入静态资源
       collapseWhitespace: true, //去除所有的空格
       removeComments: true, //去除所有的注释
