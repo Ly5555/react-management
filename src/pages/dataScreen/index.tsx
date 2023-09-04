@@ -1,6 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
-import dayjs from "dayjs";
-import { useThrottleFn } from "ahooks";
+import React, { useEffect, useState, useRef } from "react";
 import request from "@/utils/request/request";
 import scrollTo from "antd/lib/_util/scrollTo";
 import getScroll from "antd/lib/_util/getScroll";

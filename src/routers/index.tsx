@@ -10,6 +10,7 @@ const LazyDemo = lazyLoad(lazy(() => import("@/pages/javascripct/LazyDemo")));
 const CarouselChart = lazyLoad(lazy(() => import("@/pages/carouselChart")));
 const TypeScripct = lazyLoad(lazy(() => import("@/pages/TypeScripct")));
 const DataScreen = lazyLoad(lazy(() => import("@/pages/dataScreen")));
+const FormTable = lazyLoad(lazy(() => import("@/pages/FormTable")));
 const NotFound = lazyLoad(lazy(() => import("@/pages/NotFound/index")));
 
 // 页面组件
@@ -34,6 +35,11 @@ export const routerArray: any = [
         element: TypeScripct,
       },
     ],
+  },
+  {
+    path: "/formtable",
+    meta: { requiresAuth: true, title: "表单Table" },
+    element: FormTable,
   },
   {
     path: "/datascreen",

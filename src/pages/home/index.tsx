@@ -28,13 +28,7 @@ interface ISubSectionData {
   age: number;
   cardType: string;
 }
-type CardType = "DEFAULT" | "MIX" | "ITEM";
 const Home = () => {
-  // return (
-  //   <div className={styles.home_card}>
-  //     <img src={welcome} alt="welcome" />
-  //   </div>
-  // );
   const details = [
     { name: "1", age: 13, cardType: "default" },
     { name: "2", age: 23, cardType: "mix" },

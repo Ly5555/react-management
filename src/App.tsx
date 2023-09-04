@@ -8,6 +8,7 @@ import Router from "@/routers/index";
 import zhCN from "antd/locale/zh_CN";
 import "./styles/reset.less";
 import "./app.css";
+
 function App() {
   const colorPrimary = useRecoilValue(themeColor);
   return (

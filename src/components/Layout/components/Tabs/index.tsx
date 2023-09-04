@@ -22,13 +22,15 @@ const LayoutTabs = () => {
   useEffect(() => {
     addTabs();
   }, [pathname]);
-  const newTabsList = tabsList.map((item: any, index) => {
-    return {
-      key: item?.path,
-      label: item?.title,
-      closable: tabsList.length > 1,
-    };
-  });
+  const newTabsList = tabsList
+    .map((item: any, index) => {
+      return {
+        key: item?.path,
+        label: item?.title,
+        closable: tabsList.filter((obj) => Object.keys(obj).length !== 0).length > 1,
+      };
+    })
+    .filter((item) => item.key);
   const handelClickTabs = (path: string) => {
     useNavigateTo(path);
   };
