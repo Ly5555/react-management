@@ -2,10 +2,12 @@
  * @Author: liuyongqing
  * @Date: 2023-07-06 20:26:58
  * @LastEditors: liuyongqing
- * @LastEditTime: 2023-08-17 21:45:07
+ * @LastEditTime: 2023-09-04 16:03:47
  */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { Tabs } from "antd";
+// <CloseCircleOutlined />
+import { DeleteOutlined, CloseCircleOutlined } from "@ant-design/icons";
 import { useLocation, useNavigate, Outlet } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { tabLists, isManyTabs } from "@/store/store";
@@ -22,15 +24,19 @@ const LayoutTabs = () => {
   useEffect(() => {
     addTabs();
   }, [pathname]);
-  const newTabsList = tabsList
-    .map((item: any, index) => {
-      return {
-        key: item?.path,
-        label: item?.title,
-        closable: tabsList.filter((obj) => Object.keys(obj).length !== 0).length > 1,
-      };
-    })
-    .filter((item) => item.key);
+  const newTabsList = useMemo(() => {
+    return tabsList
+      .map((item: any, index) => {
+        return {
+          key: item?.path,
+          label: item?.title,
+          closeIcon: <DeleteOutlined />,
+          closable: tabsList.filter((obj) => Object.keys(obj).length !== 0).length > 1,
+        };
+      })
+      .filter((item) => item.key);
+  }, [tabsList]);
+
   const handelClickTabs = (path: string) => {
     useNavigateTo(path);
   };
@@ -57,8 +63,9 @@ const LayoutTabs = () => {
     }
     setTabsList(tabsList.filter((item: any) => item.path !== tabPath));
   };
+
   return (
-    <div className={styles.tabsName}>
+    <div className={styles.tabs_box}>
       <Tabs
         hideAdd
         animated

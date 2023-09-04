@@ -1,3 +1,9 @@
+/*
+ * @Author: liuyongqing
+ * @Date: 2023-08-30 20:30:01
+ * @LastEditors: liuyongqing
+ * @LastEditTime: 2023-09-04 14:13:30
+ */
 import React, { useState, useEffect } from "react";
 import { Button, Col, Form, Input, Row, Select, Space, Table } from "antd";
 import { BatchRejectionModal } from "./components/index";
@@ -89,6 +95,7 @@ const Index = () => {
     // setDataSource(dataList);
   };
   const data = [];
+
   for (let i = 0; i < 46; i++) {
     data.push({
       key: i,
