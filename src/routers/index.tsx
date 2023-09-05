@@ -2,7 +2,7 @@
  * @Author: liuyongqing
  * @Date: 2023-08-29 21:41:58
  * @LastEditors: liuyongqing
- * @LastEditTime: 2023-09-04 21:16:26
+ * @LastEditTime: 2023-09-05 20:07:18
  */
 import React, { lazy } from "react";
 import lazyLoad from "@/components/lazyLoad";
@@ -32,7 +32,7 @@ export const routerArray: any = [
   },
   {
     path: "/custom-hooks",
-    meta: { title: "轮播图" },
+    meta: { title: "hooks&自定义" },
     element: CustomHooks,
   },
   // {
