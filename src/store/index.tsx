@@ -2,7 +2,7 @@
  * @Author: liuyongqing
  * @Date: 2023-09-06 16:13:55
  * @LastEditors: liuyongqing
- * @LastEditTime: 2023-09-06 17:40:38
+ * @LastEditTime: 2023-09-06 20:05:18
  */
 import { create } from "zustand";
 import { TabLists, IsExpand } from "./type";
@@ -17,4 +17,8 @@ const useIsExpand = create<IsExpand>()(() => ({
 const useBreadcrumb = create<any>()(() => ({
   breadcrumbList: [],
 }));
-export { useTabLists, useIsExpand, useBreadcrumb };
+// 样式主题
+const useThemeColor = create(() => ({
+  themeColor: "#1677FF",
+}));
+export { useTabLists, useIsExpand, useBreadcrumb, useThemeColor };

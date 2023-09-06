@@ -30,7 +30,7 @@ const LayoutTabs = () => {
           label: item?.title,
           closeIcon: <CloseCircleFilled />,
           closable: tabList.filter((obj) => Object.keys(obj).length !== 0).length > 1,
-        };                                                                    
+        };
       })
       .filter((item) => item.key);
   }, [tabList]);
@@ -60,8 +60,6 @@ const LayoutTabs = () => {
       });
     }
     let newList = tabList.filter((item: { path: string }) => item.path !== tabPath);
-    console.log(newList);
-
     useTabLists.setState({ tabList: newList });
   };
 

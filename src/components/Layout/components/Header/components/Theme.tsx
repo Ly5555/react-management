@@ -4,14 +4,11 @@
 import React, { useState } from "react";
 import { Drawer, Radio, Space, Switch } from "antd";
 import { SettingOutlined } from "@ant-design/icons";
-import { useSetRecoilState } from "recoil";
-import { themeColor, isManyTabs } from "@/store/store";
+import { useThemeColor } from "@/store";
 import styles from "./theme.module.less";
 const Theme = () => {
   const [open, setOpen] = useState(false);
   const [values, setValues] = useState<number>(1);
-  const useThemeColor = useSetRecoilState(themeColor);
-  const useIsManyTabs = useSetRecoilState(isManyTabs);
   const showDrawer = () => {
     setOpen(true);
   };
@@ -62,11 +59,9 @@ const Theme = () => {
   ];
   const handleRadioChange = (e: { value: number; color: string }) => {
     setValues(e.value);
-    useThemeColor(e.color);
+    useThemeColor.setState({ themeColor: e.color });
   };
-  const handelManyTabs = (checked: boolean) => {
-    useIsManyTabs(checked);
-  };
+  const handelManyTabs = (checked: boolean) => {};
   return (
     <>
       <SettingOutlined onClick={showDrawer} style={{ fontSize: 19, marginRight: 16 }} />

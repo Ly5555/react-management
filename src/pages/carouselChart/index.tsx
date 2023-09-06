@@ -1,6 +1,9 @@
 /*
-轮播图
-*/
+ * @Author: liuyongqing
+ * @Date: 2023-09-06 19:51:49
+ * @LastEditors: liuyongqing
+ * @LastEditTime: 2023-09-06 20:19:20
+ */
 import { Button, Form, Input, Modal } from "antd";
 import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
@@ -48,9 +51,6 @@ const CarouselChart = () => {
         </Form>
       </Modal>
       <h2> Single Item </h2>
-      <h2>
-        官网:<Button type="link">https://react-slick.neostack.com/</Button>
-      </h2>
       <Slider {...settings}>
         <div>
           <h3>1</h3>

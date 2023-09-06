@@ -1,3 +1,9 @@
+<!--
+ * @Author: liuyongqing
+ * @Date: 2023-09-06 19:51:49
+ * @LastEditors: liuyongqing
+ * @LastEditTime: 2023-09-06 20:11:47
+-->
 # Hooks 🚀
 
 ### 一、介绍 📖
@@ -24,7 +30,7 @@ Hooks
 │  ├─ components          # 全局组件
 │  ├─ layouts             # 框架布局
 │  ├─ routers             # 路由管理
-│  ├─ store               # recoil store
+│  ├─ store               # zustand
 │  ├─ styles              # 全局样式
 │  ├─ typings             # 全局 ts 声明
 │  ├─ utils               # 工具库

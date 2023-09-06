@@ -2,7 +2,7 @@
  * @Author: liuyongqing
  * @Date: 2023-04-19 21:17:42
  * @LastEditors: liuyongqing
- * @LastEditTime: 2023-09-06 17:48:03
+ * @LastEditTime: 2023-09-06 19:58:32
  */
 import React from "react";
 import { Breadcrumb } from "antd";
@@ -12,7 +12,7 @@ const BreadcrumbNav = () => {
   const { pathname } = useLocation();
   const { breadcrumbList } = useBreadcrumb();
   const newBreadcrumbList =
-    breadcrumbList[pathname].map((item: string) => {
+    breadcrumbList[pathname]?.map((item: string) => {
       return {
         title: item,
       };
