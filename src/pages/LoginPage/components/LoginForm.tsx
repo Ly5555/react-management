@@ -1,20 +1,25 @@
+/*
+ * @Author: liuyongqing
+ * @Date: 2023-07-25 21:03:23
+ * @LastEditors: liuyongqing
+ * @LastEditTime: 2023-09-06 17:36:23
+ */
 //登陆页
 import React, { useState } from "react";
 import md5 from "js-md5";
-import { LockOutlined, UserOutlined, } from "@ant-design/icons";
+import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input, Space, message } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
-import { tokenAtom } from "@/store/store"
+import { tokenAtom } from "@/store/store";
+import { useTabLists } from "@/store";
 import request from "@/utils/request/request";
-import { tabLists, tabListState } from "@/store/store";
-import { HOME_URL } from "@/config/config"
+import { HOME_URL } from "@/config/config";
 const LoginForm = () => {
   const navigaiteTo = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
   const [form] = Form.useForm();
   const setTokenAtom = useSetRecoilState(tokenAtom);
-  const setTabsList = useSetRecoilState(tabLists);
   // 提交
   const handleOnFinish = async () => {
     try {
@@ -23,11 +28,11 @@ const LoginForm = () => {
       console.log(values);
       const { data } = await request({
         url: "https://www.fastmock.site/mock/302854084413bb6592dc4c53c7f85991/admin/login",
-        method: 'post',
-        data: { ...values, password: md5(values.password) }
-      })
-      setTokenAtom(data?.access_token)
-      setTabsList([]);
+        method: "post",
+        data: { ...values, password: md5(values.password) },
+      });
+      setTokenAtom(data?.access_token);
+      useTabLists.setState({ tabList: [] });
       navigaiteTo(HOME_URL);
     } catch (error) {
       console.log(error);
@@ -58,7 +63,7 @@ const LoginForm = () => {
           rules={[
             {
               validator: (_, value) =>
-                value ? Promise.resolve() : Promise.reject(new Error('请先阅读并同意用户协议'))
+                value ? Promise.resolve() : Promise.reject(new Error("请先阅读并同意用户协议")),
             },
           ]}>
           <Checkbox>
@@ -66,8 +71,13 @@ const LoginForm = () => {
           </Checkbox>
         </Form.Item>
 
-        <Form.Item >
-          <Button type="primary" loading={loading} htmlType="submit" className="login-form-button" onClick={handleOnFinish} >
+        <Form.Item>
+          <Button
+            type="primary"
+            loading={loading}
+            htmlType="submit"
+            className="login-form-button"
+            onClick={handleOnFinish}>
             登 录
           </Button>
         </Form.Item>
