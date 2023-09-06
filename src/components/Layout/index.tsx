@@ -2,18 +2,18 @@
  * @Author: liuyongqing
  * @Date: 2023-07-24 21:31:32
  * @LastEditors: liuyongqing
- * @LastEditTime: 2023-08-17 21:45:26
+ * @LastEditTime: 2023-09-06 17:19:48
  */
 import React, { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import { Layout } from "antd";
 import { LayoutMenu, LayoutTabs, LayoutHeader } from "./components";
 import { useRecoilState } from "recoil";
-import { IsExpand } from "@/store/store";
+import { useIsExpand } from "@/store";
 import styles from "./index.module.less";
 const LayoutIndex = () => {
   const { Content, Footer, Sider } = Layout;
-  const [isExpandMenu, setIsExpandMenu] = useRecoilState(IsExpand);
+  const { IsExpand } = useIsExpand();
   useEffect(() => {
     listeningWindow();
   }, []);
@@ -22,14 +22,14 @@ const LayoutIndex = () => {
     window.onresize = () => {
       return (() => {
         let screenWidth = document.body.clientWidth;
-        if (!isExpandMenu && screenWidth < 1200) setIsExpandMenu(true);
-        if (!isExpandMenu && screenWidth > 1200) setIsExpandMenu(false);
+        if (!IsExpand && screenWidth < 1200) useIsExpand.setState({ IsExpand: true });
+        if (!IsExpand && screenWidth > 1200) useIsExpand.setState({ IsExpand: false });
       })();
     };
   };
   return (
     <Layout className={styles.container}>
-      <Sider trigger={null} collapsed={isExpandMenu}>
+      <Sider trigger={null} collapsed={IsExpand}>
         <LayoutMenu />
       </Sider>
       <Layout>

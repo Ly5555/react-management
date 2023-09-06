@@ -1,19 +1,24 @@
+/*
+ * @Author: liuyongqing
+ * @Date: 2023-04-19 21:17:42
+ * @LastEditors: liuyongqing
+ * @LastEditTime: 2023-09-06 17:48:03
+ */
 import React from "react";
 import { Breadcrumb } from "antd";
-import { useRecoilValue } from "recoil";
 import { useLocation } from "react-router-dom";
-import { breadcrumbNameMap } from "@/store/store";
+import { useBreadcrumb } from "@/store";
 const BreadcrumbNav = () => {
   const { pathname } = useLocation();
-  const breadcrumbState: any = useRecoilValue(breadcrumbNameMap);
-  const breadcrumbList =
-    breadcrumbState[pathname]?.map((item: string) => {
+  const { breadcrumbList } = useBreadcrumb();
+  const newBreadcrumbList =
+    breadcrumbList[pathname].map((item: string) => {
       return {
         title: item,
       };
     }) || [];
   return (
-    <Breadcrumb items={breadcrumbList} />
+    <Breadcrumb items={newBreadcrumbList} />
     // >=5.3.0 可用，推荐的写法 ✅
     //  return <Breadcrumb items={[{ title: 'sample' }]} />;
   );

@@ -1,10 +1,15 @@
+/*
+ * @Author: liuyongqing
+ * @Date: 2023-07-24 21:31:32
+ * @LastEditors: liuyongqing
+ * @LastEditTime: 2023-09-06 17:44:25
+ */
 import React, { useState, useEffect } from "react";
 import { Menu } from "antd";
 import { useNavigate, useLocation } from "react-router-dom";
 import request from "@/utils/request/request";
-import { useSetRecoilState, useRecoilValue } from "recoil";
 import { searchRoute, getOpenKeys, findAllBreadcrumb } from "@/utils/util";
-import { IsExpand, breadcrumbNameMap } from "@/store/store";
+import { useIsExpand, useBreadcrumb } from "@/store";
 import type { MenuProps } from "antd";
 import * as Icons from "@ant-design/icons";
 import { LayoutLogo } from "../index";
@@ -17,11 +22,11 @@ const LayoutMenu = () => {
   const [menuList, setmenuList] = useState<MenuItem[]>([]);
   const [openKeys, setOpenKeys] = useState<string[]>([]);
   const [selectedKeys, setSelectedKeys] = useState<string[]>([pathname]);
-  const isCollapse = useRecoilValue(IsExpand);
-  const setBreadcrumbList = useSetRecoilState(breadcrumbNameMap);
+  const { IsExpand } = useIsExpand();
+
   useEffect(() => {
     setSelectedKeys([pathname]);
-    isCollapse ? null : setOpenKeys(getOpenKeys(pathname));
+    IsExpand ? null : setOpenKeys(getOpenKeys(pathname));
   }, [pathname]);
   useEffect(() => {
     const fetchMenu = async () => {
@@ -31,7 +36,7 @@ const LayoutMenu = () => {
           loading: true,
         });
         setmenuList(deepLoopMenu(data));
-        setBreadcrumbList(findAllBreadcrumb(data) as any);
+        useBreadcrumb.setState({ breadcrumbList: findAllBreadcrumb(data) as any });
       } catch (error) {
         console.log(error, "1");
       }
