@@ -2,7 +2,7 @@
  * @Author: liuyongqing
  * @Date: 2023-08-30 20:30:01
  * @LastEditors: liuyongqing
- * @LastEditTime: 2023-09-04 19:47:16
+ * @LastEditTime: 2023-09-06 20:34:43
  */
 import React, { useState, useEffect } from "react";
 import { Button, Col, Form, Input, Row, Select, Space, Table } from "antd";
@@ -135,8 +135,6 @@ const Index = () => {
   const rowSelection = {
     selectedRowKeys,
     onChange: (newSelectedRowKeys: any) => {
-      console.log(newSelectedRowKeys);
-      console.log("selectedRowKeys: ", newSelectedRowKeys);
       setSelectedRowKeys(newSelectedRowKeys);
     },
     getCheckboxProps: (record: any) => ({
