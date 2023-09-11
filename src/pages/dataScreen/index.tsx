@@ -86,7 +86,7 @@ const DataScreen = () => {
     });
     setCurrentId(String(activeChannel));
   };
-  return 123;
+  return <>123</>;
   return (
     <div className={styles.dataScreen}>
       <div className={styles.good_left_icon}>
