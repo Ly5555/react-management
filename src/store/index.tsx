@@ -2,7 +2,7 @@
  * @Author: liuyongqing
  * @Date: 2023-09-06 16:13:55
  * @LastEditors: liuyongqing
- * @LastEditTime: 2023-09-06 20:05:18
+ * @LastEditTime: 2023-10-24 20:43:34
  */
 import { create } from "zustand";
 import { TabLists, IsExpand } from "./type";
@@ -12,8 +12,9 @@ const useTabLists = create<TabLists>()((set) => ({
 }));
 //是否展开菜单
 const useIsExpand = create<IsExpand>()(() => ({
-  IsExpand: false,
+  IsExpand: true,
 }));
+// 面包屑
 const useBreadcrumb = create<any>()(() => ({
   breadcrumbList: [],
 }));

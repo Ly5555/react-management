@@ -1,9 +1,8 @@
-import { themeColor } from '@/store/store';
 /*
  * @Author: liuyongqing
  * @Date: 2023-09-06 17:13:39
  * @LastEditors: liuyongqing 
- * @LastEditTime: 2023-09-06 20:05:26
+ * @LastEditTime: 2023-10-24 20:38:18
  */
 export interface TabLists {
   tabList: {

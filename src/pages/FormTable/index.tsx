@@ -2,7 +2,7 @@
  * @Author: liuyongqing
  * @Date: 2023-08-30 20:30:01
  * @LastEditors: liuyongqing
- * @LastEditTime: 2023-10-11 21:54:13
+ * @LastEditTime: 2023-10-18 22:00:19
  */
 import React, { useState, useEffect } from "react";
 import { Button, Col, Form, Input, Row, Select, Space, Table } from "antd";
@@ -82,7 +82,6 @@ const SearchForm = () => {
 // form 表单封装初体验
 const Index = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-  const [rowspanArray, setRowspanArray] = useState([]);
   const [pagination, setPagination] = useState({ current: 1, pageSize: 10 });
   useEffect(() => {
     getData();
@@ -94,32 +93,7 @@ const Index = () => {
     });
     const { dataList } = data || [];
   };
-  const renderTel = (text, row, index, rowKey) => {
-    // console.log(text, "98");
-    const { current, pageSize } = pagination;
-    const obj = {
-      children: text,
-      props: {},
-    };
-    let sameRowCount = 1;
-    let totalIndex = pageSize * current;
-    totalIndex = totalIndex > data.length ? data.length : totalIndex;
-    const fullIndex = pageSize * (current - 1) + index;
-    if (index !== 0 && data[fullIndex - 1][rowKey] === data[fullIndex][rowKey]) {
-      sameRowCount = 0;
-    } else {
-      for (let i = fullIndex + 1; i < totalIndex; i++) {
-        if (data[i][rowKey] === data[fullIndex][rowKey]) {
-          sameRowCount++;
-        } else {
-          break;
-        }
-      }
-    }
-    obj.props.rowSpan = sameRowCount;
-    return obj;
-  };
-  const renderTel2 = (record, index, rowKey) => {
+  const renderTel = (record, index, rowKey) => {
     const { current, pageSize } = pagination;
     let obj = {
       rowSpan: 0,
@@ -153,13 +127,13 @@ const Index = () => {
     {
       title: "Age",
       dataIndex: "age",
-      render: (text, row, index) => renderTel(text, row, index, "age"),
+      onCell: (record, rowIndex) => renderTel(record, rowIndex, "age"),
     },
     {
       title: "Home phone",
       colSpan: 2,
       dataIndex: "tel",
-      onCell: (record, rowIndex) => renderTel2(record, rowIndex, "tel"),
+      onCell: (record, rowIndex) => renderTel(record, rowIndex, "tel"),
     },
     {
       title: "Phone",
@@ -200,7 +174,7 @@ const Index = () => {
     {
       key: "14",
       name: "John Brown",
-      age: 32,
+      age: 312,
       tel: "0571-22098909",
       phone: 18889898989,
       address: "New York No. 1 Lake Park",
@@ -208,7 +182,7 @@ const Index = () => {
     {
       key: "1",
       name: "John Brown",
-      age: 32,
+      age: 312,
       tel: "0571-22098909",
       phone: 18889898989,
       address: "New York No. 1 Lake Park",
@@ -278,13 +252,57 @@ const Index = () => {
       address: "Dublin No. 2 Lake Park",
     },
   ];
+  const infoMap = new Map();
+  data.forEach((item: any, index: any) => {
+    const nowItem = infoMap.get(item.tel);
+    if (nowItem) {
+      nowItem.ids.push(item.key);
+      infoMap.set(item.tel, nowItem);
+    } else {
+      infoMap.set(item.tel, { startIndex: index, ids: [item.key] });
+    }
+  });
 
-  const handleOnSelect = (record: any, selected: boolean, selectedRows: any) => {};
-  const handleOnSelectAll = (selected: boolean, selectedRows: any, changeRows: any) => {};
+  const handleOnSelect = (record: any, selected: boolean, selectedRows: any) => {
+    const infoItem = infoMap.get(record.tel);
+
+    let newSelectedRowKeys = selectedRows.map((item) => item.key);
+    if (infoItem) {
+      if (selected) {
+        newSelectedRowKeys.push(...infoItem.ids);
+      } else {
+        newSelectedRowKeys = newSelectedRowKeys.filter((item) => infoItem.ids.includes(item as number) === false);
+      }
+    }
+    setSelectedRowKeys(newSelectedRowKeys);
+  };
+  const handleOnSelectAll = (selected: boolean, selectedRows: any, changeRows: any) => {
+    setSelectedRowKeys(selected ? selectedRows.map((item: { key: any }) => item.key) : []);
+  };
   const handleChange = (pagination: any, filters: any, sorter: any) => {
     console.log("params", pagination, filters, sorter);
     setPagination(pagination);
   };
-  return <Table size="small" onChange={handleChange} columns={columns} dataSource={data} bordered={true} />;
+  console.log(selectedRowKeys, "selectedRowKeys");
+
+  return (
+    <>
+      <>选择几条数据：{selectedRowKeys}</>
+      <Table
+        size="small"
+        rowSelection={{
+          selectedRowKeys,
+          onSelect: handleOnSelect,
+          onCell: (record, index) => renderTel(record, index, "tel"),
+          onSelectAll: handleOnSelectAll,
+        }}
+        rowKey="key"
+        onChange={handleChange}
+        columns={columns}
+        dataSource={data}
+        bordered={true}
+      />
+    </>
+  );
 };
 export default Index;

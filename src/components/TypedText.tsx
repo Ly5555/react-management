@@ -2,7 +2,7 @@
  * @Author: liuyongqing
  * @Date: 2023-04-19 21:17:42
  * @LastEditors: liuyongqing
- * @LastEditTime: 2023-09-04 14:24:29
+ * @LastEditTime: 2023-10-24 21:03:05
  */
 import React, { memo, useState, useEffect } from "react";
 interface IProps {
@@ -10,6 +10,8 @@ interface IProps {
   delay?: number;
 }
 const TypedText = ({ children, delay = 110 }: IProps) => {
+  console.log(children);
+
   const [revealedLetters, setRevealedLetters] = useState(0);
   const interval = setInterval(() => setRevealedLetters((l) => l + 1), delay);
   useEffect(() => {

@@ -2,7 +2,7 @@
  * @Author: liuyongqing
  * @Date: 2023-07-24 21:31:32
  * @LastEditors: liuyongqing
- * @LastEditTime: 2023-09-06 17:44:25
+ * @LastEditTime: 2023-10-24 21:25:58
  */
 import React, { useState, useEffect } from "react";
 import { Menu } from "antd";
@@ -13,7 +13,7 @@ import { useIsExpand, useBreadcrumb } from "@/store";
 import type { MenuProps } from "antd";
 import * as Icons from "@ant-design/icons";
 import { LayoutLogo } from "../index";
-import styles from "./menu.module.less";
+import styles from "./index.module.less";
 type MenuItem = Required<MenuProps>["items"][number];
 
 const LayoutMenu = () => {
