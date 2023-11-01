@@ -2,7 +2,7 @@
  * @Author: liuyongqing
  * @Date: 2023-07-11 19:19:04
  * @LastEditors: liuyongqing
- * @LastEditTime: 2023-09-04 20:58:41
+ * @LastEditTime: 2023-10-31 21:19:05
  */
 import React, { Children, useCallback, useEffect, useState } from "react";
 import { Son } from "./components";
@@ -42,7 +42,7 @@ const Home = () => {
         return null;
     }
   }, []);
-  return <div>{details && details.map((item, index) => renderCard(item, index))}</div>;
+  return <>{details && details.map((item, index) => renderCard(item, index))}</>;
 };
 
 export default Home;

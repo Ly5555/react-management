@@ -1,11 +1,11 @@
 /*
  * @Author: liuyongqing
  * @Date: 2023-08-29 21:03:53
- * @LastEditors: liuyongqing 
- * @LastEditTime: 2023-09-06 20:11:19
+ * @LastEditors: liuyongqing
+ * @LastEditTime: 2023-10-31 21:52:00
  */
 import React from "react";
-import { ConfigProvider } from "antd";
+import { ConfigProvider, theme } from "antd";
 import { BrowserRouter } from "react-router-dom";
 import { useThemeColor } from "@/store";
 import AuthRouter from "@/components/AuthRouter";
@@ -20,6 +20,7 @@ function App() {
     <ConfigProvider
       locale={zhCN}
       theme={{
+        //algorithm: theme.darkAlgorithm,
         token: {
           colorPrimary: themeColor,
         },

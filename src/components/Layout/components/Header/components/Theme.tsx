@@ -1,7 +1,7 @@
 /*
 主题
 */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Drawer, Radio, Space, Switch } from "antd";
 import { SettingOutlined } from "@ant-design/icons";
 import { useThemeColor } from "@/store";
@@ -9,6 +9,7 @@ import styles from "./theme.module.less";
 const Theme = () => {
   const [open, setOpen] = useState(false);
   const [values, setValues] = useState<number>(1);
+  useEffect(() => {}, []);
   const showDrawer = () => {
     setOpen(true);
   };
@@ -62,15 +63,24 @@ const Theme = () => {
     useThemeColor.setState({ themeColor: e.color });
   };
   const handelManyTabs = (checked: boolean) => {};
+  /* 暗黑模式 */
+  const handelTheme = (checked: boolean) => {
+    // theme === 'default' ? 'dark' : 'default'
+    console.log(checked, "我现在是" + checked);
+  };
   return (
     <>
       <SettingOutlined onClick={showDrawer} style={{ fontSize: 19, marginRight: 16 }} />
-      <Drawer title="XXXX" placement="right" closable={false} onClose={onClose} open={open}>
+      <Drawer title="设置" placement="right" closable={false} onClose={onClose} open={open}>
         <Space>
           <h3>是否展示多Tabs:</h3>
           <Switch onChange={handelManyTabs} />
         </Space>
         <div>=============</div>
+        <Space>
+          <h3>暗黑模式</h3>
+          <Switch onChange={handelTheme} />
+        </Space>
         <Space>
           <h3>主色:</h3>
           {RadioColor &&
