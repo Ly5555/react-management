@@ -2,7 +2,7 @@
  * @Author: liuyongqing
  * @Date: 2023-07-11 19:19:04
  * @LastEditors: liuyongqing
- * @LastEditTime: 2023-11-02 20:46:15
+ * @LastEditTime: 2023-11-14 20:23:33
  */
 import React, { Children, useCallback, useEffect, useState } from "react";
 import { Son } from "./components";
@@ -36,7 +36,6 @@ const Home = () => {
       const { data } = (await request({ url: optionUrl })) || [];
       const options = data.map((item: any) => ({ label: item.name, value: item.id }));
       setOptions(options);
-      console.log(data);
     };
     fetchData().catch(console.error);
   }, []);

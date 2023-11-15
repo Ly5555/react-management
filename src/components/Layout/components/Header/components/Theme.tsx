@@ -9,6 +9,7 @@ import styles from "./theme.module.less";
 const Theme = () => {
   const [open, setOpen] = useState(false);
   const [values, setValues] = useState<number>(1);
+  const [theme, setTheme] = useState("light");
   useEffect(() => {}, []);
   const showDrawer = () => {
     setOpen(true);
@@ -66,7 +67,6 @@ const Theme = () => {
   /* 暗黑模式 */
   const handelTheme = (checked: boolean) => {
     // theme === 'default' ? 'dark' : 'default'
-    console.log(checked, "我现在是" + checked);
   };
   return (
     <>

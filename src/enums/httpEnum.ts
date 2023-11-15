@@ -1,3 +1,9 @@
+/*
+ * @Author: liuyongqing
+ * @Date: 2023-09-25 20:14:16
+ * @LastEditors: liuyongqing 
+ * @LastEditTime: 2023-11-13 22:05:44
+ */
 // * 请求枚举配置
 /**
  * @description：请求配置
@@ -34,3 +40,6 @@ export enum ContentTypeEnum {
 	// form-data 上传
 	FORM_DATA = "multipart/form-data;charset=UTF-8"
 }
+
+
+
