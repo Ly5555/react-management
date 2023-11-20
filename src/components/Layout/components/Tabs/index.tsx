@@ -2,7 +2,7 @@
  * @Author: liuyongqing
  * @Date: 2023-07-06 20:26:58
  * @LastEditors: liuyongqing
- * @LastEditTime: 2023-11-15 21:54:59
+ * @LastEditTime: 2023-11-20 20:54:29
  */
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { Dropdown, MenuProps, Tabs, TabsProps } from "antd";
@@ -19,6 +19,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useTabLists } from "@/store";
 import { routerArray } from "@/routers/index";
 import { searchRoute } from "@/utils/util";
+import { DraggableTab } from "./components";
 import { HOME_URL } from "@/config/config";
 import styles from "./index.module.less";
 
@@ -30,11 +31,12 @@ enum MultiTabOperation {
   CLOSELEFT = "关闭左侧",
   CLOSERIGHT = "关闭右测",
 }
+
 const LayoutTabs = () => {
   const { pathname } = useLocation();
+  const { tabList } = useTabLists();
   const useNavigateTo = useNavigate();
   const [activeKey, setActiveKey] = useState<string>(pathname);
-  const { tabList } = useTabLists();
 
   useEffect(() => {
     addTabs();
@@ -99,6 +101,7 @@ const LayoutTabs = () => {
       })
       .filter((item) => item.key);
   }, [tabList]);
+
   const handelClickTabs = (path: string) => {
     useNavigateTo(path);
   };
@@ -154,14 +157,10 @@ const LayoutTabs = () => {
         return closeAllTabs();
     }
   };
-  // 渲染TabBar
-  const renderTabBar: TabsProps["renderTabBar"] = (props, DefaultTabBar) => {
-    return <DefaultTabBar {...props}></DefaultTabBar>;
-  };
 
   return (
     <div className={styles.tabs_box}>
-      <Tabs
+      <DraggableTab
         hideAdd
         animated
         onChange={handelClickTabs}
@@ -170,7 +169,6 @@ const LayoutTabs = () => {
         type="editable-card"
         onEdit={deleteTabs}
         items={newTabsList}
-        renderTabBar={renderTabBar}
       />
     </div>
   );
