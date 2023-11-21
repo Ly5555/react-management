@@ -1,10 +1,15 @@
+/*
+ * @Author: liuyongqing
+ * @Date: 2023-11-16 22:28:43
+ * @LastEditors: liuyongqing
+ * @LastEditTime: 2023-11-21 21:45:54
+ */
 import React from "react";
 import { Avatar, Dropdown, Space } from "antd";
 import type { MenuProps } from "antd";
-import { useNavigate } from "react-router-dom";
-import { DownOutlined, UserOutlined } from "@ant-design/icons";
+import { UserOutlined } from "@ant-design/icons";
+import { LogOutModal } from "./index";
 const AvatarIcon = () => {
-  const useNavigateTo = useNavigate();
   const items: MenuProps["items"] = [
     {
       key: "1",
@@ -25,18 +30,15 @@ const AvatarIcon = () => {
     {
       key: "4",
       icon: <UserOutlined />,
-      label: <span className="dropdown-item" onClick={() => useNavigateTo("/login")}>退出登录</span>,
+      label: <LogOutModal />,
     },
   ];
   return (
     <>
       <Dropdown menu={{ items }} arrow={{ pointAtCenter: true }}>
-
         <Space>
           <Avatar icon={<UserOutlined />}></Avatar>
-          <a onClick={(e) => e.preventDefault()}>
-            Hooks
-          </a>
+          <a onClick={(e) => e.preventDefault()}>Hooks</a>
         </Space>
       </Dropdown>
     </>

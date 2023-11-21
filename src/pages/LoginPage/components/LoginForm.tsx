@@ -2,15 +2,14 @@
  * @Author: liuyongqing
  * @Date: 2023-07-25 21:03:23
  * @LastEditors: liuyongqing
- * @LastEditTime: 2023-09-19 11:36:11
+ * @LastEditTime: 2023-11-21 20:47:06
  */
 import React, { useState } from "react";
 import md5 from "js-md5";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input, Space, message } from "antd";
 import { useNavigate } from "react-router-dom";
-// import { tokenAtom } from "@/store/store";
-import { useTabLists } from "@/store";
+import { useTabLists, useToken } from "@/store";
 import request from "@/utils/request/request";
 import { HOME_URL } from "@/config/config";
 const LoginForm = () => {
@@ -22,13 +21,12 @@ const LoginForm = () => {
     try {
       setLoading(true);
       const values = await form.validateFields();
-      console.log(values);
       const { data } = await request({
         url: "https://www.fastmock.site/mock/302854084413bb6592dc4c53c7f85991/admin/login",
         method: "post",
         data: { ...values, password: md5(values.password) },
       });
-      // setTokenAtom(data?.access_token);
+      useToken.setState({ token: data.access_token });
       useTabLists.setState({ tabList: [] });
       navigaiteTo(HOME_URL);
     } catch (error) {

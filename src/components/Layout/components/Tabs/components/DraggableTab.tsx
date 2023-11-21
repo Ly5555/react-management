@@ -2,7 +2,7 @@
  * @Author: liuyongqing
  * @Date: 2023-11-17 22:15:44
  * @LastEditors: liuyongqing
- * @LastEditTime: 2023-11-20 21:14:29
+ * @LastEditTime: 2023-11-21 20:24:49
  */
 import React, { useEffect, useState } from "react";
 import type { DragEndEvent } from "@dnd-kit/core";
@@ -38,7 +38,6 @@ const DraggableTab = (props: TabsProps) => {
   const sensor = useSensor(PointerSensor, { activationConstraint: { distance: 10 } });
   const { items } = props;
   const [tabItem, setTabItems] = useState(items || []);
-  console.log(props);
 
   useEffect(() => {
     setTabItems(props.items || []);

@@ -2,7 +2,7 @@
  * @Author: liuyongqing
  * @Date: 2023-07-06 20:26:58
  * @LastEditors: liuyongqing
- * @LastEditTime: 2023-11-20 20:54:29
+ * @LastEditTime: 2023-11-21 20:24:35
  */
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { Dropdown, MenuProps, Tabs, TabsProps } from "antd";
@@ -143,7 +143,6 @@ const LayoutTabs = () => {
   };
   //删除点击
   const handelmenuClick = (e: any, item: any) => {
-    console.log(item, "128");
     const { key, domEvent } = e || {};
     domEvent.stopPropagation();
     switch (key) {

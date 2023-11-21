@@ -2,9 +2,11 @@ import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { showFullScreenLoading, tryHideFullScreenLoading } from "@/utils/request/serviceLoading";
 import { ResultEnum } from "@/enums/httpEnum";
 import abortController from './abortController';
-import { message } from 'antd';
+
+
 // 请求拦截器 引入加载圈
 export const baseURL = process.env.NODE_ENV; //服务
+
 axios.defaults.baseURL = baseURL;
 const config = {
   // 默认地址请求地址，可在 .env 开头文件中修改
@@ -14,9 +16,11 @@ const config = {
   // 跨域时候允许携带凭证
   withCredentials: true
 };
+
+
+
 // 创建axios实例
 let instance = axios.create(config);
-
 
 
 /**
@@ -27,15 +31,21 @@ instance.interceptors.request.use(
   (config: any) => {
     abortController.addPending(config);
     config?.loading && showFullScreenLoading();
+
+
     return { ...config, headers: { ...config.headers, "x-access-token": 1 } };
   },
   (error: AxiosError) => {
-    console.log(error, "333");
+
     return Promise.reject(error)
   }
 );
 
-// 响应拦截器
+/**
+   * @description 请求拦截器
+   * 客户端发送请求 -> [请求拦截器] -> 服务器
+   * token校验(JWT) : 接受服务器返回的token,存储到store/本地储存当中
+   */
 instance.interceptors.response.use(
   // 请求成功
   (response: AxiosResponse) => {
@@ -44,7 +54,6 @@ instance.interceptors.response.use(
     tryHideFullScreenLoading();
 
     if (data.code == ResultEnum.OVERDUE) {
-      // store.dispatch(setToken(""));
       // message.error(data.msg);
       window.location.hash = "/login";
       return Promise.reject(data);
@@ -122,6 +131,7 @@ export type ResponseData<T> = {
  * @returns instance 返回实例
  */
 const request = async (options: any) => {
+
   const { url, method = "get", data = {}, params = {}, ...restOptions } = options;
   try {
     return instance.request({

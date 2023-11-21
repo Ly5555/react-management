@@ -2,7 +2,7 @@
  * @Author: liuyongqing
  * @Date: 2023-09-06 16:13:55
  * @LastEditors: liuyongqing
- * @LastEditTime: 2023-11-17 22:10:30
+ * @LastEditTime: 2023-11-21 20:25:20
  */
 import { create } from "zustand";
 import { TabLists, IsExpand } from "./type";
@@ -22,4 +22,8 @@ const useBreadcrumb = create<any>()(() => ({
 const useThemeColor = create(() => ({
   themeColor: "#1677FF",
 }));
-export { useTabLists, useIsExpand, useBreadcrumb, useThemeColor };
+// token
+const useToken = create(() => ({
+  token: "",
+}));
+export { useTabLists, useIsExpand, useBreadcrumb, useThemeColor, useToken };
