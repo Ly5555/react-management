@@ -7,7 +7,7 @@
 import React from "react";
 import { Breadcrumb } from "antd";
 import { useLocation } from "react-router-dom";
-import { useBreadcrumb } from "@/store";
+import { useBreadcrumb } from "@/stores";
 const BreadcrumbNav = () => {
   const { pathname } = useLocation();
   const { breadcrumbList } = useBreadcrumb();

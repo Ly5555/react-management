@@ -6,16 +6,17 @@
  */
 import React from "react";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
-import { useIsExpand } from "@/store";
+import { useGlobalStore } from "@/stores";
+
 const OpenExand = () => {
-  const { IsExpand } = useIsExpand();
+  const { collapsed } = useGlobalStore();
   return (
     <div
       className="collapsed"
       onClick={() => {
-        useIsExpand.setState({ IsExpand: !IsExpand });
+        useGlobalStore.setState({ collapsed: !collapsed });
       }}>
-      {IsExpand ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+      {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
     </div>
   );
 };

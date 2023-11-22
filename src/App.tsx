@@ -7,7 +7,7 @@
 import React from "react";
 import { ConfigProvider, theme } from "antd";
 import { BrowserRouter } from "react-router-dom";
-import { useThemeColor } from "@/store";
+import { useThemeColor } from "@/stores";
 import AuthRouter from "@/components/AuthRouter";
 import Router from "@/routers/index";
 import zhCN from "antd/locale/zh_CN";

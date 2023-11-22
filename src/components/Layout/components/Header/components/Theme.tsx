@@ -4,7 +4,7 @@
 import React, { useEffect, useState } from "react";
 import { Drawer, Radio, Space, Switch } from "antd";
 import { SettingOutlined } from "@ant-design/icons";
-import { useThemeColor } from "@/store";
+import { useThemeColor } from "@/stores";
 import styles from "./theme.module.less";
 const Theme = () => {
   const [open, setOpen] = useState(false);

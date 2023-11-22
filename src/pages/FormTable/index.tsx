@@ -8,7 +8,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Col, Form, Input, Row, Select, Space, Table } from "antd";
 import { BatchRejectionModal } from "./components/index";
 import { DownOutlined, UpOutlined } from "@ant-design/icons";
-import request from "@/utils/request/request";
+import request from "@/utils/request";
 const SearchForm = () => {
   const [expand, setExpand] = useState(false);
   const [form] = Form.useForm();

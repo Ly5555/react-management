@@ -16,7 +16,7 @@ import {
   RedoOutlined,
 } from "@ant-design/icons";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useTabLists } from "@/store";
+import { useTabLists } from "@/stores";
 import { routerArray } from "@/routers/index";
 import { searchRoute } from "@/utils/util";
 import { DraggableTab } from "./components";

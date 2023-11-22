@@ -5,7 +5,7 @@
  * @LastEditTime: 2023-10-08 21:13:34
  */
 import React, { useEffect, useState, useRef } from "react";
-import request from "@/utils/request/request";
+import request from "@/utils/request";
 import styles from "./index.module.less";
 
 const DataScreen = () => {

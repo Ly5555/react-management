@@ -9,7 +9,7 @@ import { Son } from "./components";
 import Grandp from "./components/Grandpa";
 import { Button, Checkbox, Divider } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
-import request from "@/utils/request/request";
+import request from "@/utils/request";
 import welcome from "@/assets/images/welcome.png";
 import { useRequest } from "ahooks";
 import styles from "./index.mouule.less";

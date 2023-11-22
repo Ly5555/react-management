@@ -1,18 +1,18 @@
 /*
  * @Author: liuyongqing
  * @Date: 2023-07-24 21:31:32
- * @LastEditors: liuyongqing
- * @LastEditTime: 2023-11-14 21:37:18
+ * @LastEditors: liuyongqing 
+ * @LastEditTime: 2023-11-22 21:33:26
  */
 import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
-import { Button, Layout, Menu, theme } from "antd";
+import { Button, Layout } from "antd";
 import { LayoutMenu, LayoutTabs, LayoutHeader } from "./components";
-import { useIsExpand } from "@/store";
+import { useGlobalStore } from "@/stores";
 import styles from "./index.module.less";
 const LayoutIndex = () => {
   const { Content, Footer, Sider } = Layout;
-  const { IsExpand } = useIsExpand();
+  const { collapsed } = useGlobalStore();
   useEffect(() => {
     listeningWindow();
   }, []);
@@ -21,15 +21,15 @@ const LayoutIndex = () => {
     window.onresize = () => {
       return (() => {
         let screenWidth = document.body.clientWidth;
-        if (!IsExpand && screenWidth < 1200) useIsExpand.setState({ IsExpand: false });
-        if (!IsExpand && screenWidth > 1200) useIsExpand.setState({ IsExpand: true });
+        if (!collapsed && screenWidth < 1200) useGlobalStore.setState({ collapsed: true });
+        if (!collapsed && screenWidth > 1200) useGlobalStore.setState({ collapsed: false });
       })();
     };
   };
 
   return (
     <Layout className={styles.container}>
-      <Sider trigger={null} collapsible collapsed={!IsExpand}>
+      <Sider trigger={null} collapsible collapsed={collapsed}>
         <LayoutMenu />
       </Sider>
       <Layout>

@@ -2,6 +2,7 @@ import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { showFullScreenLoading, tryHideFullScreenLoading } from "@/utils/request/serviceLoading";
 import { ResultEnum } from "@/enums/httpEnum";
 import abortController from './abortController';
+import { useGlobalStore } from '@/stores';
 
 
 // 请求拦截器 引入加载圈
@@ -22,21 +23,20 @@ const config = {
 // 创建axios实例
 let instance = axios.create(config);
 
-
 /**
  * 请求拦截器
  * 每次请求前，如果存在token则在请求头中携带token
  */
+
+
 instance.interceptors.request.use(
-  (config: any) => {
+  (config: any,) => {
     abortController.addPending(config);
     config?.loading && showFullScreenLoading();
-
-
-    return { ...config, headers: { ...config.headers, "x-access-token": 1 } };
+    const { token } = useGlobalStore.getState();
+    return { ...config, headers: { ...config.headers, "x-access-token": token } };
   },
   (error: AxiosError) => {
-
     return Promise.reject(error)
   }
 );
@@ -133,6 +133,7 @@ export type ResponseData<T> = {
 const request = async (options: any) => {
 
   const { url, method = "get", data = {}, params = {}, ...restOptions } = options;
+
   try {
     return instance.request({
       url,
@@ -145,5 +146,7 @@ const request = async (options: any) => {
   }
 
 };
+
+
 
 export default request;

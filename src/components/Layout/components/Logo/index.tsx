@@ -2,18 +2,18 @@
  * @Author: liuyongqing
  * @Date: 2023-04-19 21:17:42
  * @LastEditors: liuyongqing
- * @LastEditTime: 2023-10-24 21:31:58
+ * @LastEditTime: 2023-11-22 21:14:48
  */
 import React from "react";
 import logo from "@/assets/logo.svg";
-import { useIsExpand } from "@/store";
+import { useGlobalStore } from "@/stores";
 import styles from "./logo.module.less";
 const LayoutLogo = () => {
-  const { IsExpand } = useIsExpand();
+  const { collapsed } = useGlobalStore();
   return (
     <div className={styles.logoBox}>
       <img src={logo} alt="没有找到照片" className={styles.logoImg} />
-      {IsExpand && <span className={styles.logoTitle}>管理后台</span>}
+      {!collapsed && <span className={styles.logoTitle}>管理后台</span>}
     </div>
   );
 };

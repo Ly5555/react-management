@@ -2,20 +2,21 @@
  * @Author: liuyongqing
  * @Date: 2023-07-25 21:03:23
  * @LastEditors: liuyongqing
- * @LastEditTime: 2023-11-21 20:47:06
+ * @LastEditTime: 2023-11-22 21:07:14
  */
 import React, { useState } from "react";
 import md5 from "js-md5";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input, Space, message } from "antd";
 import { useNavigate } from "react-router-dom";
-import { useTabLists, useToken } from "@/store";
-import request from "@/utils/request/request";
+import { useTabLists, useGlobalStore } from "@/stores";
+import request from "@/utils/request";
 import { HOME_URL } from "@/config/config";
 const LoginForm = () => {
   const navigaiteTo = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
   const [form] = Form.useForm();
+
   // 提交
   const handleOnFinish = async () => {
     try {
@@ -26,7 +27,7 @@ const LoginForm = () => {
         method: "post",
         data: { ...values, password: md5(values.password) },
       });
-      useToken.setState({ token: data.access_token });
+      useGlobalStore.setState({ token: data.access_token });
       useTabLists.setState({ tabList: [] });
       navigaiteTo(HOME_URL);
     } catch (error) {

@@ -2,14 +2,14 @@
  * @Author: liuyongqing
  * @Date: 2023-07-24 21:31:32
  * @LastEditors: liuyongqing
- * @LastEditTime: 2023-10-24 21:25:58
+ * @LastEditTime: 2023-11-22 21:36:23
  */
 import React, { useState, useEffect } from "react";
 import { Menu } from "antd";
 import { useNavigate, useLocation } from "react-router-dom";
-import request from "@/utils/request/request";
+import request from "@/utils/request";
 import { searchRoute, getOpenKeys, findAllBreadcrumb } from "@/utils/util";
-import { useIsExpand, useBreadcrumb } from "@/store";
+import { useGlobalStore, useBreadcrumb } from "@/stores";
 import type { MenuProps } from "antd";
 import * as Icons from "@ant-design/icons";
 import { LayoutLogo } from "../index";
@@ -22,11 +22,11 @@ const LayoutMenu = () => {
   const [menuList, setmenuList] = useState<MenuItem[]>([]);
   const [openKeys, setOpenKeys] = useState<string[]>([]);
   const [selectedKeys, setSelectedKeys] = useState<string[]>([pathname]);
-  const { IsExpand } = useIsExpand();
+  const { collapsed } = useGlobalStore();
 
   useEffect(() => {
     setSelectedKeys([pathname]);
-    IsExpand ? null : setOpenKeys(getOpenKeys(pathname));
+    collapsed ? null : setOpenKeys(getOpenKeys(pathname));
   }, [pathname]);
   useEffect(() => {
     const fetchMenu = async () => {

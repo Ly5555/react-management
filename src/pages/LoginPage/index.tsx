@@ -1,8 +1,13 @@
+/*
+ * @Author: liuyongqing
+ * @Date: 2023-11-16 22:28:43
+ * @LastEditors: liuyongqing
+ * @LastEditTime: 2023-11-22 20:13:15
+ */
 //登陆页
 import React from "react";
 import { LoginForm } from "./components";
 import styles from "./css/index.module.less";
-import BGIMG from "@/assets/login_bg.png";
 const LoginPage = () => {
   return (
     <div className={styles.login}>
@@ -15,12 +20,8 @@ const LoginPage = () => {
         </div>
         <div className={styles.right_container}>
           <div className={styles.logo} />
-          <div className={styles.logo_tip} >
-            Welcome back
-          </div>
-          <div className={styles.logo_desc} >
-            Sign in to continue
-          </div>
+          <div className={styles.logo_tip}>Welcome back</div>
+          <div className={styles.logo_desc}>Sign in to continue</div>
           <LoginForm />
         </div>
       </div>
