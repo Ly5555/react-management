@@ -22,7 +22,11 @@ const config = {
 
 // 创建axios实例
 let instance = axios.create(config);
+// 定义一个flag 判断是否刷新Token中
 
+let refreshTokenFlag = false;
+// 保存需要重新发起请求的队列
+let retryRequests = [];
 /**
  * 请求拦截器
  * 每次请求前，如果存在token则在请求头中携带token
@@ -42,26 +46,26 @@ instance.interceptors.request.use(
 );
 
 /**
-   * @description 请求拦截器
-   * 客户端发送请求 -> [请求拦截器] -> 服务器
-   * token校验(JWT) : 接受服务器返回的token,存储到store/本地储存当中
-   */
+ * @description 响应拦截器
+ *  服务器换返回信息 -> [拦截统一处理] -> 客户端JS获取到信息
+ */
 instance.interceptors.response.use(
   // 请求成功
   (response: AxiosResponse) => {
     const { data, config } = response;
+    console.log(response, "56");
+
     abortController.removePending(config);
     tryHideFullScreenLoading();
 
-    if (data.code == ResultEnum.OVERDUE) {
-      // message.error(data.msg);
-      window.location.hash = "/login";
-      return Promise.reject(data);
-    }
-    if (data.code && data.code !== ResultEnum.SUCCESS) {
-      // message.error(data.msg);
-      return Promise.reject(data);
-    }
+    // if (data.code == ResultEnum.OVERDUE) {
+    //   window.location.hash = "/login";
+    //   return Promise.reject(data);
+    // }
+    // if (data.code && data.code !== ResultEnum.SUCCESS) {
+    //   // message.error(data.msg);
+    //   return Promise.reject(data);
+    // }
     return data;
   },
   // 请求失败

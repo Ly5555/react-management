@@ -2,7 +2,7 @@
  * @Author: liuyongqing
  * @Date: 2023-08-29 21:41:58
  * @LastEditors: liuyongqing
- * @LastEditTime: 2023-09-05 20:07:18
+ * @LastEditTime: 2023-11-23 21:43:30
  */
 import React, { lazy } from "react";
 import lazyLoad from "@/components/lazyLoad";
@@ -22,35 +22,19 @@ const NotFound = lazyLoad(lazy(() => import("@/components/NotFound/index")));
 export const routerArray: any = [
   {
     path: "/home",
-    meta: { title: "首页" },
+    meta: { requiresAuth: true, title: "首页" },
     element: Home,
   },
   {
     path: "/CarouselChart",
-    meta: { title: "轮播图" },
+    meta: { requiresAuth: true, title: "轮播图" },
     element: CarouselChart,
   },
   {
     path: "/custom-hooks",
-    meta: { title: "hooks&自定义" },
+    meta: { requiresAuth: true, title: "hooks&自定义" },
     element: CustomHooks,
   },
-  // {
-  //   path: "/demo2",
-  //   meta: { title: "测试22" },
-  //   children: [
-  //     {
-  //       path: "/demo2/lear",
-  //       meta: { requiresAuth: true, title: "js学习" },
-  //       element: LazyDemo,
-  //     },
-  //     {
-  //       path: "/demo2/TypeScripct",
-  //       meta: { requiresAuth: true, title: "TypeScripct" },
-  //       element: TypeScripct,
-  //     },
-  //   ],
-  // },
   {
     path: "/formtable",
     meta: { requiresAuth: true, title: "表单Table" },
