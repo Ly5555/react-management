@@ -2,7 +2,7 @@
  * @Author: liuyongqing
  * @Date: 2023-07-24 21:31:32
  * @LastEditors: liuyongqing
- * @LastEditTime: 2023-11-22 21:36:23
+ * @LastEditTime: 2023-12-07 22:30:58
  */
 import React, { useState, useEffect } from "react";
 import { Menu } from "antd";
@@ -27,7 +27,7 @@ const LayoutMenu = () => {
   useEffect(() => {
     setSelectedKeys([pathname]);
     collapsed ? null : setOpenKeys(getOpenKeys(pathname));
-  }, [pathname]);
+  }, [pathname, collapsed]);
   useEffect(() => {
     const fetchMenu = async () => {
       try {
@@ -43,6 +43,7 @@ const LayoutMenu = () => {
     };
     fetchMenu();
   }, []);
+
   // 动态Icon处理
   const customIcons: { [key: string]: any } = Icons;
   const addIcon = (name: string) => {
@@ -82,6 +83,8 @@ const LayoutMenu = () => {
   const onOpenChange = (openKeys: string[]) => {
     if (openKeys?.length === 0 || openKeys.length === 1) return setOpenKeys(openKeys);
     const latestOpenKey = openKeys[openKeys.length - 1];
+    console.log(latestOpenKey, latestOpenKey.includes(openKeys[0]), 88);
+
     if (latestOpenKey.includes(openKeys[0])) return setOpenKeys(openKeys);
     setOpenKeys([latestOpenKey]);
   };

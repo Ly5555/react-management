@@ -2,7 +2,7 @@
  * @Author: liuyongqing
  * @Date: 2023-09-06 19:51:49
  * @LastEditors: liuyongqing
- * @LastEditTime: 2023-11-23 21:33:54
+ * @LastEditTime: 2023-12-07 21:40:23
  */
 import React from "react";
 import { searchRoute } from "@/utils/util";
@@ -17,7 +17,6 @@ const AuthRouter = (props: { children: JSX.Element }) => {
   abortController.removeAllPending();
   if (!route.meta?.requiresAuth) return props.children;
   const { token } = useGlobalStore.getState();
-  console.log(token, "20");
 
   if (!token) return <Navigate to={"/login"} replace />;
   return props.children;

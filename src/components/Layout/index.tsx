@@ -1,8 +1,8 @@
 /*
  * @Author: liuyongqing
  * @Date: 2023-07-24 21:31:32
- * @LastEditors: liuyongqing 
- * @LastEditTime: 2023-11-22 21:33:26
+ * @LastEditors: liuyongqing
+ * @LastEditTime: 2023-12-07 22:18:18
  */
 import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
@@ -29,7 +29,7 @@ const LayoutIndex = () => {
 
   return (
     <Layout className={styles.container}>
-      <Sider trigger={null} collapsible collapsed={collapsed}>
+      <Sider id="drive_layout" trigger={null} collapsible collapsed={collapsed}>
         <LayoutMenu />
       </Sider>
       <Layout>

@@ -69,7 +69,7 @@ const Theme = () => {
     // theme === 'default' ? 'dark' : 'default'
   };
   return (
-    <>
+    <div id="driverjs_theme">
       <SettingOutlined onClick={showDrawer} style={{ fontSize: 19, marginRight: 16 }} />
       <Drawer title="设置" placement="right" closable={false} onClose={onClose} open={open}>
         <Space>
@@ -109,7 +109,7 @@ const Theme = () => {
             })}
         </Space>
       </Drawer>
-    </>
+    </div>
   );
 };
 

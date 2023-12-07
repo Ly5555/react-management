@@ -16,11 +16,12 @@ module.exports = {
     clean: true, // webpack4需要配置clean-webpack-plugin来删除dist文件,webpack5内置了
     publicPath: "/", // 打包后文件的公共前缀路径
   },
+  //   // exclude: path.resolve(__dirname, 'node_modules'),
   module: {
     rules: [
       {
         test: /\.css$/, //匹配所有的 ccs 文件
-        include: [path.resolve(__dirname, "../src")],
+        include: [path.resolve(__dirname, "../src"), path.resolve(__dirname, "../node_modules"),],
         use: [isDev ? "style-loader" : MiniCssExtractPlugin.loader, "css-loader", "postcss-loader"],
       },
       {
@@ -84,11 +85,12 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: [".js", ".tsx", ".ts", ".css"],
+    extensions: [".js", ".tsx", ".ts",],
     alias: {
       "@": path.resolve(__dirname, "../src"),
     },
-    modules: [path.resolve(__dirname, "../node_modules")],
+    // 如果用的是pnpm 就暂时不要配置这个，会有幽灵依赖的问题，访问不到很多模块。
+    // modules: [path.resolve(__dirname, "../node_modules")],
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -101,7 +103,7 @@ module.exports = {
     new webpack.DefinePlugin({
       "process.env.BASE_ENV": JSON.stringify(process.env.BASE_ENV),
     }),
-    new WebpackBar()
+    new WebpackBar(),
   ],
   cache: {
     type: "filesystem", // 使用文件缓存

@@ -2,7 +2,7 @@
  * @Author: liuyongqing
  * @Date: 2023-07-06 20:26:58
  * @LastEditors: liuyongqing
- * @LastEditTime: 2023-11-21 20:24:35
+ * @LastEditTime: 2023-12-07 21:48:21
  */
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { Dropdown, MenuProps, Tabs, TabsProps } from "antd";
@@ -101,7 +101,6 @@ const LayoutTabs = () => {
       })
       .filter((item) => item.key);
   }, [tabList]);
-
   const handelClickTabs = (path: string) => {
     useNavigateTo(path);
   };

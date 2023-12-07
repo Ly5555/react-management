@@ -2,7 +2,7 @@
  * @Author: liuyongqing
  * @Date: 2023-08-29 21:41:58
  * @LastEditors: liuyongqing
- * @LastEditTime: 2023-11-23 21:43:30
+ * @LastEditTime: 2023-12-07 22:30:14
  */
 import React, { lazy } from "react";
 import lazyLoad from "@/components/lazyLoad";
@@ -31,9 +31,14 @@ export const routerArray: any = [
     element: CarouselChart,
   },
   {
-    path: "/custom-hooks",
-    meta: { requiresAuth: true, title: "hooks&自定义" },
-    element: CustomHooks,
+    meta: { requiresAuth: true, title: "轮播图" },
+    children: [
+      {
+        path: "/abc/custom-hooks",
+        meta: { requiresAuth: true, title: "hooks&自定义" },
+        element: CustomHooks,
+      },
+    ],
   },
   {
     path: "/formtable",

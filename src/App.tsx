@@ -2,10 +2,10 @@
  * @Author: liuyongqing
  * @Date: 2023-08-29 21:03:53
  * @LastEditors: liuyongqing
- * @LastEditTime: 2023-11-21 19:59:58
+ * @LastEditTime: 2023-12-07 22:12:36
  */
 import React from "react";
-import { ConfigProvider, theme } from "antd";
+import { ConfigProvider } from "antd";
 import { BrowserRouter } from "react-router-dom";
 import { useThemeColor } from "@/stores";
 import AuthRouter from "@/components/AuthRouter";

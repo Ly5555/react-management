@@ -53,7 +53,6 @@ instance.interceptors.response.use(
   // 请求成功
   (response: AxiosResponse) => {
     const { data, config } = response;
-    console.log(response, "56");
 
     abortController.removePending(config);
     tryHideFullScreenLoading();

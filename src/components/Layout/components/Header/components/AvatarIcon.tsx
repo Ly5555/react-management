@@ -2,7 +2,7 @@
  * @Author: liuyongqing
  * @Date: 2023-11-16 22:28:43
  * @LastEditors: liuyongqing
- * @LastEditTime: 2023-11-21 21:45:54
+ * @LastEditTime: 2023-12-07 21:14:34
  */
 import React from "react";
 import { Avatar, Dropdown, Space } from "antd";
@@ -34,14 +34,14 @@ const AvatarIcon = () => {
     },
   ];
   return (
-    <>
+    <div id="driver_avatar">
       <Dropdown menu={{ items }} arrow={{ pointAtCenter: true }}>
         <Space>
           <Avatar icon={<UserOutlined />}></Avatar>
           <a onClick={(e) => e.preventDefault()}>Hooks</a>
         </Space>
       </Dropdown>
-    </>
+    </div>
   );
 };
 

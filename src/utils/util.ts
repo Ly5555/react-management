@@ -1,3 +1,9 @@
+/*
+ * @Author: liuyongqing
+ * @Date: 2023-11-16 22:28:43
+ * @LastEditors: liuyongqing
+ * @LastEditTime: 2023-12-07 21:54:02
+ */
 import { RouteObject } from "@/routers/type";
 /**
  * @description 递归查询对应的路由
@@ -23,7 +29,8 @@ export const searchRoute = (path: string, routes: RouteObject[] = []): RouteObje
  */
 export const getOpenKeys = (path: string) => {
   const arr: any[] = path.split("/").filter(item => item !== ""); // 使用 filter 过滤掉空字符串
-  const newArr: any[] = arr.map((_, index) => `/${arr.slice(0, index + 1).join("/")}`); // 使用 slice 和 join 优化字符串拼接
+  const newArr: any[] = arr.map((_, index) => `/${arr.slice(0, index + 1).join("/")}`);
+  // 使用 slice 和 join 优化字符串拼接
   return newArr
 };
 /**
