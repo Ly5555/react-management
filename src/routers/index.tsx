@@ -2,7 +2,7 @@
  * @Author: liuyongqing
  * @Date: 2023-08-29 21:41:58
  * @LastEditors: liuyongqing
- * @LastEditTime: 2023-12-07 22:30:14
+ * @LastEditTime: 2023-12-11 20:25:04
  */
 import React, { lazy } from "react";
 import lazyLoad from "@/components/lazyLoad";
@@ -10,10 +10,11 @@ import { Navigate, useRoutes } from "react-router-dom";
 
 // 页面组件
 const LoginPage = lazyLoad(lazy(() => import("@/pages/LoginPage")));
-const LayoutIndex = lazyLoad(lazy(() => import("@/components/Layout")));
+const LayoutIndex = lazyLoad(lazy(() => import("@/layouts")));
 const Home = lazyLoad(lazy(() => import("@/pages/home")));
 const CarouselChart = lazyLoad(lazy(() => import("@/pages/carouselChart")));
-const CustomHooks = lazyLoad(lazy(() => import("@/pages/customHooks")));
+const CustomHooks = lazyLoad(lazy(() => import("@/pages/custom/customHooks")));
+const CustomDetail = lazyLoad(lazy(() => import("@/pages/custom/customDetail")));
 const DataScreen = lazyLoad(lazy(() => import("@/pages/dataScreen")));
 const FormTable = lazyLoad(lazy(() => import("@/pages/FormTable")));
 const NotFound = lazyLoad(lazy(() => import("@/components/NotFound/index")));
@@ -34,9 +35,14 @@ export const routerArray: any = [
     meta: { requiresAuth: true, title: "轮播图" },
     children: [
       {
-        path: "/abc/custom-hooks",
+        path: "/custom/custom-hooks",
         meta: { requiresAuth: true, title: "hooks&自定义" },
         element: CustomHooks,
+      },
+      {
+        path: "/custom/custom-detail",
+        meta: { requiresAuth: true, title: "hooks详情页" },
+        element: CustomDetail,
       },
     ],
   },

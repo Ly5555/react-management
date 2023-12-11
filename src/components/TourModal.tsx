@@ -2,7 +2,7 @@
  * @Author: liuyongqing
  * @Date: 2023-12-04 20:06:47
  * @LastEditors: liuyongqing
- * @LastEditTime: 2023-12-07 21:17:09
+ * @LastEditTime: 2023-12-11 20:13:14
  */
 import React from "react";
 import { Button } from "antd";
@@ -12,6 +12,9 @@ import "driver.js/dist/driver.css";
 const TourModal = () => {
   const driverObj = driver({
     showProgress: true,
+    nextBtnText: "下一步",
+    prevBtnText: "上一步",
+    doneBtnText: "关闭",
     steps: [
       { element: "#drive_layout", popover: { title: "Title", description: "这是菜单" } },
       { element: "#isCollapse", popover: { title: "菜单", description: "菜单展示缩小" } },

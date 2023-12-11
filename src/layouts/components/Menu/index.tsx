@@ -2,7 +2,7 @@
  * @Author: liuyongqing
  * @Date: 2023-07-24 21:31:32
  * @LastEditors: liuyongqing
- * @LastEditTime: 2023-12-07 22:30:58
+ * @LastEditTime: 2023-12-11 20:12:18
  */
 import React, { useState, useEffect } from "react";
 import { Menu } from "antd";
@@ -59,7 +59,7 @@ const LayoutMenu = () => {
   ): MenuItem => {
     return {
       key,
-      icon: icon || null,
+      icon: icon,
       children,
       label,
       type,
@@ -83,7 +83,6 @@ const LayoutMenu = () => {
   const onOpenChange = (openKeys: string[]) => {
     if (openKeys?.length === 0 || openKeys.length === 1) return setOpenKeys(openKeys);
     const latestOpenKey = openKeys[openKeys.length - 1];
-    console.log(latestOpenKey, latestOpenKey.includes(openKeys[0]), 88);
 
     if (latestOpenKey.includes(openKeys[0])) return setOpenKeys(openKeys);
     setOpenKeys([latestOpenKey]);

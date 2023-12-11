@@ -9,5 +9,4 @@ import BreadcrumbNav from "./BreadcrumbNav";
 import Theme from "./Theme";
 import AvatarIcon from "./AvatarIcon";
 import LogOutModal from "./LogOutModal";
-import TourModal from "./TourModal";
-export { CollapseIcon, BreadcrumbNav, Theme, AvatarIcon, LogOutModal, TourModal };
+export { CollapseIcon, BreadcrumbNav, Theme, AvatarIcon, LogOutModal };
