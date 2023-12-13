@@ -2,16 +2,18 @@
  * @Author: liuyongqing
  * @Date: 2023-08-29 21:03:53
  * @LastEditors: liuyongqing
- * @LastEditTime: 2023-12-07 22:12:36
+ * @LastEditTime: 2023-12-13 21:48:47
  */
 import React from "react";
-import { ConfigProvider } from "antd";
+import { ConfigProvider, theme } from "antd";
 import { BrowserRouter } from "react-router-dom";
 import { useThemeColor } from "@/stores";
 import AuthRouter from "@/components/AuthRouter";
 import Router from "@/routers/index";
 import zhCN from "antd/locale/zh_CN";
-import "./styles/reset.less";
+// import "./styles/reset.less";
+
+import "antd/dist/reset.css";
 import "./app.css";
 
 function App() {
@@ -20,7 +22,7 @@ function App() {
     <ConfigProvider
       locale={zhCN}
       theme={{
-        //algorithm: theme.darkAlgorithm,
+        algorithm: theme.darkAlgorithm,
         token: {
           colorPrimary: themeColor,
         },
