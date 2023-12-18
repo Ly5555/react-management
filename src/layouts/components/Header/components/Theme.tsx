@@ -3,13 +3,13 @@
 */
 import React, { useEffect, useState } from "react";
 import { Drawer, Radio, Space, Switch } from "antd";
-import { SettingOutlined } from "@ant-design/icons";
-import { useThemeColor } from "@/stores";
+import Icon, { SettingOutlined } from "@ant-design/icons";
+import { useGlobalStore, useThemeColor } from "@/stores";
 import styles from "./theme.module.less";
 const Theme = () => {
   const [open, setOpen] = useState(false);
   const [values, setValues] = useState<number>(1);
-  const [theme, setTheme] = useState("light");
+  const { darkMode, setDarkMode } = useGlobalStore();
   useEffect(() => {}, []);
   const showDrawer = () => {
     setOpen(true);
@@ -63,10 +63,15 @@ const Theme = () => {
     setValues(e.value);
     useThemeColor.setState({ themeColor: e.color });
   };
-  const handelManyTabs = (checked: boolean) => {};
+
   /* 暗黑模式 */
   const handelTheme = (checked: boolean) => {
-    // theme === 'default' ? 'dark' : 'default'
+    if (checked) {
+      document.body.className = "theme-dark";
+    } else {
+      document.body.className = "theme-primary";
+    }
+    setDarkMode(!darkMode);
   };
   return (
     <div id="driverjs_theme">
@@ -74,7 +79,6 @@ const Theme = () => {
       <Drawer title="设置" placement="right" closable={false} onClose={onClose} open={open}>
         <Space>
           <h3>是否展示多Tabs:</h3>
-          <Switch onChange={handelManyTabs} />
         </Space>
         <div>=============</div>
         <Space>

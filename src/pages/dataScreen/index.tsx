@@ -2,7 +2,7 @@
  * @Author: liuyongqing
  * @Date: 2023-09-25 20:14:16
  * @LastEditors: liuyongqing
- * @LastEditTime: 2023-10-08 21:13:34
+ * @LastEditTime: 2023-12-18 20:46:51
  */
 import React, { useEffect, useState, useRef } from "react";
 import request from "@/utils/request";
@@ -59,6 +59,7 @@ const DataScreen = () => {
       setCurrentId(id);
     }
   };
+  return <>123</>;
   return (
     <div className={styles.dataScreen}>
       <div className={styles.good_left_icon}>

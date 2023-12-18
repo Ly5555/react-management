@@ -2,7 +2,7 @@
  * @Author: liuyongqing
  * @Date: 2023-09-06 16:13:55
  * @LastEditors: liuyongqing
- * @LastEditTime: 2023-11-22 21:15:25
+ * @LastEditTime: 2023-12-18 20:51:54
  */
 import { create } from "zustand";
 import { devtools, persist, createJSONStorage } from "zustand/middleware";
@@ -23,14 +23,14 @@ const useThemeColor = create(() => ({
 // token
 
 interface State {
-  // darkMode: boolean;
+  darkMode: boolean;
   collapsed: boolean;
   // lang: string;
   token: string;
   refreshToken: string;
 }
 interface Action {
-  // setDarkMode: (darkMode: State["darkMode"]) => void;
+  setDarkMode: (darkMode: State["darkMode"]) => void;
   setCollapsed: (collapsed: State["collapsed"]) => void;
   // setLang: (lang: State["lang"]) => void;
   setToken: (lang: State["token"]) => void;
@@ -44,6 +44,11 @@ const useGlobalStore = create<State & Action>()(
           token: "",
           refreshToken: "",
           collapsed: false,
+          darkMode: false,
+          setDarkMode: (darkMode: State["darkMode"]) =>
+            set({
+              darkMode,
+            }),
           setToken: (token: State["token"]) =>
             set({
               token,
