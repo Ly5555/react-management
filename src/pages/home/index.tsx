@@ -2,7 +2,7 @@
  * @Author: liuyongqing
  * @Date: 2023-07-11 19:19:04
  * @LastEditors: liuyongqing
- * @LastEditTime: 2023-11-14 20:23:33
+ * @LastEditTime: 2023-12-19 21:13:22
  */
 import React, { Children, useCallback, useEffect, useState } from "react";
 import { Son } from "./components";
@@ -140,18 +140,5 @@ interface IProps {
   onChange?: (value: string) => void;
   optionsApi: string;
 }
-const NormalSelect = ({ value, onChange, optionsApi, ...rest }: IProps) => {
-  const [options, setOptions] = useState([]);
-  useEffect(() => {
-    const fetchData = async () => {
-      const { data } = (await request({ url: optionsApi })) || [];
-      const options = data.map((item) => ({ label: item.name, value: item.id }));
-      setOptions(options);
-      console.log(data);
-    };
-    fetchData().catch(console.error);
-  }, []);
-  return <Select options={options} value={value} onChange={onChange} {...rest}></Select>;
-};
 
 export default Home;

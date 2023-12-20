@@ -2,15 +2,15 @@
 主题
 */
 import React, { useEffect, useState } from "react";
-import { Drawer, Radio, Space, Switch } from "antd";
-import Icon, { SettingOutlined } from "@ant-design/icons";
+import { Drawer, Space, Switch, Typography } from "antd";
+import { SettingOutlined } from "@ant-design/icons";
 import { useGlobalStore, useThemeColor } from "@/stores";
 import styles from "./theme.module.less";
 const Theme = () => {
   const [open, setOpen] = useState(false);
   const [values, setValues] = useState<number>(1);
   const { darkMode, setDarkMode } = useGlobalStore();
-  useEffect(() => {}, []);
+  const { Title } = Typography;
   const showDrawer = () => {
     setOpen(true);
   };
@@ -74,43 +74,41 @@ const Theme = () => {
     setDarkMode(!darkMode);
   };
   return (
-    <div id="driverjs_theme">
+    <div id="driverjs_theme" className={styles.themeBox}>
       <SettingOutlined onClick={showDrawer} style={{ fontSize: 19, marginRight: 16 }} />
       <Drawer title="设置" placement="right" closable={false} onClose={onClose} open={open}>
-        <Space>
-          <h3>是否展示多Tabs:</h3>
-        </Space>
-        <div>=============</div>
-        <Space>
-          <h3>暗黑模式</h3>
-          <Switch onChange={handelTheme} />
-        </Space>
-        <Space>
-          <h3>主色:</h3>
-          {RadioColor &&
-            RadioColor.map((item, index) => {
-              return (
-                <label
-                  key={index}
-                  onClick={() => handleRadioChange(item)}
-                  className={styles.themeLabel}
-                  style={{
-                    background: item.color,
-                    boxShadow: values === item.value ? `0 0 0 1px #ffffff, 0 0 0 5px ${item.color}` : "",
-                  }}>
-                  <input
-                    type="radio"
-                    name="color"
-                    value={item.color}
+        <Space direction="vertical">
+          <Space>
+            <span className={styles.themeTitle}>暗黑模式</span>
+            <Switch onChange={handelTheme} />
+          </Space>
+          <Space>
+            {/* <h3>主色:</h3>
+            {RadioColor &&
+              RadioColor.map((item, index) => {
+                return (
+                  <label
+                    key={index}
+                    onClick={() => handleRadioChange(item)}
+                    className={styles.themeLabel}
                     style={{
-                      width: 0,
-                      height: 0,
-                      opacity: 0,
-                    }}
-                  />
-                </label>
-              );
-            })}
+                      background: item.color,
+                      boxShadow: values === item.value ? `0 0 0 1px #ffffff, 0 0 0 5px ${item.color}` : "",
+                    }}>
+                    <input
+                      type="radio"
+                      name="color"
+                      value={item.color}
+                      style={{
+                        width: 0,
+                        height: 0,
+                        opacity: 0,
+                      }}
+                    />
+                  </label>
+                );
+              })} */}
+          </Space>
         </Space>
       </Drawer>
     </div>
