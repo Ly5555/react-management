@@ -19,50 +19,23 @@ import {
 import { Form } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
-import { filterDayjs } from "./helper";
+import { ApiAllSelect } from "@/components/Select";
 const { RangePicker } = DatePicker;
 function BasicSearch(props: any) {
   const { list, data, formRef, isLoading, isSearch, children, labelCol, wrapperCol, handleFinish } = props;
   const [form] = Form.useForm();
-  // 抛出外部方法
-  useImperativeHandle(
-    formRef,
-    () =>
-      ({
-        /**
-         * 获取表单值
-         * @param key - 表单唯一值
-         */
-        getFieldValue: (key: string) => {
-          return form.getFieldValue(key);
-        },
-        /** 获取表单全部值 */
-        getFieldsValue: () => {
-          return form.getFieldsValue();
-        },
-        /** 重置表单 */
-        handleReset: () => {
-          form.resetFields();
-        },
-        /** 提交表单  */
-        handleSubmit: () => {
-          form.submit();
-        },
-      } as any),
-  );
-
   /**
    * 提交表单
    * @param values - 表单值
    */
   const onFinish: FormProps["onFinish"] = (values) => {
     if (handleFinish) {
-      // 将dayjs类型转为字符串
-      const params = filterDayjs(values, list);
-      handleFinish?.(params);
+      handleFinish?.(values);
     }
   };
-
+  const onReset = () => {
+    form.resetFields();
+  };
   /**
    * 表单提交失败处理
    * @param errorInfo - 错误信息
@@ -88,25 +61,25 @@ function BasicSearch(props: any) {
             name={item.name}
             labelCol={{ style: { width: item.labelCol } }}
             wrapperCol={{ style: { width: item.wrapperCol } }}
-            rules={item.rules}>
+            rules={item.rules ? item.rules : []}>
             {getComponent(item)}
           </Form.Item>
         ))}
-        <div>
-          {isSearch !== false && (
+        {isSearch !== false && (
+          <div style={{ display: "flex" }}>
             <Form.Item>
-              <Button
-                type="primary"
-                htmlType="submit"
-                className="!mb-5px"
-                loading={isLoading}
-                icon={<SearchOutlined />}>
+              <Button type="primary" htmlType="submit" loading={isLoading} icon={<SearchOutlined />}>
                 {"搜索"}
               </Button>
             </Form.Item>
-          )}
-          {children}
-        </div>
+            <Form.Item>
+              <Button onClick={onReset} htmlType="submit">
+                {"重置"}
+              </Button>
+            </Form.Item>
+            {children}
+          </div>
+        )}
       </Form>
     </div>
   );
@@ -115,68 +88,35 @@ export default memo(BasicSearch);
 const componentMap = new Map();
 
 // antd组件注入
+componentMap.set("Input", Input);
 componentMap.set("RangePicker", BasicRangePicker);
-
+componentMap.set("ApiAllSelect", ApiAllSelect);
 export function getComponent(item: any) {
-  const { component, componentProps } = item;
+  const { component, componentProps, params } = item;
+  console.log(componentProps, params, "96");
+
   const Comp = componentMap.get(component);
+
   // 获取组件失败直接返回空标签
   if (!Comp) return <></>;
   return (
     <>
-      {/* {...initCompProps(component)}  */}
-      <Comp {...componentProps} />
+      {/* {...initCompProps(component)} */}
+      {params ? <Comp {...params} {...componentProps} /> : <Comp {...componentProps} />}
       {item.unit && <span>{item.unit}</span>}
     </>
   );
 }
-// export function initCompProps(component: any): any {
-//   console.log(component, "148");
 
-//   switch (component) {
-//     // 下拉框
-//     case "Select":
-//       return {
-//         allowClear: true,
-//         placeholder: "public.inputPleaseSelect",
-//       };
-
-//     // 数字框
-//     case "InputNumber":
-//       return {
-//         placeholder: "public.inputPleaseEnter",
-//       };
-
-//     // 勾选框
-//     case "Checkbox":
-//       return {};
-
-//     // 勾选框组
-//     case "CheckboxGroup":
-//       return {};
-//     // 日期区间
-//     case "RangePicker":
-//       return {
-//         // placeholder: ["开始", "结束"],
-//         // format: [],
-//       };
-//     default:
-//       return {
-//         allowClear: true,
-//         placeholder: "public.inputPleaseEnter",
-//       };
-//   }
-// }
 function BasicRangePicker(props: any) {
   const { value } = props;
-
   const params = { ...props };
-
   // 如果值不是dayjs类型则进行转换
   if (value) params.value = stringRang2DayjsRang(value);
 
   return <RangePicker {...params} />;
 }
+
 export function stringRang2DayjsRang(value: any) {
   if (!value) return undefined;
   // 当第一个数据都不为Dayjs

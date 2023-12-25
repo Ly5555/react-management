@@ -1,72 +1,53 @@
 /*
  * @Author: liuyongqing
- * @Date: 2023-07-11 19:19:04
+ * @Date: 2023-12-21 21:30:48
  * @LastEditors: liuyongqing
- * @LastEditTime: 2023-12-25 21:43:04
+ * @LastEditTime: 2023-12-25 22:04:44
  */
-import React, { Children, useCallback, useEffect, useState } from "react";
-import { Son } from "./components";
-import Grandp from "./components/Grandpa";
-import { Button, Checkbox, Divider } from "antd";
+import React, { useState, useEffect, useCallback } from "react";
+import { Checkbox, Divider, Select } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
 import request from "@/utils/request";
-import welcome from "@/assets/images/welcome.png";
-import { useRequest } from "ahooks";
-import styles from "./index.mouule.less";
-import { Select } from "antd";
 
-enum cardType {
-  DEFAULT = "default",
-  MIX = "mix",
-  ITEM = "item",
-}
-interface ISubSectionData {
-  name: string;
-  age: number;
-  cardType: string;
-}
-const Home = () => {
+const ApiAllSelect = (props: any) => {
+  const { api } = props || {};
+
   const [checkAllState, setCheckAllState] = useState({ checked: false, indeterminate: false });
-  const [checkedList, setCheckedList] = useState([]);
   const [options, setOptions] = useState([]);
-  const [selectData, setSelectData] = useState([]);
-  const optionUrl = "https://www.fastmock.site/mock/302854084413bb6592dc4c53c7f85991/admin/listExpress";
-  useEffect(() => {
-    const fetchData = async () => {
-      const { data } = (await request({ url: optionUrl })) || [];
-      const options = data.map((item: any) => ({ label: item.name, value: item.id }));
-      setOptions(options);
-    };
-    fetchData().catch(console.error);
-  }, []);
-  const details = [
-    { name: "1", age: 13, cardType: "default" },
-    { name: "2", age: 23, cardType: "mix" },
-    { name: "3", age: 33, cardType: "item" },
-  ];
-
-  const renderCard = useCallback((card: ISubSectionData, key: number) => {
-    const { cardType: type } = card || {};
-    switch (type) {
-      case cardType.DEFAULT:
-        return <Son data={card} key={key} />;
-      case cardType.MIX:
-        return <Son data={card} key={key} />;
-      case cardType.ITEM:
-        return <Son data={card} key={key} />;
-      default:
-        return null;
+  const [selectValue, setSelectValue] = useState([]);
+  const [isLoading, setLoading] = useState(false);
+  /** 获取接口数据 */
+  const getApiData = useCallback(async () => {
+    try {
+      setLoading(true);
+      if (api) {
+        const { data } = await request({ url: api });
+        const newData = data.map((item: any) => ({ label: item.name, value: item.id }));
+        setOptions(newData);
+      }
+    } finally {
+      setLoading(false);
     }
+  }, [props]);
+  useEffect(() => {
+    getApiData();
   }, []);
+  useEffect(() => {
+    // 当有值且列表为空时，自动获取接口
+    if (props.value && options.length === 0) {
+      getApiData();
+    }
+  }, [props.value]);
   const onCheckAllChange = (e: any) => {
     let checked = e.target.checked;
     setCheckAllState({ checked: checked, indeterminate: false });
-    setSelectData(checked ? options.map((item) => item.value) : []);
+    setSelectValue(checked ? options.map((item) => item.value) : []);
   };
   const handleChange = (value: any) => {
+    console.log(value);
     let checked = value.length === options.length;
     setCheckAllState({ checked: checked, indeterminate: value.length !== 0 && !checked });
-    setSelectData(value);
+    setSelectValue(value);
   };
   const tagRender = (props: any) => {
     const { label, onClose } = props;
@@ -89,19 +70,16 @@ const Home = () => {
       </span>
     );
   };
+
   return (
-    <>
-      {details && details.map((item, index) => renderCard(item, index))}
-      {/* <NormalSelect optionsApi={optionUrl} mode="multiple" allowClear style={{ width: "100%" }} />
-       */}
-      {/* 测试 */}
+    <div>
       <Select
-        allowClear
+        {...props}
+        value={selectValue}
         onChange={handleChange}
-        value={selectData}
         tagRender={tagRender}
-        optionFilterProp="children"
-        maxTagCount={10}
+        optionFilterProp="label"
+        maxTagCount={5}
         style={{ width: "100%" }}
         mode="multiple"
         menuItemSelectedIcon={null}
@@ -126,19 +104,14 @@ const Home = () => {
         {options.map((optItem, index) => {
           return (
             <Select.Option key={index} value={optItem.value}>
-              <Checkbox style={{ marginRight: 6 }} checked={selectData?.includes(optItem.value)} />
+              <Checkbox style={{ marginRight: 6 }} checked={selectValue?.includes(optItem.value)} />
               {optItem.label}
             </Select.Option>
           );
         })}
       </Select>
-    </>
+    </div>
   );
 };
-interface IProps {
-  value?: string;
-  onChange?: (value: string) => void;
-  optionsApi: string;
-}
 
-export default Home;
+export default ApiAllSelect;
