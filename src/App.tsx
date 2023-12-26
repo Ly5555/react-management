@@ -2,7 +2,7 @@
  * @Author: liuyongqing
  * @Date: 2023-08-29 21:03:53
  * @LastEditors: liuyongqing
- * @LastEditTime: 2023-12-20 20:46:37
+ * @LastEditTime: 2023-12-26 21:12:08
  */
 import React from "react";
 import { ConfigProvider, App as AntdApp, theme } from "antd";
@@ -24,7 +24,7 @@ function App() {
     <ConfigProvider
       locale={zhCN}
       theme={{
-        algorithm: darkMode ? theme.darkAlgorithm : theme.defaultAlgorithm,
+        algorithm: [darkMode ? theme.darkAlgorithm : theme.defaultAlgorithm],
         token: {
           colorPrimary: themeColor,
         },

@@ -15,6 +15,8 @@ import {
   Slider,
   Upload,
   DatePicker,
+  Row,
+  Col,
 } from "antd";
 import { Form } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
@@ -54,32 +56,36 @@ function BasicSearch(props: any) {
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off">
-        {list?.map((item: any, index: number) => (
-          <Form.Item
-            key={`${item.name}_${index}`}
-            label={item.label}
-            name={item.name}
-            labelCol={{ style: { width: item.labelCol } }}
-            wrapperCol={{ style: { width: item.wrapperCol } }}
-            rules={item.rules ? item.rules : []}>
-            {getComponent(item)}
-          </Form.Item>
-        ))}
-        {isSearch !== false && (
-          <div style={{ display: "flex" }}>
-            <Form.Item>
-              <Button type="primary" htmlType="submit" loading={isLoading} icon={<SearchOutlined />}>
-                {"搜索"}
-              </Button>
-            </Form.Item>
-            <Form.Item>
-              <Button onClick={onReset} htmlType="submit">
-                {"重置"}
-              </Button>
-            </Form.Item>
-            {children}
-          </div>
-        )}
+        <Row gutter={[24, 16]}>
+          {list?.map((item: any, index: number) => (
+            <Col key={index}>
+              <Form.Item
+                key={`${item.name}_${index}`}
+                label={item.label}
+                name={item.name}
+                labelCol={{ style: { width: item.labelCol } }}
+                wrapperCol={{ style: { width: item.wrapperCol } }}
+                rules={item.rules ? item.rules : []}>
+                {getComponent(item)}
+              </Form.Item>
+            </Col>
+          ))}
+          {isSearch !== false && (
+            <div style={{ display: "flex" }}>
+              <Form.Item>
+                <Button type="primary" htmlType="submit" loading={isLoading} icon={<SearchOutlined />}>
+                  {"搜索"}
+                </Button>
+              </Form.Item>
+              <Form.Item>
+                <Button onClick={onReset} htmlType="submit">
+                  {"重置"}
+                </Button>
+              </Form.Item>
+              {children}
+            </div>
+          )}
+        </Row>
       </Form>
     </div>
   );
@@ -93,8 +99,6 @@ componentMap.set("RangePicker", BasicRangePicker);
 componentMap.set("ApiAllSelect", ApiAllSelect);
 export function getComponent(item: any) {
   const { component, componentProps, params } = item;
-  console.log(componentProps, params, "96");
-
   const Comp = componentMap.get(component);
 
   // 获取组件失败直接返回空标签
