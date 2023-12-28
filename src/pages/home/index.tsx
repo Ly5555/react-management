@@ -2,19 +2,12 @@
  * @Author: liuyongqing
  * @Date: 2023-07-11 19:19:04
  * @LastEditors: liuyongqing
- * @LastEditTime: 2023-12-26 21:39:45
+ * @LastEditTime: 2023-12-28 20:48:19
  */
 import React, { Children, useCallback, useEffect, useState } from "react";
 import { Son } from "./components";
-import Grandp from "./components/Grandpa";
-import { Button, Checkbox, Divider } from "antd";
-import { CloseOutlined } from "@ant-design/icons";
-import request from "@/utils/request";
-import welcome from "@/assets/images/welcome.png";
-import { useRequest } from "ahooks";
-import styles from "./index.mouule.less";
 import { Select } from "antd";
-
+import styles from "./index.mouule.less";
 enum cardType {
   DEFAULT = "default",
   MIX = "mix",
@@ -45,13 +38,19 @@ const Home = () => {
         return null;
     }
   }, []);
+  const options = [];
 
+  for (let i = 10; i < 36; i++) {
+    options.push({
+      value: i.toString(36) + i,
+      label: i.toString(36) + i,
+    });
+  }
   return (
-    <>
+    <div className={styles.home_card}>
       {details && details.map((item, index) => renderCard(item, index))}
-      {/* <NormalSelect optionsApi={optionUrl} mode="multiple" allowClear style={{ width: "100%" }} />
-       */}
-    </>
+      <Select options={options} />
+    </div>
   );
 };
 

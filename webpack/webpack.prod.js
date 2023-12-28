@@ -2,7 +2,7 @@
  * @Author: liuyongqing
  * @Date: 2023-09-25 20:14:16
  * @LastEditors: liuyongqing 
- * @LastEditTime: 2023-10-31 19:06:20
+ * @LastEditTime: 2023-12-28 21:01:41
  */
 const { merge } = require("webpack-merge");
 const baseConfig = require("./webpack.base.js");

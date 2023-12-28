@@ -82,33 +82,7 @@ const Theme = () => {
             <span className={styles.themeTitle}>暗黑模式</span>
             <Switch onChange={handelTheme} />
           </Space>
-          <Space>
-            {/* <h3>主色:</h3>
-            {RadioColor &&
-              RadioColor.map((item, index) => {
-                return (
-                  <label
-                    key={index}
-                    onClick={() => handleRadioChange(item)}
-                    className={styles.themeLabel}
-                    style={{
-                      background: item.color,
-                      boxShadow: values === item.value ? `0 0 0 1px #ffffff, 0 0 0 5px ${item.color}` : "",
-                    }}>
-                    <input
-                      type="radio"
-                      name="color"
-                      value={item.color}
-                      style={{
-                        width: 0,
-                        height: 0,
-                        opacity: 0,
-                      }}
-                    />
-                  </label>
-                );
-              })} */}
-          </Space>
+          <Space></Space>
         </Space>
       </Drawer>
     </div>

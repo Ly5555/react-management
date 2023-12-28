@@ -1,6 +1,5 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { showFullScreenLoading, tryHideFullScreenLoading } from "@/utils/request/serviceLoading";
-import { ResultEnum } from "@/enums/httpEnum";
 import abortController from './abortController';
 import { useGlobalStore } from '@/stores';
 
@@ -24,13 +23,6 @@ const config = {
 let instance = axios.create(config);
 // 定义一个flag 判断是否刷新Token中
 
-let refreshTokenFlag = false;
-// 保存需要重新发起请求的队列
-let retryRequests = [];
-/**
- * 请求拦截器
- * 每次请求前，如果存在token则在请求头中携带token
- */
 
 
 instance.interceptors.request.use(

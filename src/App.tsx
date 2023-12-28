@@ -2,7 +2,7 @@
  * @Author: liuyongqing
  * @Date: 2023-08-29 21:03:53
  * @LastEditors: liuyongqing
- * @LastEditTime: 2023-12-26 21:12:08
+ * @LastEditTime: 2023-12-28 20:46:29
  */
 import React from "react";
 import { ConfigProvider, App as AntdApp, theme } from "antd";
@@ -13,7 +13,7 @@ import AuthRouter from "@/components/AuthRouter";
 import Router from "@/routers/index";
 import zhCN from "antd/locale/zh_CN";
 import "dayjs/locale/zh-cn";
-import "antd/dist/reset.css";
+// import "antd/dist/reset.css";
 import "./app.css";
 
 dayjs.locale("en");

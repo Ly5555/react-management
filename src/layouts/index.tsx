@@ -40,8 +40,6 @@ const LayoutIndex = () => {
         <LayoutTabs />
         <Content
           style={{
-            padding: 24,
-            textAlign: "center",
             background: colorBgContainer,
           }}>
           <Outlet />

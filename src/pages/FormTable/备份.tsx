@@ -2,82 +2,13 @@
  * @Author: liuyongqing
  * @Date: 2023-08-30 20:30:01
  * @LastEditors: liuyongqing
- * @LastEditTime: 2023-12-19 21:16:09
+ * @LastEditTime: 2023-12-28 20:48:55
  */
 import React, { useState, useEffect } from "react";
 import { Button, Col, Form, Input, Row, Select, Space, Table } from "antd";
 import { DownOutlined, UpOutlined } from "@ant-design/icons";
 import request from "@/utils/request";
-const SearchForm = () => {
-  const [expand, setExpand] = useState(false);
-  const [form] = Form.useForm();
-  const { Option } = Select;
-  const formStyle = {
-    maxWidth: "none",
-    padding: 24,
-    marginBottom: "20px",
-  };
-  const getFields = () => {
-    const count = expand ? 10 : 3;
-    const children = [];
-    for (let i = 0; i < count; i++) {
-      children.push(
-        <Col span={6} key={i}>
-          <Form.Item name={`field-${i}`} label={`Field ${i}`}>
-            {i % 3 !== 1 ? (
-              <Input placeholder="placeholder" />
-            ) : (
-              <Select>
-                <Option value="1">1</Option>
-                <Option value="2">
-                  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
-                </Option>
-              </Select>
-            )}
-          </Form.Item>
-        </Col>,
-      );
-    }
-    return children;
-  };
-  const onFinish = (values: any) => {
-    console.log("Received values of form: ", values);
-  };
-  return (
-    <Form form={form} name="advanced_search" style={formStyle} onFinish={onFinish}>
-      <Row gutter={24}>
-        {getFields()}
-        <Col span={expand ? "12" : 6} style={{ textAlign: "right" }}>
-          <Button type="primary" htmlType="submit">
-            搜索
-          </Button>
-          <Button
-            style={{ margin: "0 8px" }}
-            onClick={() => {
-              form.resetFields();
-            }}>
-            重置
-          </Button>
-          <a
-            style={{ fontSize: 12 }}
-            onClick={() => {
-              setExpand(!expand);
-            }}>
-            {expand ? (
-              <>
-                <UpOutlined /> 折叠
-              </>
-            ) : (
-              <>
-                <DownOutlined /> 更多
-              </>
-            )}
-          </a>
-        </Col>
-      </Row>
-    </Form>
-  );
-};
+
 // form 表单封装初体验
 const Index = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
@@ -282,7 +213,6 @@ const Index = () => {
     console.log("params", pagination, filters, sorter);
     setPagination(pagination);
   };
-  console.log(selectedRowKeys, "selectedRowKeys");
 
   return (
     <>

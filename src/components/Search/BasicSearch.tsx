@@ -1,30 +1,15 @@
 import React, { useImperativeHandle } from "react";
 import { memo } from "react";
-import {
-  Button,
-  FormProps,
-  Input,
-  InputNumber,
-  AutoComplete,
-  Select,
-  TreeSelect,
-  Checkbox,
-  Radio,
-  Switch,
-  Rate,
-  Slider,
-  Upload,
-  DatePicker,
-  Row,
-  Col,
-} from "antd";
+import { Button, FormProps, Input, DatePicker, Row, Col } from "antd";
 import { Form } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
-import { ApiAllSelect } from "@/components/Select";
+import { ApiAllSelect, NormalSelect } from "@/components/Select";
 const { RangePicker } = DatePicker;
+
 function BasicSearch(props: any) {
-  const { list, data, formRef, isLoading, isSearch, children, labelCol, wrapperCol, handleFinish } = props;
+  const { list, data, isLoading, isSearch, children, labelCol, wrapperCol, handleFinish } = props;
+
   const [form] = Form.useForm();
   /**
    * 提交表单
@@ -58,9 +43,9 @@ function BasicSearch(props: any) {
         autoComplete="off">
         <Row gutter={[24, 16]}>
           {list?.map((item: any, index: number) => (
-            <Col key={index}>
+            <Col key={`${item.name}`}>
               <Form.Item
-                key={`${item.name}_${index}`}
+                key={`${item.name}`}
                 label={item.label}
                 name={item.name}
                 labelCol={{ style: { width: item.labelCol } }}
@@ -97,6 +82,8 @@ const componentMap = new Map();
 componentMap.set("Input", Input);
 componentMap.set("RangePicker", BasicRangePicker);
 componentMap.set("ApiAllSelect", ApiAllSelect);
+componentMap.set("NormalSelect", NormalSelect);
+
 export function getComponent(item: any) {
   const { component, componentProps, params } = item;
   const Comp = componentMap.get(component);
@@ -105,7 +92,6 @@ export function getComponent(item: any) {
   if (!Comp) return <></>;
   return (
     <>
-      {/* {...initCompProps(component)} */}
       {params ? <Comp {...params} {...componentProps} /> : <Comp {...componentProps} />}
       {item.unit && <span>{item.unit}</span>}
     </>

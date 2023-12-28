@@ -1,11 +1,12 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { searchList } from "./model";
-
 import BasicSearch from "@/components/Search/BasicSearch";
-import { ApiAllSelect } from "@/components/Select";
+import styles from "./index.module.less";
 // 初始化搜索
 const initSearch = {
   pay_date: [1703166192025, 1703338992025],
+  ids: ["ZTO"],
+  userId: "BeiJing",
 };
 const Index = () => {
   const [isLoading, setLoading] = useState(false);
@@ -24,7 +25,7 @@ const Index = () => {
     handleSearch(initSearch);
   }, [handleSearch]);
   return (
-    <div>
+    <div className={styles.formTableBox}>
       <BasicSearch list={searchList} data={initSearch} isLoading={isLoading} handleFinish={handleSearch} />
     </div>
   );
