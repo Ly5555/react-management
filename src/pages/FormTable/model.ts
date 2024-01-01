@@ -1,9 +1,3 @@
-/*
- * @Author: liuyongqing
- * @Date: 2023-12-19 21:23:59
- * @LastEditors: liuyongqing
- * @LastEditTime: 2023-12-28 20:40:48
- */
 
 // 搜索数据
 export const searchList = [
@@ -21,6 +15,8 @@ export const searchList = [
     name: "ids",
     params: {
       api: "https://www.fastmock.site/mock/302854084413bb6592dc4c53c7f85991/admin/listExpress",
+      // labelkey: "name",
+      // valuekey: "id",
     },
     wrapperCol: 200,
     component: "ApiAllSelect",
@@ -35,6 +31,8 @@ export const searchList = [
     wrapperCol: 200,
     params: {
       api: "https://www.fastmock.site/mock/302854084413bb6592dc4c53c7f85991/admin/city",
+      labelkey: "name",
+      valuekey: "id",
     },
     component: "NormalSelect",
 

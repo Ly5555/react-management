@@ -11,17 +11,19 @@ import { CloseOutlined } from "@ant-design/icons";
 import request from "@/utils/request";
 
 const ApiAllSelect = (props: any) => {
-  const { api } = props || {};
+  const { api, labelkey, valuekey } = props || {};
   const [checkAllState, setCheckAllState] = useState({ checked: false, indeterminate: false });
   const [options, setOptions] = useState([]);
   const [selectValue, setSelectValue] = useState([]);
+  const labelKeys = labelkey || "name" || "label";
+  const valueKeys = valuekey || "id" || "value";
+
   /** 获取接口数据 */
   const getApiData = useCallback(async () => {
     try {
       if (api) {
         const { data } = await request({ url: api });
-        const newData = data.map((item: any) => ({ label: item.name, value: item.id }));
-        setOptions(newData);
+        setOptions(data);
       }
     } finally {
     }
@@ -34,11 +36,12 @@ const ApiAllSelect = (props: any) => {
       setSelectValue(props.value);
     }
   }, [props.value]);
+
   const onCheckAllChange = (e: any) => {
     let checked = e.target.checked;
     setCheckAllState({ checked: checked, indeterminate: false });
-    setSelectValue(checked ? options.map((item: any) => item.value) : []);
-    props.onChange?.(checked ? options.map((item: any) => item.value) : []);
+    setSelectValue(checked ? options.map((item: any) => item[valueKeys]) : []);
+    props.onChange?.(checked ? options.map((item: any) => item[valueKeys]) : []);
   };
   const handleChange = (value: any) => {
     let checked = value.length === options.length;
@@ -68,6 +71,7 @@ const ApiAllSelect = (props: any) => {
       </span>
     );
   };
+
   return (
     <>
       <Select
@@ -97,9 +101,9 @@ const ApiAllSelect = (props: any) => {
         {!!options &&
           options.map((item: any, index) => {
             return (
-              <Select.Option key={index} value={item.value}>
-                <Checkbox style={{ marginRight: 6 }} checked={selectValue?.includes(item?.value)} />
-                {item?.label}
+              <Select.Option key={index} value={item[valueKeys]}>
+                <Checkbox style={{ marginRight: 6 }} checked={selectValue?.includes(item[valueKeys])} />
+                {item[labelKeys]}
               </Select.Option>
             );
           })}
