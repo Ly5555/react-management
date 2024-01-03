@@ -1,8 +1,8 @@
 /*
  * @Author: liuyongqing
  * @Date: 2023-07-24 21:31:32
- * @LastEditors: liuyongqing
- * @LastEditTime: 2023-12-14 20:58:20
+ * @LastEditors: liuyongqing 
+ * @LastEditTime: 2024-01-01 22:04:41
  */
 import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
@@ -40,6 +40,7 @@ const LayoutIndex = () => {
         <LayoutTabs />
         <Content
           style={{
+            padding: 16,
             background: colorBgContainer,
           }}>
           <Outlet />

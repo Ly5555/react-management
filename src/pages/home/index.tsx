@@ -2,12 +2,12 @@
  * @Author: liuyongqing
  * @Date: 2023-07-11 19:19:04
  * @LastEditors: liuyongqing
- * @LastEditTime: 2023-12-28 20:48:19
+ * @LastEditTime: 2024-01-01 21:41:08
  */
 import React, { Children, useCallback, useEffect, useState } from "react";
 import { Son } from "./components";
 import { Select } from "antd";
-import styles from "./index.mouule.less";
+import styles from "./home.mouule.less";
 enum cardType {
   DEFAULT = "default",
   MIX = "mix",
@@ -38,20 +38,7 @@ const Home = () => {
         return null;
     }
   }, []);
-  const options = [];
-
-  for (let i = 10; i < 36; i++) {
-    options.push({
-      value: i.toString(36) + i,
-      label: i.toString(36) + i,
-    });
-  }
-  return (
-    <div className={styles.home_card}>
-      {details && details.map((item, index) => renderCard(item, index))}
-      <Select options={options} />
-    </div>
-  );
+  return <div className={styles.home_card}>{details && details.map((item, index) => renderCard(item, index))}</div>;
 };
 
 export default Home;
