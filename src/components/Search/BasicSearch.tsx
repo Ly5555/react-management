@@ -4,7 +4,7 @@ import { Button, FormProps, Input, DatePicker, Row, Col, Space } from "antd";
 import { Form } from "antd";
 import { DownOutlined, SearchOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
-import { ApiAllSelect, NormalSelect } from "@/components/Select";
+import { ApiAllSelect, NormalSelect, SimpleSelect } from "@/components/Select";
 const { RangePicker } = DatePicker;
 
 function BasicSearch(props: any) {
@@ -16,7 +16,7 @@ function BasicSearch(props: any) {
     const filteredList = expand ? list : list?.slice(0, 6);
 
     return filteredList.map((item: any, index: number) => (
-      <Col xs={8} lg={8} xl={6} xxl={6} key={`${item.name}_${index}`}>
+      <Col xs={8} lg={8} xl={8} xxl={6} key={`${item.name}_${index}`}>
         <Form.Item
           key={`${item.name}`}
           label={item.label}
@@ -29,7 +29,6 @@ function BasicSearch(props: any) {
       </Col>
     ));
   }, [expand, list]);
-
   /**
    * 提交表单
    * @param values - 表单值
@@ -76,7 +75,8 @@ function BasicSearch(props: any) {
                 onClick={() => {
                   setExpand(!expand);
                 }}>
-                <DownOutlined rotate={expand ? 180 : 0} /> {expand ? "收起" : "展开"}
+                <DownOutlined rotate={expand ? 180 : 0} />
+                {expand ? "收起" : "展开"}
               </a>
             </Space>
           </div>
@@ -93,6 +93,7 @@ componentMap.set("Input", Input);
 componentMap.set("RangePicker", BasicRangePicker);
 componentMap.set("ApiAllSelect", ApiAllSelect);
 componentMap.set("NormalSelect", NormalSelect);
+componentMap.set("SimpleSelect", SimpleSelect);
 
 const getComponent = (item: any) => {
   const { component, componentProps, params } = item;

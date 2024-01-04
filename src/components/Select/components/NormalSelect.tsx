@@ -3,7 +3,7 @@ import { Select } from "antd";
 import request from "@/utils/request";
 
 const NormalSelect = (props: any) => {
-  const { api, labelkey, valuekey } = props || {};
+  const { api, labelkey, valuekey, ...restProps } = props || {};
   const [options, setOptions] = useState([]);
   const labelKeys = labelkey || "name" || "label";
   const valueKeys = valuekey || "id" || "value";
@@ -17,14 +17,12 @@ const NormalSelect = (props: any) => {
     } finally {
     }
   }, [api]);
+
   useEffect(() => {
     getApiData();
   }, []);
-  return (
-    <>
-      <Select {...props} options={options} />
-    </>
-  );
+
+  return <Select {...restProps} options={options} />;
 };
 
 export default NormalSelect;

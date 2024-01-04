@@ -1,20 +1,24 @@
 /*
  * @Author: liuyongqing
  * @Date: 2023-09-06 19:51:49
- * @LastEditors: liuyongqing
- * @LastEditTime: 2023-12-13 21:00:35
+ * @LastEditors: Lyq
+ * @LastEditTime: 2024-01-04 21:09:28
  */
 import { Button, Form, Input, Modal } from "antd";
 import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import styles from "./carousel.module.less";
+
 const CarouselChart = () => {
   const settings = {
+    className: "",
     dots: true,
     infinite: true,
-    speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    adaptiveHeight: true,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
   };
   const [form] = Form.useForm();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -74,4 +78,13 @@ const CarouselChart = () => {
     </div>
   );
 };
+function SampleNextArrow(props: any) {
+  const { className, style, onClick } = props;
+  return <div className={className} style={{ ...style, marginRight: 10 }} onClick={onClick} />;
+}
+
+function SamplePrevArrow(props: any) {
+  const { className, style, onClick } = props;
+  return <div className={className} style={{ ...style, marginLeft: 10 }} onClick={onClick} />;
+}
 export default CarouselChart;

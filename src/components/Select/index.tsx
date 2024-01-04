@@ -1,16 +1,17 @@
 /*
- * @Author: liuyongqing
+ * @Author: Lyq
  * @Date: 2023-12-21 21:27:29
- * @LastEditors: liuyongqing
- * @LastEditTime: 2023-12-27 20:55:07
+ * @LastEditors: Lyq
+ * @LastEditTime: 2024-01-04 21:59:01
  */
 /*
  * ApiAllSelect 支持 checkBox 全选的 Select 数据服务端下发
  * NormalSelect 简单的下拉选择 数据服务端下发
- *
+ * SimpleSelect 简单的下拉选择 例子:true false
  *
  */
 import ApiAllSelect from "./components/ApiAllSelect";
 import NormalSelect from "./components/NormalSelect";
+import SimpleSelect from "./components/SimpleSelect";
 
-export { ApiAllSelect, NormalSelect };
+export { ApiAllSelect, NormalSelect, SimpleSelect };

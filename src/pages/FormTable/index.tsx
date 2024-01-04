@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { searchList } from "./model";
 import BasicSearch from "@/components/Search/BasicSearch";
 import styles from "./index.module.less";
+import { Button, Space, Table } from "antd";
 // 初始化搜索
 const initSearch = {
   pay_date: [1703166192025, 1703338992025],
@@ -24,9 +25,59 @@ const Index = () => {
   useEffect(() => {
     handleSearch(initSearch);
   }, [handleSearch]);
+  const dataSource = [
+    {
+      key: "1",
+      name: "胡彦斌",
+      age: 32,
+      address: "西湖区湖底公园1号",
+    },
+    {
+      key: "2",
+      name: "胡彦祖",
+      age: 42,
+      address: "西湖区湖底公园1号",
+    },
+  ];
+
+  const columns: any[] = [
+    {
+      title: "姓名",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "年龄",
+      dataIndex: "age",
+      key: "age",
+    },
+    {
+      title: "住址",
+      dataIndex: "address",
+      key: "address",
+    },
+    {
+      title: "Action",
+      key: "operation",
+      fixed: "right",
+      width: 100,
+      render: () => (
+        <Space>
+          <Button type="link">编辑</Button>
+          <Button type="link" danger>
+            删除
+          </Button>
+        </Space>
+      ),
+    },
+  ];
+
   return (
     <div className={styles.formTableBox}>
       <BasicSearch list={searchList} data={initSearch} isLoading={isLoading} handleFinish={handleSearch} />
+      <div className={styles.tableBox}>
+        <Table size="small" bordered dataSource={dataSource} columns={columns} />
+      </div>
     </div>
   );
 };

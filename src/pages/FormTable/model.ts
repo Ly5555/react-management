@@ -1,8 +1,8 @@
 /*
  * @Author: liuyongqing
  * @Date: 2024-01-01 20:20:03
- * @LastEditors: liuyongqing
- * @LastEditTime: 2024-01-03 21:02:10
+ * @LastEditors: Lyq
+ * @LastEditTime: 2024-01-04 21:59:43
  */
 
 // 搜索数据
@@ -42,7 +42,28 @@ export const searchList = [
       valuekey: "id",
     },
     component: "NormalSelect",
-
+  },
+  {
+    label: "简单下拉",
+    name: "isHide",
+    component: "SimpleSelect",
+    wrapperCol: 200,
+    params: {
+      options: [
+        {
+          id: true,
+          name: "是",
+        },
+        {
+          id: false,
+          name: "否",
+        },
+      ],
+    },
+    componentProps: {
+      allowClear: true,
+      maxLength: 10,
+    },
   },
   {
     label: "名字",

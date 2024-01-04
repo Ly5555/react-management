@@ -1,13 +1,14 @@
 /*
  * @Author: liuyongqing
  * @Date: 2023-09-04 21:15:09
- * @LastEditors: liuyongqing
- * @LastEditTime: 2023-09-05 21:10:53
+ * @LastEditors: Lyq
+ * @LastEditTime: 2024-01-04 21:11:22
  */
 import React, { useEffect, useRef, useState } from "react";
 import { Tabs } from "antd";
 import type { TabsProps } from "antd";
 import { ParentSon, ChildHooks } from "./components";
+import styles from "./index.module.less";
 const Index = () => {
   const items: TabsProps["items"] = [
     {
@@ -22,9 +23,9 @@ const Index = () => {
     },
   ];
   return (
-    <>
+    <div className={styles.customHooksBox}>
       <Tabs defaultActiveKey="1" items={items} />
-    </>
+    </div>
   );
 };
 

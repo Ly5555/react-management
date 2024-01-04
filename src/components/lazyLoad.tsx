@@ -8,11 +8,7 @@ import Loading from "@/components/Loading";
  */
 const lazyLoad = (Comp: any) => {
   return (
-    <Suspense
-      fallback={
-        <Loading
-        />
-      }>
+    <Suspense fallback={<Loading />}>
       <Comp />
     </Suspense>
   );
