@@ -1,8 +1,8 @@
 /*
- * @Author: liuyongqing
+ * @Author: Lyq
  * @Date: 2023-12-11 21:17:38
- * @LastEditors: liuyongqing
- * @LastEditTime: 2023-12-11 21:18:13
+ * @LastEditors: Lyq 
+ * @LastEditTime: 2024-01-05 20:02:23
  */
 declare module '*.css';
 declare module '*.less';

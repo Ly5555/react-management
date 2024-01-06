@@ -22,7 +22,7 @@ function BasicSearch(props: any) {
           label={item.label}
           name={item.name}
           labelCol={{ style: { width: item.labelCol ? item.labelCol : 80 } }}
-          wrapperCol={{ style: { width: item.wrapperCol } }}
+          wrapperCol={{ style: { width: item.wrapperCol ? item.wrapperCol : 200 } }}
           rules={item.rules ? item.rules : []}>
           {getComponent(item)}
         </Form.Item>

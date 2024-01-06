@@ -2,7 +2,12 @@ import React, { useCallback, useEffect, useState } from "react";
 import { Select } from "antd";
 import request from "@/utils/request";
 
-const NormalSelect = (props: any) => {
+interface IProps {
+  api: string;
+  labelkey?: string;
+  valuekey?: string;
+}
+const NormalSelect = (props: IProps) => {
   const { api, labelkey, valuekey, ...restProps } = props || {};
   const [options, setOptions] = useState([]);
   const labelKeys = labelkey || "name" || "label";

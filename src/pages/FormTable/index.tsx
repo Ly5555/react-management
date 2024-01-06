@@ -1,3 +1,9 @@
+/*
+ * @Author: Lyq
+ * @Date: 2023-12-28 22:05:04
+ * @LastEditors: Lyq
+ * @LastEditTime: 2024-01-06 14:37:34
+ */
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { searchList } from "./model";
 import BasicSearch from "@/components/Search/BasicSearch";
@@ -73,9 +79,9 @@ const Index = () => {
   ];
 
   return (
-    <div className={styles.formTableBox}>
+    <div className={styles.formTable_box}>
       <BasicSearch list={searchList} data={initSearch} isLoading={isLoading} handleFinish={handleSearch} />
-      <div className={styles.tableBox}>
+      <div className={styles.table_box}>
         <Table size="small" bordered dataSource={dataSource} columns={columns} />
       </div>
     </div>

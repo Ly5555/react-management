@@ -1,8 +1,8 @@
 /*
- * @Author: liuyongqing
+ * @Author: Lyq
  * @Date: 2023-09-06 19:51:49
  * @LastEditors: Lyq
- * @LastEditTime: 2024-01-04 21:09:28
+ * @LastEditTime: 2024-01-06 14:37:13
  */
 import { Button, Form, Input, Modal } from "antd";
 import React, { useEffect, useState } from "react";
@@ -40,7 +40,7 @@ const CarouselChart = () => {
     setIsModalOpen(false);
   };
   return (
-    <div className={styles.carousel}>
+    <div className={styles.carousel_box}>
       <Button type="primary" onClick={showModal}>
         Open Modal
       </Button>

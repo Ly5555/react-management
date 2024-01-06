@@ -2,7 +2,7 @@
  * @Author: Lyq
  * @Date: 2023-12-21 21:30:48
  * @LastEditors: Lyq
- * @LastEditTime: 2024-01-04 22:24:08
+ * @LastEditTime: 2024-01-05 19:57:05
  */
 
 import React, { useCallback, useEffect, useState } from "react";
@@ -20,7 +20,6 @@ const SimpleSelect = (props: IProps) => {
   const [value, setValue] = useState<SelectProps[]>([]);
   useEffect(() => {
     if (options) {
-      // const selectValue = options.map(({ [labelKeys]: label, [valueKeys]: value }) => ({ label, value }));
       const selectValue = options.map((item: any) => ({ label: item[labelKeys], value: item[valueKeys] }));
       setValue(selectValue);
     }
