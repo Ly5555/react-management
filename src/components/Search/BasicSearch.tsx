@@ -1,11 +1,15 @@
+/*
+ * @Author: Lyq
+ * @Date: 2024-01-06 14:56:15
+ * @LastEditors: Lyq
+ * @LastEditTime: 2024-01-06 21:04:16
+ */
 import React, { useImperativeHandle, useMemo, useState } from "react";
 import { memo } from "react";
-import { Button, FormProps, Input, DatePicker, Row, Col, Space } from "antd";
+import { Button, FormProps, Row, Col, Space } from "antd";
 import { Form } from "antd";
 import { DownOutlined, SearchOutlined } from "@ant-design/icons";
-import dayjs from "dayjs";
-import { ApiAllSelect, NormalSelect, SimpleSelect } from "@/components/Select";
-const { RangePicker } = DatePicker;
+import { GetComponent } from "@/components/Form";
 
 function BasicSearch(props: any) {
   const [expand, setExpand] = useState(false);
@@ -24,7 +28,7 @@ function BasicSearch(props: any) {
           labelCol={{ style: { width: item.labelCol ? item.labelCol : 80 } }}
           wrapperCol={{ style: { width: item.wrapperCol ? item.wrapperCol : 200 } }}
           rules={item.rules ? item.rules : []}>
-          {getComponent(item)}
+          {GetComponent(item)}
         </Form.Item>
       </Col>
     ));
@@ -86,53 +90,3 @@ function BasicSearch(props: any) {
   );
 }
 export default memo(BasicSearch);
-const componentMap = new Map();
-
-// antd组件注入
-componentMap.set("Input", Input);
-componentMap.set("RangePicker", BasicRangePicker);
-componentMap.set("ApiAllSelect", ApiAllSelect);
-componentMap.set("NormalSelect", NormalSelect);
-componentMap.set("SimpleSelect", SimpleSelect);
-
-const getComponent = (item: any) => {
-  const { component, componentProps, params } = item;
-  const Comp = componentMap.get(component);
-
-  // 获取组件失败直接返回空标签
-  if (!Comp) return <></>;
-  return (
-    <>
-      {params ? <Comp {...params} {...componentProps} /> : <Comp {...componentProps} />}
-      {item.unit && <span>{item.unit}</span>}
-    </>
-  );
-};
-
-function BasicRangePicker(props: any) {
-  const { value } = props;
-  const params = { ...props };
-  // 如果值不是dayjs类型则进行转换
-  if (value) params.value = stringRang2DayjsRang(value);
-
-  return <RangePicker {...params} />;
-}
-
-export function stringRang2DayjsRang(value: any) {
-  if (!value) return undefined;
-  // 当第一个数据都不为Dayjs
-  if (value?.length > 1 && dayjs.isDayjs(value?.[0]) && dayjs.isDayjs(value?.[1])) {
-    return [dayjs(value[0]), value[1]];
-  }
-
-  // 当最后一个数据都不为Dayjs
-  if (value?.length > 1 && dayjs.isDayjs(value?.[0]) && !dayjs.isDayjs(value?.[1])) {
-    return [value[0], dayjs(value[1])];
-  }
-
-  // 当两个数据都不为Dayjs
-  if (value?.length > 1 && !dayjs.isDayjs(value?.[0]) && !dayjs.isDayjs(value?.[1])) {
-    return [dayjs(value[0]), dayjs(value[1])];
-  }
-  return value;
-}

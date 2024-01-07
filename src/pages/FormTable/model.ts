@@ -2,21 +2,21 @@
  * @Author: liuyongqing
  * @Date: 2024-01-01 20:20:03
  * @LastEditors: Lyq
- * @LastEditTime: 2024-01-04 21:59:43
+ * @LastEditTime: 2024-01-06 21:06:30
  */
 
 // 搜索数据
 export const searchList = [
-  {
-    label: "时间框测试",
-    name: "pay_date",
-    component: "RangePicker",
-    wrapperCol: 300,
-    componentProps: {
-      allowClear: false,
-      style: { width: "100%" },
-    },
-  },
+  // {
+  //   label: "时间框测试",
+  //   name: "pay_date",
+  //   component: "RangePicker",
+  //   wrapperCol: 300,
+  //   componentProps: {
+  //     allowClear: false,
+  //     style: { width: "100%" },
+  //   },
+  // },
   {
     label: "全选测试",
     name: "ids",
@@ -145,3 +145,6 @@ export const searchList = [
     },
   },
 ];
+
+//表格数据
+
