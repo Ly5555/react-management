@@ -1,4 +1,10 @@
 /*
+ * @Author: Lyq
+ * @Date: 2024-01-20 16:04:56
+ * @LastEditors: Lyq
+ * @LastEditTime: 2024-01-20 16:07:58
+ */
+/*
 主题
 */
 import React, { useEffect, useState } from "react";
@@ -80,7 +86,7 @@ const Theme = () => {
         <Space direction="vertical">
           <Space>
             <span className={styles.themeTitle}>暗黑模式</span>
-            <Switch onChange={handelTheme} />
+            <Switch checked={darkMode} onChange={handelTheme} />
           </Space>
           <Space></Space>
         </Space>
