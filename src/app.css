@@ -25,3 +25,22 @@ body {
 }
 @import "~slick-carousel/slick/slick.css";
 @import "~slick-carousel/slick/slick-theme.css";
+html[data-theme="dark"] {
+  --yz-background-color: #141414;
+  --yz-font-color: #a3a6ad;
+  --yz-border-color: #414243;
+  --yz-login-font-color: #e5eaf3;
+  --yz-login-bg-color: #141414b2;
+  --yz-svg-color: rgb(255 255 255 / 85%);
+  --yz-font-color-2: #a3a6ad;
+  --yz-border-color-dark: #414243;
+}
+html {
+  --yz-background-color: #ffffff;
+  --yz-font-color: #323232;
+  --yz-login-font-color: #323232;
+  --yz-svg-color: #323233;
+  --yz-font-color-2: #666666;
+  --yz-border-color: #e4e7ed;
+  --yz-border-color-dark: #dcdfe6;
+}

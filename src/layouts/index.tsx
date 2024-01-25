@@ -1,8 +1,8 @@
 /*
  * @Author: liuyongqing
  * @Date: 2023-07-24 21:31:32
- * @LastEditors: liuyongqing
- * @LastEditTime: 2024-01-04 20:12:24
+ * @LastEditors: Lyq
+ * @LastEditTime: 2024-01-25 20:36:40
  */
 import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
@@ -12,9 +12,6 @@ import { useGlobalStore } from "@/stores";
 import styles from "./index.module.less";
 const LayoutIndex = () => {
   const { Content, Footer, Sider } = Layout;
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
   const { collapsed } = useGlobalStore();
   useEffect(() => {
     listeningWindow();

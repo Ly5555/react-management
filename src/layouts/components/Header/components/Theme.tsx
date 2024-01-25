@@ -2,20 +2,25 @@
  * @Author: Lyq
  * @Date: 2024-01-20 16:04:56
  * @LastEditors: Lyq
- * @LastEditTime: 2024-01-20 16:07:58
+ * @LastEditTime: 2024-01-25 20:17:19
  */
 /*
 主题
 */
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Drawer, Space, Switch, Typography } from "antd";
 import { SettingOutlined } from "@ant-design/icons";
 import { useGlobalStore, useThemeColor } from "@/stores";
 import styles from "./theme.module.less";
 const Theme = () => {
   const [open, setOpen] = useState(false);
-  const [values, setValues] = useState<number>(1);
   const { darkMode, setDarkMode } = useGlobalStore();
+  useEffect(() => {
+    if (darkMode) {
+      const dom = document.documentElement;
+      dom.setAttribute("data-theme", "dark");
+    }
+  }, []);
   const { Title } = Typography;
   const showDrawer = () => {
     setOpen(true);
@@ -66,19 +71,24 @@ const Theme = () => {
     },
   ];
   const handleRadioChange = (e: { value: number; color: string }) => {
-    setValues(e.value);
+    // setValues(e.value);
     useThemeColor.setState({ themeColor: e.color });
   };
 
   /* 暗黑模式 */
-  const handelTheme = (checked: boolean) => {
-    if (checked) {
-      document.body.className = "theme-dark";
-    } else {
-      document.body.className = "theme-primary";
-    }
-    setDarkMode(!darkMode);
-  };
+  const handelTheme = useCallback(
+    (checked: boolean) => {
+      const dom = document.documentElement;
+      if (checked) {
+        dom.setAttribute("data-theme", "dark");
+      } else {
+        dom.removeAttribute("data-theme");
+      }
+      setDarkMode(!darkMode);
+    },
+    [darkMode],
+  );
+
   return (
     <div id="driverjs_theme" className={styles.themeBox}>
       <SettingOutlined onClick={showDrawer} style={{ fontSize: 19, marginRight: 16 }} />
@@ -86,7 +96,13 @@ const Theme = () => {
         <Space direction="vertical">
           <Space>
             <span className={styles.themeTitle}>暗黑模式</span>
-            <Switch checked={darkMode} onChange={handelTheme} />
+            <Switch
+              checkedChildren={<>🌞</>}
+              defaultChecked={darkMode}
+              unCheckedChildren={<>🌜</>}
+              checked={darkMode}
+              onChange={handelTheme}
+            />
           </Space>
           <Space></Space>
         </Space>

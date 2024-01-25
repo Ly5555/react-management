@@ -2,7 +2,7 @@
  * @Author: Lyq
  * @Date: 2023-08-29 21:03:53
  * @LastEditors: Lyq
- * @LastEditTime: 2024-01-05 20:02:33
+ * @LastEditTime: 2024-01-24 21:41:53
  */
 import React from "react";
 import { ConfigProvider, App as AntdApp, theme } from "antd";
@@ -13,21 +13,26 @@ import AuthRouter from "@/components/AuthRouter";
 import Router from "@/routers/index";
 import zhCN from "antd/locale/zh_CN";
 import "dayjs/locale/zh-cn";
-// import "antd/dist/reset.css";
+
+import "antd/dist/reset.css";
+
+// import "@/style/dark.less";
+// import "@/style/light.less";
 import "./app.css";
 
 dayjs.locale("en");
 function App() {
   const { themeColor } = useThemeColor();
   const { darkMode } = useGlobalStore();
+
   return (
     <ConfigProvider
       locale={zhCN}
       theme={{
-        algorithm: [darkMode ? theme.darkAlgorithm : theme.defaultAlgorithm],
         token: {
           colorPrimary: themeColor,
         },
+        algorithm: darkMode ? theme.darkAlgorithm : undefined,
       }}>
       <AntdApp>
         <BrowserRouter>
@@ -39,4 +44,5 @@ function App() {
     </ConfigProvider>
   );
 }
+
 export default App;

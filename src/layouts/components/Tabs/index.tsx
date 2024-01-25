@@ -1,21 +1,13 @@
 /*
  * @Author: liuyongqing
  * @Date: 2023-07-06 20:26:58
- * @LastEditors: liuyongqing
- * @LastEditTime: 2023-12-07 21:48:21
+ * @LastEditors: Lyq
+ * @LastEditTime: 2024-01-25 20:35:06
  */
 import React, { useState, useEffect, useMemo, useCallback } from "react";
-import { Dropdown, MenuProps, Tabs, TabsProps } from "antd";
-import {
-  CloseCircleFilled,
-  ReloadOutlined,
-  CloseOutlined,
-  RightOutlined,
-  LeftOutlined,
-  RollbackOutlined,
-  RedoOutlined,
-} from "@ant-design/icons";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Dropdown, Layout, MenuProps, Tabs, TabsProps, theme } from "antd";
+import { CloseCircleFilled, ReloadOutlined, CloseOutlined, RightOutlined, LeftOutlined, RollbackOutlined, RedoOutlined } from "@ant-design/icons";
+import { useLocation, useNavigate, Outlet } from "react-router-dom";
 import { useTabLists } from "@/stores";
 import { routerArray } from "@/routers/index";
 import { searchRoute } from "@/utils/util";
@@ -36,6 +28,7 @@ const LayoutTabs = () => {
   const { pathname } = useLocation();
   const { tabList } = useTabLists();
   const useNavigateTo = useNavigate();
+  const { Content, Footer, Sider } = Layout;
   const [activeKey, setActiveKey] = useState<string>(pathname);
 
   useEffect(() => {

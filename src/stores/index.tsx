@@ -2,7 +2,7 @@
  * @Author: Lyq
  * @Date: 2023-09-06 16:13:55
  * @LastEditors: Lyq
- * @LastEditTime: 2024-01-05 20:02:54
+ * @LastEditTime: 2024-01-24 21:34:24
  */
 import { create } from "zustand";
 import { devtools, persist, createJSONStorage } from "zustand/middleware";
@@ -33,7 +33,7 @@ interface Action {
   setDarkMode: (darkMode: State["darkMode"]) => void;
   setCollapsed: (collapsed: State["collapsed"]) => void;
   // setLang: (lang: State["lang"]) => void;
-  setToken: (lang: State["token"]) => void;
+  // setToken: (lang: State["token"]) => void;
   // setRefreshToken: (lang: State["refreshToken"]) => void;
 }
 const useGlobalStore = create<State & Action>()(
