@@ -2,7 +2,7 @@
  * @Author: Lyq
  * @Date: 2024-01-20 16:04:56
  * @LastEditors: Lyq
- * @LastEditTime: 2024-01-25 20:17:19
+ * @LastEditTime: 2024-01-29 21:31:44
  */
 /*
 主题
@@ -16,11 +16,8 @@ const Theme = () => {
   const [open, setOpen] = useState(false);
   const { darkMode, setDarkMode } = useGlobalStore();
   useEffect(() => {
-    if (darkMode) {
-      const dom = document.documentElement;
-      dom.setAttribute("data-theme", "dark");
-    }
-  }, []);
+    applyTheme(darkMode);
+  }, [darkMode]);
   const { Title } = Typography;
   const showDrawer = () => {
     setOpen(true);
@@ -76,19 +73,15 @@ const Theme = () => {
   };
 
   /* 暗黑模式 */
-  const handelTheme = useCallback(
-    (checked: boolean) => {
-      const dom = document.documentElement;
-      if (checked) {
-        dom.setAttribute("data-theme", "dark");
-      } else {
-        dom.removeAttribute("data-theme");
-      }
-      setDarkMode(!darkMode);
-    },
-    [darkMode],
-  );
-
+  const handelTheme = (checked: boolean) => {
+    const newDarkMode = !darkMode;
+    applyTheme(newDarkMode);
+    setDarkMode(newDarkMode);
+  };
+  const applyTheme = (isDarkMode: boolean) => {
+    document.body.classList.remove(isDarkMode ? "light" : "dark");
+    document.body.classList.add(isDarkMode ? "dark" : "light");
+  };
   return (
     <div id="driverjs_theme" className={styles.themeBox}>
       <SettingOutlined onClick={showDrawer} style={{ fontSize: 19, marginRight: 16 }} />
@@ -96,13 +89,7 @@ const Theme = () => {
         <Space direction="vertical">
           <Space>
             <span className={styles.themeTitle}>暗黑模式</span>
-            <Switch
-              checkedChildren={<>🌞</>}
-              defaultChecked={darkMode}
-              unCheckedChildren={<>🌜</>}
-              checked={darkMode}
-              onChange={handelTheme}
-            />
+            <Switch checkedChildren={<>🌞</>} defaultChecked={darkMode} unCheckedChildren={<>🌜</>} checked={darkMode} onChange={handelTheme} />
           </Space>
           <Space></Space>
         </Space>

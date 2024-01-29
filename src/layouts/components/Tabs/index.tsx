@@ -2,7 +2,7 @@
  * @Author: liuyongqing
  * @Date: 2023-07-06 20:26:58
  * @LastEditors: Lyq
- * @LastEditTime: 2024-01-25 20:35:06
+ * @LastEditTime: 2024-01-25 21:56:46
  */
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { Dropdown, Layout, MenuProps, Tabs, TabsProps, theme } from "antd";
@@ -30,11 +30,13 @@ const LayoutTabs = () => {
   const useNavigateTo = useNavigate();
   const { Content, Footer, Sider } = Layout;
   const [activeKey, setActiveKey] = useState<string>(pathname);
+  const [openDropdownTabKey, setopenDropdownTabKey] = useState("");
 
   useEffect(() => {
     addTabs();
   }, [pathname]);
   // dropdown下拉选
+
   const items: MenuProps["items"] = useMemo(
     () => [
       {
@@ -75,7 +77,10 @@ const LayoutTabs = () => {
   const renderTabTitle = useCallback(
     (item: { title: string }) => {
       return (
-        <Dropdown menu={{ items, onClick: (e) => handelmenuClick(e, item) }} trigger={["contextMenu"]}>
+        <Dropdown
+          menu={{ items, onClick: (e) => handelmenuClick(e, item) }}
+          onOpenChange={(open, info) => handelOpenChange(open, info)}
+          trigger={["contextMenu"]}>
           <div>{item.title}</div>
         </Dropdown>
       );
@@ -135,6 +140,8 @@ const LayoutTabs = () => {
   };
   //删除点击
   const handelmenuClick = (e: any, item: any) => {
+    console.log(e, item);
+
     const { key, domEvent } = e || {};
     domEvent.stopPropagation();
     switch (key) {
@@ -144,11 +151,25 @@ const LayoutTabs = () => {
         return deleteTabs(item.path);
       case MultiTabOperation.CLOSEOTHERS:
         return closeOtherTabs(item.path);
+      case MultiTabOperation.CLOSELEFT:
+        console.log(1);
+      // return deleteTabs(item.path);
+      case MultiTabOperation.CLOSERIGHT:
+        console.log(2);
+      // return deleteTabs(item.path);
       case MultiTabOperation.CLOSEALL:
         return closeAllTabs();
     }
   };
+  const handelOpenChange = (open: boolean, info: any) => {
+    console.log(info);
 
+    if (open) {
+      setopenDropdownTabKey(info.key);
+    } else {
+      setopenDropdownTabKey("");
+    }
+  };
   return (
     <div className={styles.tabs_box}>
       <DraggableTab

@@ -1,11 +1,12 @@
 /*
  * @Author: liuyongqing
  * @Date: 2023-09-06 17:13:39
- * @LastEditors: liuyongqing 
+ * @LastEditors: liuyongqing
  * @LastEditTime: 2023-10-24 20:38:18
  */
 export interface TabLists {
   tabList: {
+    key: string;
     title: string;
     path: string;
   }[];

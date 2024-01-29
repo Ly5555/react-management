@@ -2,7 +2,7 @@
  * @Author: Lyq
  * @Date: 2023-09-06 16:13:55
  * @LastEditors: Lyq
- * @LastEditTime: 2024-01-24 21:34:24
+ * @LastEditTime: 2024-01-29 20:59:55
  */
 import { create } from "zustand";
 import { devtools, persist, createJSONStorage } from "zustand/middleware";
@@ -45,22 +45,10 @@ const useGlobalStore = create<State & Action>()(
           refreshToken: "",
           collapsed: false,
           darkMode: false,
-          setDarkMode: (darkMode: State["darkMode"]) =>
-            set({
-              darkMode,
-            }),
-          setToken: (token: State["token"]) =>
-            set({
-              token,
-            }),
-          setCollapsed: (collapsed: State["collapsed"]) =>
-            set({
-              collapsed,
-            }),
-          setRefreshToken: (refreshToken: State["refreshToken"]) =>
-            set({
-              refreshToken,
-            }),
+          setDarkMode: (darkMode: State["darkMode"]) => set({ darkMode }),
+          setToken: (token: State["token"]) => set({ token }),
+          setCollapsed: (collapsed: State["collapsed"]) => set({ collapsed }),
+          setRefreshToken: (refreshToken: State["refreshToken"]) => set({ refreshToken }),
         };
       },
       {
