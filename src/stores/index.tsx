@@ -1,12 +1,12 @@
 /*
  * @Author: Lyq
  * @Date: 2023-09-06 16:13:55
- * @LastEditors: Lyq
- * @LastEditTime: 2024-01-29 20:59:55
+ * @LastEditors: Lyq 
+ * @LastEditTime: 2024-01-30 21:25:49
  */
 import { create } from "zustand";
 import { devtools, persist, createJSONStorage } from "zustand/middleware";
-import { TabLists, IsExpand } from "./type";
+import { TabLists, State, Action } from "./type";
 // tabs
 const useTabLists = create<TabLists>()((set) => ({
   tabList: [],
@@ -16,26 +16,7 @@ const useTabLists = create<TabLists>()((set) => ({
 const useBreadcrumb = create<any>()(() => ({
   breadcrumbList: [],
 }));
-// 样式主题
-const useThemeColor = create(() => ({
-  themeColor: "#1677FF",
-}));
-// token
 
-interface State {
-  darkMode: boolean;
-  collapsed: boolean;
-  // lang: string;
-  token: string;
-  refreshToken: string;
-}
-interface Action {
-  setDarkMode: (darkMode: State["darkMode"]) => void;
-  setCollapsed: (collapsed: State["collapsed"]) => void;
-  // setLang: (lang: State["lang"]) => void;
-  // setToken: (lang: State["token"]) => void;
-  // setRefreshToken: (lang: State["refreshToken"]) => void;
-}
 const useGlobalStore = create<State & Action>()(
   devtools(
     persist(
@@ -44,8 +25,10 @@ const useGlobalStore = create<State & Action>()(
           token: "",
           refreshToken: "",
           collapsed: false,
+          themeColor: "#1677ff",
           darkMode: false,
           setDarkMode: (darkMode: State["darkMode"]) => set({ darkMode }),
+          setThemeColor: (themeColor: State["themeColor"]) => set({ themeColor }),
           setToken: (token: State["token"]) => set({ token }),
           setCollapsed: (collapsed: State["collapsed"]) => set({ collapsed }),
           setRefreshToken: (refreshToken: State["refreshToken"]) => set({ refreshToken }),
@@ -60,4 +43,4 @@ const useGlobalStore = create<State & Action>()(
   ),
 );
 
-export { useTabLists, useBreadcrumb, useThemeColor, useGlobalStore };
+export { useTabLists, useBreadcrumb, useGlobalStore };

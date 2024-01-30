@@ -1,14 +1,14 @@
 /*
  * @Author: Lyq
  * @Date: 2023-08-29 21:03:53
- * @LastEditors: Lyq
- * @LastEditTime: 2024-01-24 21:41:53
+ * @LastEditors: Lyq 
+ * @LastEditTime: 2024-01-30 21:15:09
  */
 import React from "react";
 import { ConfigProvider, App as AntdApp, theme } from "antd";
 import dayjs from "dayjs";
 import { BrowserRouter } from "react-router-dom";
-import { useGlobalStore, useThemeColor } from "@/stores";
+import { useGlobalStore } from "@/stores";
 import AuthRouter from "@/components/AuthRouter";
 import Router from "@/routers/index";
 import zhCN from "antd/locale/zh_CN";
@@ -22,8 +22,7 @@ import "./app.css";
 
 dayjs.locale("en");
 function App() {
-  const { themeColor } = useThemeColor();
-  const { darkMode } = useGlobalStore();
+  const { darkMode, themeColor } = useGlobalStore();
 
   return (
     <ConfigProvider

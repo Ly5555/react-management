@@ -1,8 +1,8 @@
 /*
  * @Author: liuyongqing
  * @Date: 2023-09-06 17:13:39
- * @LastEditors: liuyongqing
- * @LastEditTime: 2023-10-24 20:38:18
+ * @LastEditors: Lyq
+ * @LastEditTime: 2024-01-30 21:15:50
  */
 export interface TabLists {
   tabList: {
@@ -13,4 +13,20 @@ export interface TabLists {
 }
 export interface IsExpand {
   IsExpand: boolean;
+}
+export interface State {
+  darkMode: boolean;
+  collapsed: boolean;
+  themeColor: string;
+  // lang: string;
+  token: string;
+  refreshToken: string;
+}
+export interface Action {
+  setDarkMode: (darkMode: State["darkMode"]) => void;
+  setThemeColor: (darkMode: State["themeColor"]) => void;
+  setCollapsed: (collapsed: State["collapsed"]) => void;
+  // setLang: (lang: State["lang"]) => void;
+  // setToken: (lang: State["token"]) => void;
+  // setRefreshToken: (lang: State["refreshToken"]) => void;
 }
