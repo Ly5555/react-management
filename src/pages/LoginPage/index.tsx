@@ -2,14 +2,16 @@
  * @Author: liuyongqing
  * @Date: 2023-11-16 22:28:43
  * @LastEditors: Lyq
- * @LastEditTime: 2024-01-31 21:59:08
+ * @LastEditTime: 2024-02-19 21:45:47
  */
 //登陆页
 import React from "react";
 import { LoginForm } from "./components";
 import { SwitchTheme } from "@/components";
 import styles from "./index.module.less";
-// https://gjq0208.gitee.io/react-antd-admin/images/login.1356e663679d4a0ec4482ed445ff33d4.png
+
+import HOME_BG from "@/assets/home_bg.png";
+
 const LoginPage = () => {
   return (
     <div className={styles.login}>
@@ -19,15 +21,12 @@ const LoginPage = () => {
         </div>
         <div className={styles.login_container}>
           <div className={styles.left_container}>
-            <div className={styles.left_logo}>
-              <div className={styles.left_logo_title}>运营平台</div>
-              <div className={styles.left_logo_tip}>Xxxxxxxxxx</div>
-            </div>
+            <p className={styles.left_h3}>注册账号 - 成为XXXX实名用户</p>
+            <p className={styles.left_title}>即可同步开通相关业务</p>
+            <p className={styles.left_title_tip}>智能小程序平台 · 百家号平台 · 搜索资源平台 · 商家号 · 数据开发平台</p>
+            <img className={styles.left_Image} src={HOME_BG} alt="我是HOME_BG" />
           </div>
           <div className={styles.right_container}>
-            {/* <div className={styles.logo} /> */}
-            <div className={styles.logo_tip}>Welcome back</div>
-            <div className={styles.logo_desc}>Sign in to continue</div>
             <LoginForm />
           </div>
         </div>

@@ -1,8 +1,8 @@
 /*
  * @Author: Lyq
  * @Date: 2023-08-29 21:03:53
- * @LastEditors: Lyq 
- * @LastEditTime: 2024-01-30 21:15:09
+ * @LastEditors: Lyq
+ * @LastEditTime: 2024-02-19 20:57:21
  */
 import React from "react";
 import { ConfigProvider, App as AntdApp, theme } from "antd";
@@ -13,11 +13,8 @@ import AuthRouter from "@/components/AuthRouter";
 import Router from "@/routers/index";
 import zhCN from "antd/locale/zh_CN";
 import "dayjs/locale/zh-cn";
-
 import "antd/dist/reset.css";
-
-// import "@/style/dark.less";
-// import "@/style/light.less";
+import "@/style/reset.less";
 import "./app.css";
 
 dayjs.locale("en");
