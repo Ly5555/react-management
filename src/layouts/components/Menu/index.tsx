@@ -2,7 +2,7 @@
  * @Author: liuyongqing
  * @Date: 2023-07-24 21:31:32
  * @LastEditors: Lyq
- * @LastEditTime: 2024-01-22 21:11:06
+ * @LastEditTime: 2024-02-19 20:14:44
  */
 import React, { useState, useEffect } from "react";
 import { Menu } from "antd";
@@ -32,7 +32,7 @@ const LayoutMenu = () => {
     const fetchMenu = async () => {
       try {
         const { data } = await request({
-          url: "https://www.fastmock.site/mock/302854084413bb6592dc4c53c7f85991/admin/menu/list",
+          url: "https://mock.mengxuegu.com/mock/65d344a5351bbd02cf339ac3/menu/list",
           loading: true,
         });
         setmenuList(deepLoopMenu(data));

@@ -28,21 +28,21 @@ body {
 .dark {
   --yz-background-color: #141414;
   --yz-font-color: #a3a6ad;
-  --yz-border-color: #414243;
-  --yz-login-font-color: #e5eaf3;
+  /* --yz-border-color: #414243; */
+  /* --yz-login-font-color: #e5eaf3;
   --yz-login-bg-color: #141414b2;
-  --yz-svg-color: rgb(255 255 255 / 85%);
-  --yz-font-color-2: #a3a6ad;
-  --yz-border-color-dark: #414243;
+  --yz-svg-color: rgb(255 255 255 / 85%); */
+  /* --yz-font-color-2: #a3a6ad; */
+  /* --yz-border-color-dark: #414243; */
 }
 
 /* Light theme styles */
-.dark .light {
+.light {
   --yz-background-color: #f0f2f5;
   --yz-font-color: #323232;
-  --yz-login-font-color: #323232;
+  /* --yz-login-font-color: #323232;
   --yz-svg-color: #323233;
-  --yz-font-color-2: #666666;
-  --yz-border-color: #e4e7ed;
-  --yz-border-color-dark: #dcdfe6;
+  --yz-font-color-2: #666666; */
+  /* --yz-border-color: #e4e7ed; */
+  /* --yz-border-color-dark: #dcdfe6; */
 }

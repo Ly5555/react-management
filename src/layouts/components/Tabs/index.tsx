@@ -2,12 +2,20 @@
  * @Author: liuyongqing
  * @Date: 2023-07-06 20:26:58
  * @LastEditors: Lyq
- * @LastEditTime: 2024-01-25 21:56:46
+ * @LastEditTime: 2024-02-07 21:23:35
  */
 import React, { useState, useEffect, useMemo, useCallback } from "react";
-import { Dropdown, Layout, MenuProps, Tabs, TabsProps, theme } from "antd";
-import { CloseCircleFilled, ReloadOutlined, CloseOutlined, RightOutlined, LeftOutlined, RollbackOutlined, RedoOutlined } from "@ant-design/icons";
-import { useLocation, useNavigate, Outlet } from "react-router-dom";
+import { Dropdown, MenuProps } from "antd";
+import {
+  CloseCircleFilled,
+  ReloadOutlined,
+  CloseOutlined,
+  RightOutlined,
+  LeftOutlined,
+  RollbackOutlined,
+  RedoOutlined,
+} from "@ant-design/icons";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useTabLists } from "@/stores";
 import { routerArray } from "@/routers/index";
 import { searchRoute } from "@/utils/util";
@@ -28,17 +36,18 @@ const LayoutTabs = () => {
   const { pathname } = useLocation();
   const { tabList } = useTabLists();
   const useNavigateTo = useNavigate();
-  const { Content, Footer, Sider } = Layout;
   const [activeKey, setActiveKey] = useState<string>(pathname);
   const [openDropdownTabKey, setopenDropdownTabKey] = useState("");
 
   useEffect(() => {
     addTabs();
   }, [pathname]);
-  // dropdown下拉选
 
-  const items: MenuProps["items"] = useMemo(
-    () => [
+  const items: MenuProps["items"] = useMemo(() => {
+    console.log("openDropdownTabKey", openDropdownTabKey);
+    console.log("tabList", tabList.findIndex((tab) => tab.path === openDropdownTabKey) === 0);
+
+    return [
       {
         label: MultiTabOperation.REFRESH,
         icon: <ReloadOutlined style={{ fontSize: "16px" }} />,
@@ -53,6 +62,7 @@ const LayoutTabs = () => {
         label: MultiTabOperation.CLOSELEFT,
         icon: <LeftOutlined style={{ fontSize: "16px" }} />,
         key: MultiTabOperation.CLOSELEFT,
+        disabled: tabList.length <= 1 || tabList.findIndex((tab) => tab.path === openDropdownTabKey) === 0,
       },
       {
         label: MultiTabOperation.CLOSERIGHT,
@@ -71,15 +81,15 @@ const LayoutTabs = () => {
         key: MultiTabOperation.CLOSEALL,
         disabled: tabList.length === 1,
       },
-    ],
-    [tabList],
-  );
+    ];
+  }, [tabList, openDropdownTabKey]);
+
   const renderTabTitle = useCallback(
     (item: { title: string }) => {
       return (
         <Dropdown
           menu={{ items, onClick: (e) => handelmenuClick(e, item) }}
-          onOpenChange={(open, info) => handelOpenChange(open, info)}
+          onOpenChange={(open: any, info) => onOpenChange(open, info, item)}
           trigger={["contextMenu"]}>
           <div>{item.title}</div>
         </Dropdown>
@@ -87,6 +97,14 @@ const LayoutTabs = () => {
     },
     [items],
   );
+
+  const onOpenChange = (open: any, info: any, item: any) => {
+    if (open) {
+      setopenDropdownTabKey(item.path);
+    } else {
+      setopenDropdownTabKey("");
+    }
+  };
   const newTabsList = useMemo(() => {
     return tabList
       .map((item: any, index) => {
@@ -99,6 +117,7 @@ const LayoutTabs = () => {
       })
       .filter((item) => item.key);
   }, [tabList]);
+
   const handelClickTabs = (path: string) => {
     useNavigateTo(path);
   };
@@ -138,10 +157,14 @@ const LayoutTabs = () => {
     useTabLists.setState({ tabList: [] });
     useNavigateTo(HOME_URL);
   };
+  // 关闭左侧
+  const closeLeftTabs = (tabPath: string) => {
+    const currentTabIndex = tabList.findIndex((item) => item.key === tabPath);
+    const newTabs = tabList.slice(currentTabIndex);
+    useTabLists.setState({ tabList: newTabs });
+  };
   //删除点击
-  const handelmenuClick = (e: any, item: any) => {
-    console.log(e, item);
-
+  const handelmenuClick = useCallback((e: any, item: any) => {
     const { key, domEvent } = e || {};
     domEvent.stopPropagation();
     switch (key) {
@@ -152,24 +175,15 @@ const LayoutTabs = () => {
       case MultiTabOperation.CLOSEOTHERS:
         return closeOtherTabs(item.path);
       case MultiTabOperation.CLOSELEFT:
-        console.log(1);
-      // return deleteTabs(item.path);
+        return closeLeftTabs(item.path);
       case MultiTabOperation.CLOSERIGHT:
         console.log(2);
       // return deleteTabs(item.path);
       case MultiTabOperation.CLOSEALL:
         return closeAllTabs();
     }
-  };
-  const handelOpenChange = (open: boolean, info: any) => {
-    console.log(info);
+  }, []);
 
-    if (open) {
-      setopenDropdownTabKey(info.key);
-    } else {
-      setopenDropdownTabKey("");
-    }
-  };
   return (
     <div className={styles.tabs_box}>
       <DraggableTab

@@ -1,8 +1,8 @@
 /*
  * @Author: liuyongqing
  * @Date: 2023-07-25 21:03:23
- * @LastEditors: liuyongqing
- * @LastEditTime: 2023-11-22 21:07:14
+ * @LastEditors: Lyq 
+ * @LastEditTime: 2024-02-19 20:15:13
  */
 import React, { useState } from "react";
 import md5 from "js-md5";
@@ -16,14 +16,13 @@ const LoginForm = () => {
   const navigaiteTo = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
   const [form] = Form.useForm();
-
   // 提交
   const handleOnFinish = async () => {
     try {
       setLoading(true);
       const values = await form.validateFields();
       const { data } = await request({
-        url: "https://www.fastmock.site/mock/302854084413bb6592dc4c53c7f85991/admin/login",
+        url: "https://mock.mengxuegu.com/mock/65d344a5351bbd02cf339ac3/login",
         method: "post",
         data: { ...values, password: md5(values.password) },
       });

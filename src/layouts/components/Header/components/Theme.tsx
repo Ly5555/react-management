@@ -2,21 +2,20 @@
  * @Author: Lyq
  * @Date: 2024-01-20 16:04:56
  * @LastEditors: Lyq
- * @LastEditTime: 2024-01-30 21:45:08
+ * @LastEditTime: 2024-01-31 20:33:02
  */
-/*
-主题
-*/
-import React, { useCallback, useEffect, useState } from "react";
-import { Button, ColorPicker, Drawer, Space, Switch } from "antd";
-import { SettingOutlined } from "@ant-design/icons";
+
+import React, { useState } from "react";
+import { Button, ColorPicker, Drawer, Space } from "antd";
+import { SkinOutlined } from "@ant-design/icons";
 import { useGlobalStore } from "@/stores";
+import { SwitchTheme } from "@/components";
 import type { ColorPickerProps } from "antd";
 import styles from "./theme.module.less";
 const Theme = () => {
   const [open, setOpen] = useState(false);
   const [formatHex, setFormatHex] = useState<ColorPickerProps["format"]>("hex");
-  const { darkMode, themeColor, setDarkMode, setThemeColor } = useGlobalStore();
+  const { themeColor, setThemeColor } = useGlobalStore();
   const presets = [
     {
       label: "推荐",
@@ -55,9 +54,6 @@ const Theme = () => {
     },
   ];
 
-  useEffect(() => {
-    applyTheme(darkMode);
-  }, [darkMode]);
   const showDrawer = () => {
     setOpen(true);
   };
@@ -65,24 +61,14 @@ const Theme = () => {
     setOpen(false);
   };
 
-  // 暗黑模式
-  const handelTheme = () => {
-    const newDarkMode = !darkMode;
-    applyTheme(newDarkMode);
-    setDarkMode(newDarkMode);
-  };
-  const applyTheme = (isDarkMode: boolean) => {
-    document.body.classList.remove(isDarkMode ? "light" : "dark");
-    document.body.classList.add(isDarkMode ? "dark" : "light");
-  };
   // 主题颜色
   const handelColorChange = (hex: string) => {
     setThemeColor(hex);
   };
   return (
     <div id="driverjs_theme" className={styles.themeBox}>
-      <SettingOutlined onClick={showDrawer} style={{ fontSize: 19, marginRight: 16 }} />
-      <Drawer title="设置" placement="right" closable={false} onClose={onClose} open={open}>
+      <SkinOutlined onClick={showDrawer} style={{ fontSize: 19, marginRight: 16 }} />
+      <Drawer title="设置🎨" placement="right" closable={false} onClose={onClose} open={open}>
         <Space direction="vertical">
           <div className={styles.themeDrawerBox}>
             <span className={styles.themeTitle}>主题颜色:</span>
@@ -103,13 +89,7 @@ const Theme = () => {
           </div>
           <div className={styles.themeDrawerBox}>
             <span className={styles.themeTitle}>暗黑模式:</span>
-            <Switch
-              checkedChildren={<>🌞</>}
-              defaultChecked={darkMode}
-              unCheckedChildren={<>🌜</>}
-              checked={darkMode}
-              onChange={handelTheme}
-            />
+            <SwitchTheme />
           </div>
         </Space>
       </Drawer>

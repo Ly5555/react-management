@@ -1,8 +1,8 @@
 /*
  * @Author: liuyongqing
  * @Date: 2024-01-01 20:20:03
- * @LastEditors: Lyq
- * @LastEditTime: 2024-01-06 21:06:30
+ * @LastEditors: Lyq 
+ * @LastEditTime: 2024-02-19 20:18:07
  */
 
 // 搜索数据
@@ -21,7 +21,7 @@ export const searchList = [
     label: "全选测试",
     name: "ids",
     params: {
-      api: "https://www.fastmock.site/mock/302854084413bb6592dc4c53c7f85991/admin/listExpress",
+      api: "https://mock.mengxuegu.com/mock/65d344a5351bbd02cf339ac3/listExpress",
       // labelkey: "name",
       // valuekey: "id",
     },
@@ -37,7 +37,7 @@ export const searchList = [
     name: "userId",
     wrapperCol: 200,
     params: {
-      api: "https://www.fastmock.site/mock/302854084413bb6592dc4c53c7f85991/admin/city",
+      api: "https://mock.mengxuegu.com/mock/65d344a5351bbd02cf339ac3/cityv",
       labelkey: "name",
       valuekey: "id",
     },
