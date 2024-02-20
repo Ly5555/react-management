@@ -2,7 +2,7 @@
  * @Author: liuyongqing
  * @Date: 2023-07-06 20:26:58
  * @LastEditors: Lyq
- * @LastEditTime: 2024-02-07 21:23:35
+ * @LastEditTime: 2024-02-20 22:04:31
  */
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { Dropdown, MenuProps } from "antd";
@@ -43,10 +43,7 @@ const LayoutTabs = () => {
     addTabs();
   }, [pathname]);
 
-  const items: MenuProps["items"] = useMemo(() => {
-    console.log("openDropdownTabKey", openDropdownTabKey);
-    console.log("tabList", tabList.findIndex((tab) => tab.path === openDropdownTabKey) === 0);
-
+  const generateMenuItems = (tabList: any[], openDropdownTabKey: string) => {
     return [
       {
         label: MultiTabOperation.REFRESH,
@@ -57,17 +54,19 @@ const LayoutTabs = () => {
         label: MultiTabOperation.CLOSE,
         icon: <CloseOutlined style={{ fontSize: "16px" }} />,
         key: MultiTabOperation.CLOSE,
+        disabled: tabList.length === 1,
       },
       {
         label: MultiTabOperation.CLOSELEFT,
         icon: <LeftOutlined style={{ fontSize: "16px" }} />,
         key: MultiTabOperation.CLOSELEFT,
-        disabled: tabList.length <= 1 || tabList.findIndex((tab) => tab.path === openDropdownTabKey) === 0,
+        disabled: tabList.length <= 1 || tabList.findIndex((item) => item.path === openDropdownTabKey) === 0,
       },
       {
         label: MultiTabOperation.CLOSERIGHT,
         icon: <RightOutlined style={{ fontSize: "16px" }} />,
         key: MultiTabOperation.CLOSERIGHT,
+        disabled: tabList.findIndex((item) => item.path === openDropdownTabKey) === tabList.length - 1,
       },
       {
         label: MultiTabOperation.CLOSEOTHERS,
@@ -82,8 +81,11 @@ const LayoutTabs = () => {
         disabled: tabList.length === 1,
       },
     ];
-  }, [tabList, openDropdownTabKey]);
-
+  };
+  const items: MenuProps["items"] = useMemo(
+    () => generateMenuItems(tabList, openDropdownTabKey),
+    [tabList, openDropdownTabKey],
+  );
   const renderTabTitle = useCallback(
     (item: { title: string }) => {
       return (
@@ -95,16 +97,9 @@ const LayoutTabs = () => {
         </Dropdown>
       );
     },
-    [items],
+    [items, tabList, openDropdownTabKey],
   );
 
-  const onOpenChange = (open: any, info: any, item: any) => {
-    if (open) {
-      setopenDropdownTabKey(item.path);
-    } else {
-      setopenDropdownTabKey("");
-    }
-  };
   const newTabsList = useMemo(() => {
     return tabList
       .map((item: any, index) => {
@@ -116,8 +111,11 @@ const LayoutTabs = () => {
         };
       })
       .filter((item) => item.key);
-  }, [tabList]);
+  }, [tabList, openDropdownTabKey]);
 
+  const onOpenChange = (open: any, info: any, item: any) => {
+    setopenDropdownTabKey(open ? item.path : "");
+  };
   const handelClickTabs = (path: string) => {
     useNavigateTo(path);
   };
@@ -134,8 +132,9 @@ const LayoutTabs = () => {
     useTabLists.setState({ tabList: newTabsList });
     setActiveKey(pathname);
   };
+
   // 删除单个tabs
-  const deleteTabs = (tabPath: React.MouseEvent | React.KeyboardEvent | string) => {
+  const clonseTabs = (tabPath: React.MouseEvent | React.KeyboardEvent | string) => {
     if (pathname === tabPath) {
       tabList.forEach((item, index) => {
         if (item.path !== pathname) return;
@@ -147,43 +146,61 @@ const LayoutTabs = () => {
     let newList = tabList.filter((item: { path: string }) => item.path !== tabPath);
     useTabLists.setState({ tabList: newList });
   };
+
   // 关闭其他
   const closeOtherTabs = (tabPath: string) => {
-    let newList = tabList.filter((item) => item.path === tabPath);
-    useTabLists.setState({ tabList: newList });
+    const newTabs = tabList.filter((item) => item.path === tabPath);
+    useTabLists.setState({ tabList: newTabs });
+    setActiveKey(tabPath);
   };
+
   // 关闭所有
   const closeAllTabs = () => {
     useTabLists.setState({ tabList: [] });
+
     useNavigateTo(HOME_URL);
   };
+
   // 关闭左侧
   const closeLeftTabs = (tabPath: string) => {
-    const currentTabIndex = tabList.findIndex((item) => item.key === tabPath);
+    const currentTabIndex = tabList.findIndex((item) => item.path === tabPath);
     const newTabs = tabList.slice(currentTabIndex);
     useTabLists.setState({ tabList: newTabs });
+    setActiveKey(tabPath);
   };
-  //删除点击
-  const handelmenuClick = useCallback((e: any, item: any) => {
-    const { key, domEvent } = e || {};
-    domEvent.stopPropagation();
-    switch (key) {
-      case MultiTabOperation.REFRESH:
-        return;
-      case MultiTabOperation.CLOSE:
-        return deleteTabs(item.path);
-      case MultiTabOperation.CLOSEOTHERS:
-        return closeOtherTabs(item.path);
-      case MultiTabOperation.CLOSELEFT:
-        return closeLeftTabs(item.path);
-      case MultiTabOperation.CLOSERIGHT:
-        console.log(2);
-      // return deleteTabs(item.path);
-      case MultiTabOperation.CLOSEALL:
-        return closeAllTabs();
-    }
-  }, []);
 
+  // 关闭右侧
+  const closeRightTabs = (tabPath: string) => {
+    const currentTabIndex = tabList.findIndex((item) => item.path === tabPath);
+    const newTabs = tabList.slice(0, currentTabIndex + 1);
+    useTabLists.setState({ tabList: newTabs });
+    setActiveKey(tabPath);
+  };
+
+  //删除点击
+  const handelmenuClick = useCallback(
+    (e: any, item: any) => {
+      const { key, domEvent } = e || {};
+      domEvent.stopPropagation();
+      switch (key) {
+        case MultiTabOperation.REFRESH:
+          return;
+        case MultiTabOperation.CLOSE:
+          return clonseTabs(item.path);
+        case MultiTabOperation.CLOSEOTHERS:
+          return closeOtherTabs(item.path);
+        case MultiTabOperation.CLOSELEFT:
+          return closeLeftTabs(item.path);
+        case MultiTabOperation.CLOSERIGHT:
+          return closeRightTabs(item.path);
+        case MultiTabOperation.CLOSEALL:
+          return closeAllTabs();
+        default:
+          break;
+      }
+    },
+    [clonseTabs, closeOtherTabs, closeLeftTabs, closeRightTabs, closeAllTabs],
+  );
   return (
     <div className={styles.tabs_box}>
       <DraggableTab
@@ -193,7 +210,7 @@ const LayoutTabs = () => {
         tabBarGutter={4}
         activeKey={activeKey}
         type="editable-card"
-        onEdit={deleteTabs}
+        onEdit={clonseTabs}
         items={newTabsList}
       />
     </div>

@@ -1,7 +1,7 @@
 /*
  * @Author: liuyongqing
  * @Date: 2024-01-01 20:20:03
- * @LastEditors: Lyq 
+ * @LastEditors: Lyq
  * @LastEditTime: 2024-02-19 20:18:07
  */
 
@@ -37,7 +37,7 @@ export const searchList = [
     name: "userId",
     wrapperCol: 200,
     params: {
-      api: "https://mock.mengxuegu.com/mock/65d344a5351bbd02cf339ac3/cityv",
+      api: "https://mock.mengxuegu.com/mock/65d344a5351bbd02cf339ac3/city",
       labelkey: "name",
       valuekey: "id",
     },
