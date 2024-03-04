@@ -2,7 +2,7 @@
  * @Author: Lyq
  * @Date: 2023-09-06 19:51:49
  * @LastEditors: Lyq
- * @LastEditTime: 2024-01-04 21:45:54
+ * @LastEditTime: 2024-03-04 20:21:16
  */
 import React from "react";
 import { searchRoute } from "@/utils/util";
@@ -17,8 +17,8 @@ const AuthRouter = (props: { children: JSX.Element }) => {
   abortController.removeAllPending();
   if (!route.meta?.requiresAuth) return props.children;
   const { token } = useGlobalStore.getState();
-
-  if (!token) return <Navigate to={"/login"} replace />;
+  // 先注释掉
+  // if (!token) return <Navigate to={"/login"} replace />;
   return props.children;
 };
 

@@ -10,11 +10,11 @@ export const baseURL = process.env.NODE_ENV; //服务
 axios.defaults.baseURL = baseURL;
 const config = {
   // 默认地址请求地址，可在 .env 开头文件中修改
-  baseURL: baseURL,
+  baseURL: '',
   // 设置超时时间（10s）
-  timeout: 1000 * 5,
+  // timeout: 1000 * 5,
   // 跨域时候允许携带凭证
-  withCredentials: true
+  // withCredentials: true
 };
 
 
@@ -23,14 +23,16 @@ const config = {
 let instance = axios.create(config);
 // 定义一个flag 判断是否刷新Token中
 
-
-
+/**
+ * @description 请求拦截器
+ *
+ */
 instance.interceptors.request.use(
   (config: any,) => {
     abortController.addPending(config);
     config?.loading && showFullScreenLoading();
     const { token } = useGlobalStore.getState();
-    return { ...config, headers: { ...config.headers, "x-access-token": token } };
+    return { ...config, headers: { ...config.headers, 'content-type': "application/json", "x-access-token": token } };
   },
   (error: AxiosError) => {
     return Promise.reject(error)
@@ -48,15 +50,6 @@ instance.interceptors.response.use(
 
     abortController.removePending(config);
     tryHideFullScreenLoading();
-
-    // if (data.code == ResultEnum.OVERDUE) {
-    //   window.location.hash = "/login";
-    //   return Promise.reject(data);
-    // }
-    // if (data.code && data.code !== ResultEnum.SUCCESS) {
-    //   // message.error(data.msg);
-    //   return Promise.reject(data);
-    // }
     return data;
   },
   // 请求失败

@@ -1,5 +1,10 @@
+/*
+ * @Author: Lyq
+ * @Date: 2024-01-20 16:04:56
+ * @LastEditors: Lyq
+ * @LastEditTime: 2024-02-28 21:53:57
+ */
 const path = require("path");
-const webpack = require("webpack");
 const { merge } = require("webpack-merge");
 const baseConfig = require("./webpack.base.js");
 const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
@@ -8,10 +13,17 @@ const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin"
 module.exports = merge(baseConfig, {
   mode: "development", // 开发模式，不会压缩最终代码
   devServer: {
-    port: 3000, // 服务端口号
+    port: 3001, // 服务端口号
     compress: false, // gzip压缩，开发环境不开启，提升速度
     // 解决路由跳转404问题
     historyApiFallback: true,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000/',
+        changeOrigin: true,
+        pathRewrite: { '^/api': '' },
+      },
+    },
     hot: true,
     client: {
       overlay: {

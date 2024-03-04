@@ -16,7 +16,7 @@ module.exports = {
     clean: true, // webpack4需要配置clean-webpack-plugin来删除dist文件,webpack5内置了
     publicPath: "/", // 打包后文件的公共前缀路径
   },
-  //   // exclude: path.resolve(__dirname, 'node_modules'),
+  // exclude: path.resolve(__dirname, 'node_modules'),
   module: {
     rules: [
       {

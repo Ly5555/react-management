@@ -2,11 +2,11 @@
  * @Author: liuyongqing
  * @Date: 2023-07-25 21:03:23
  * @LastEditors: Lyq
- * @LastEditTime: 2024-02-19 22:03:38
+ * @LastEditTime: 2024-03-04 20:17:54
  */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import md5 from "js-md5";
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { LockOutlined, SafetyCertificateOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input, Space, Tabs, message } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useTabLists, useGlobalStore } from "@/stores";
@@ -18,25 +18,34 @@ const LoginForm = () => {
   const navigaiteTo = useNavigate();
 
   const [loading, setLoading] = useState<boolean>(false);
-  const [loginType, setLoginType] = useState("phone");
+  const [loginType, setLoginType] = useState("account");
   const [form] = Form.useForm();
+  const codeUrl = "/api/user/code";
+  useEffect(() => {
+    const res = request({
+      url: codeUrl,
+      method: "get",
+    });
+    console.log(res);
+  }, [loginType]);
   // 提交
   const handleOnFinish = async () => {
     try {
-      setLoading(true);
+      // setLoading(true);
       const values = await form.validateFields();
-      const { data } = await request({
-        url: "https://mock.mengxuegu.com/mock/65d344a5351bbd02cf339ac3/login",
+      console.log(values);
+      const res = await request({
+        url: "/api/user/create",
         method: "post",
-        data: { ...values, password: md5(values.password) },
+        data: values,
       });
-      useGlobalStore.setState({ token: data.access_token });
-      useTabLists.setState({ tabList: [] });
+      // useGlobalStore.setState({ token: data.access_token });
+      // useTabLists.setState({ tabList: [] });
       navigaiteTo(HOME_URL);
     } catch (error) {
       console.log(error);
     } finally {
-      setLoading(false);
+      // setLoading(false);
     }
   };
   return (
@@ -53,6 +62,13 @@ const LoginForm = () => {
             </Form.Item>
             <Form.Item name="password" rules={[{ required: true, message: "请输入密码" }]}>
               <Input.Password prefix={<LockOutlined />} type="password" placeholder="密码" />
+            </Form.Item>
+            <Form.Item name="captcha" rules={[{ required: true, message: "请输入验证码" }]}>
+              <Input
+                prefix={<SafetyCertificateOutlined />}
+                placeholder="验证码"
+                suffix={<img className="cursor-pointer" src={codeUrl} />}
+              />
             </Form.Item>
             <Form.Item>
               <Space>

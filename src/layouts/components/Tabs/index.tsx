@@ -2,7 +2,7 @@
  * @Author: liuyongqing
  * @Date: 2023-07-06 20:26:58
  * @LastEditors: Lyq
- * @LastEditTime: 2024-02-20 22:04:31
+ * @LastEditTime: 2024-02-21 21:47:41
  */
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { Dropdown, MenuProps } from "antd";
@@ -123,9 +123,7 @@ const LayoutTabs = () => {
   // 添加 tabs
   const addTabs = () => {
     const route = searchRoute(pathname, routerArray);
-
     let newTabsList = JSON.parse(JSON.stringify(tabList));
-
     if (tabList.every((item: any) => item.path !== route.path)) {
       newTabsList.push({ ...route, title: route?.meta!?.title, path: route.path });
     }

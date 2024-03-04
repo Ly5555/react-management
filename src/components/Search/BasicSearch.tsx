@@ -2,7 +2,7 @@
  * @Author: Lyq
  * @Date: 2024-01-06 14:56:15
  * @LastEditors: Lyq
- * @LastEditTime: 2024-01-06 21:04:16
+ * @LastEditTime: 2024-03-04 20:26:33
  */
 import React, { useImperativeHandle, useMemo, useState } from "react";
 import { memo } from "react";
@@ -79,8 +79,12 @@ function BasicSearch(props: any) {
                 onClick={() => {
                   setExpand(!expand);
                 }}>
-                <DownOutlined rotate={expand ? 180 : 0} />
-                {expand ? "收起" : "展开"}
+                {list && list.length >= 6 ? (
+                  <>
+                    <DownOutlined rotate={expand ? 180 : 0} />
+                    {expand ? "收起" : "展开"}
+                  </>
+                ) : null}
               </a>
             </Space>
           </div>
