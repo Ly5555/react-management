@@ -67,6 +67,7 @@ export function downloadGet(url: string, filename: string) {
       responseType: 'blob'
     })
     .then((data) => {
+      console.log(data, 'data');
       const content: BlobPart = data as unknown as BlobPart;
       const blob = new Blob([content]);
       if ('download' in document.createElement('a')) {
@@ -82,7 +83,9 @@ export function downloadGet(url: string, filename: string) {
         (navigator as unknown as { msSaveBlob: (blob: Blob, filename: string) => void }).msSaveBlob(blob, filename);
       }
     })
-    .catch((r) => { });
+    .catch((r) => {
+      console.log(r, 'r');
+    });
 }
 
 /**

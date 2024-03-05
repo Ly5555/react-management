@@ -2,7 +2,7 @@
  * @Author: liuyongqing
  * @Date: 2023-07-06 20:26:58
  * @LastEditors: Lyq
- * @LastEditTime: 2024-02-21 21:47:41
+ * @LastEditTime: 2024-03-04 22:07:55
  */
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { Dropdown, MenuProps } from "antd";
@@ -106,7 +106,6 @@ const LayoutTabs = () => {
         return {
           key: item?.path,
           label: renderTabTitle(item),
-          closeIcon: <CloseCircleFilled />,
           closable: tabList.filter((obj) => Object.keys(obj).length !== 0).length > 1,
         };
       })

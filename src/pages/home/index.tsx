@@ -1,13 +1,14 @@
 /*
  * @Author: liuyongqing
  * @Date: 2023-07-11 19:19:04
- * @LastEditors: liuyongqing
- * @LastEditTime: 2024-01-03 21:50:10
+ * @LastEditors: Lyq
+ * @LastEditTime: 2024-03-04 21:47:00
  */
 import React, { Children, useCallback, useEffect, useState } from "react";
 import { Son } from "./components";
-import { Select } from "antd";
+import { Button, Select } from "antd";
 import styles from "./home.mouule.less";
+import { downloadGet } from "@/utils/request";
 enum cardType {
   DEFAULT = "default",
   MIX = "mix",
@@ -38,7 +39,15 @@ const Home = () => {
         return null;
     }
   }, []);
-  return <div className={styles.home_card}>{details && details.map((item, index) => renderCard(item, index))}</div>;
+  const handleClock = async () => {
+    downloadGet("http://localhost:3000/upload/export", "lyq.zip");
+  };
+  return (
+    <div className={styles.home_card}>
+      {details && details.map((item, index) => renderCard(item, index))}
+      <Button onClick={handleClock}>测试下载</Button>
+    </div>
+  );
 };
 
 export default Home;
