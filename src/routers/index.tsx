@@ -2,7 +2,7 @@
  * @Author: Lyq
  * @Date: 2023-08-29 21:41:58
  * @LastEditors: Lyq
- * @LastEditTime: 2024-01-05 20:02:59
+ * @LastEditTime: 2024-03-06 21:53:00
  */
 import React, { lazy } from "react";
 import lazyLoad from "@/components/lazyLoad";
@@ -17,6 +17,7 @@ const CustomHooks = lazyLoad(lazy(() => import("@/pages/custom/customHooks")));
 const CustomDetail = lazyLoad(lazy(() => import("@/pages/custom/customDetail")));
 const DataScreen = lazyLoad(lazy(() => import("@/pages/dataScreen")));
 const FormTable = lazyLoad(lazy(() => import("@/pages/FormTable")));
+const RoleManage = lazyLoad(lazy(() => import("@/pages/role/index")));
 const NotFound = lazyLoad(lazy(() => import("@/components/NotFound/index")));
 
 // 页面组件
@@ -55,6 +56,16 @@ export const routerArray: any = [
     path: "/datascreen",
     meta: { requiresAuth: true, title: "数据展示" },
     element: DataScreen,
+  },
+  {
+    meta: { requiresAuth: true, title: "轮播图" },
+    children: [
+      {
+        path: "/role/role-manage",
+        meta: { title: "权限管理" },
+        element: RoleManage,
+      },
+    ],
   },
   {
     path: "/404",
