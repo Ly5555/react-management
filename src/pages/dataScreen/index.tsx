@@ -1,21 +1,25 @@
 /*
  * @Author: liuyongqing
  * @Date: 2023-09-25 20:14:16
- * @LastEditors: liuyongqing
- * @LastEditTime: 2023-12-18 20:46:51
+ * @LastEditors: Lyq
+ * @LastEditTime: 2024-03-11 20:15:06
  */
 import React, { useEffect, useState, useRef } from "react";
-import request from "@/utils/request";
+import { lib } from "@/utils/request";
 import styles from "./index.module.less";
 
 const DataScreen = () => {
   const [currentId, setCurrentId] = useState("foundation");
+
   const getDetail = async () => {
-    const { data } = await request({
-      url: "https://www.fastmock.site/mock/302854084413bb6592dc4c53c7f85991/admin/detail",
-      method: "post",
+    const { data } = await lib.request({
+      url: "https://mock.mengxuegu.com/mock/65d344a5351bbd02cf339ac3/city_copy",
+      needMask: true,
     });
   };
+  useEffect(() => {
+    getDetail();
+  }, []);
   // 防抖
   function debounce(fn: any, delay: any) {
     let timer: any;
@@ -68,7 +72,10 @@ const DataScreen = () => {
             navArr.map((item) => {
               return (
                 <a key={item.id} onClick={() => handleHighlight(item.id)}>
-                  <div className={`${styles.good_left_curr} ${currentId === item.id ? styles.actived : null}`}>
+                  <div
+                    className={`${styles.good_left_curr} ${
+                      currentId === item.id ? styles.actived : null
+                    }`}>
                     {item.name}
                   </div>
                 </a>

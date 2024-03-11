@@ -2,7 +2,7 @@
  * @Author: liuyongqing
  * @Date: 2023-07-11 19:19:04
  * @LastEditors: Lyq
- * @LastEditTime: 2024-03-04 21:47:00
+ * @LastEditTime: 2024-03-11 22:06:50
  */
 import React, { Children, useCallback, useEffect, useState } from "react";
 import { Son } from "./components";
@@ -42,6 +42,7 @@ const Home = () => {
   const handleClock = async () => {
     downloadGet("http://localhost:3000/upload/export", "lyq.zip");
   };
+
   return (
     <div className={styles.home_card}>
       {details && details.map((item, index) => renderCard(item, index))}

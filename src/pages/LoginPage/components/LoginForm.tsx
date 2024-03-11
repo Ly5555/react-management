@@ -2,7 +2,7 @@
  * @Author: liuyongqing
  * @Date: 2023-07-25 21:03:23
  * @LastEditors: Lyq
- * @LastEditTime: 2024-03-04 20:17:54
+ * @LastEditTime: 2024-03-11 20:32:10
  */
 import React, { useEffect, useState } from "react";
 import md5 from "js-md5";
@@ -10,7 +10,7 @@ import { LockOutlined, SafetyCertificateOutlined, UserOutlined } from "@ant-desi
 import { Button, Checkbox, Form, Input, Space, Tabs, message } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useTabLists, useGlobalStore } from "@/stores";
-import request from "@/utils/request";
+import { lib } from "@/utils/request";
 import { HOME_URL } from "@/config/config";
 const { Search } = Input;
 
@@ -22,7 +22,7 @@ const LoginForm = () => {
   const [form] = Form.useForm();
   const codeUrl = "/api/user/code";
   useEffect(() => {
-    const res = request({
+    const res = lib.request({
       url: codeUrl,
       method: "get",
     });

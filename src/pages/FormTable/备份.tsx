@@ -1,13 +1,13 @@
 /*
  * @Author: liuyongqing
  * @Date: 2023-08-30 20:30:01
- * @LastEditors: liuyongqing
- * @LastEditTime: 2023-12-28 20:48:55
+ * @LastEditors: Lyq
+ * @LastEditTime: 2024-03-11 20:30:44
  */
 import React, { useState, useEffect } from "react";
 import { Button, Col, Form, Input, Row, Select, Space, Table } from "antd";
 import { DownOutlined, UpOutlined } from "@ant-design/icons";
-import request from "@/utils/request";
+import { lib } from "@/utils/request";
 
 // form 表单封装初体验
 const Index = () => {
@@ -17,7 +17,7 @@ const Index = () => {
     getData();
   }, []);
   const getData = async () => {
-    const { data } = await request({
+    const { data } = await lib.request({
       url: "https://www.fastmock.site/mock/302854084413bb6592dc4c53c7f85991/admin/channelOrder/list",
       method: "post",
     });
@@ -201,7 +201,9 @@ const Index = () => {
       if (selected) {
         newSelectedRowKeys.push(...infoItem.ids);
       } else {
-        newSelectedRowKeys = newSelectedRowKeys.filter((item) => infoItem.ids.includes(item as number) === false);
+        newSelectedRowKeys = newSelectedRowKeys.filter(
+          (item) => infoItem.ids.includes(item as number) === false,
+        );
       }
     }
     setSelectedRowKeys(newSelectedRowKeys);

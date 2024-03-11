@@ -2,13 +2,13 @@
  * @Author: Lyq
  * @Date: 2023-12-21 21:30:48
  * @LastEditors: Lyq
- * @LastEditTime: 2024-01-04 21:45:42
+ * @LastEditTime: 2024-03-11 20:24:14
  */
 
 import React, { useState, useEffect, useCallback } from "react";
 import { Checkbox, Divider, Select } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
-import request from "@/utils/request";
+import { lib } from "@/utils/request";
 
 const ApiAllSelect = (props: any) => {
   const { api, labelkey, valuekey } = props || {};
@@ -22,7 +22,7 @@ const ApiAllSelect = (props: any) => {
   const getApiData = useCallback(async () => {
     try {
       if (api) {
-        const { data } = await request({ url: api });
+        const { data } = await lib.request({ url: api });
         setOptions(data);
       }
     } finally {
@@ -58,7 +58,9 @@ const ApiAllSelect = (props: any) => {
     };
     return (
       <span className="ant-select-selection-item">
-        <span className="ant-select-selection-item-content">{Array.isArray(label) ? label[1] : label}</span>
+        <span className="ant-select-selection-item-content">
+          {Array.isArray(label) ? label[1] : label}
+        </span>
         <span
           className="ant-select-selection-item-remove"
           style={{ userSelect: "none", verticalAlign: "0" }}
@@ -102,7 +104,10 @@ const ApiAllSelect = (props: any) => {
           options.map((item: any, index) => {
             return (
               <Select.Option key={index} value={item[valueKeys]}>
-                <Checkbox style={{ marginRight: 6 }} checked={selectValue?.includes(item[valueKeys])} />
+                <Checkbox
+                  style={{ marginRight: 6 }}
+                  checked={selectValue?.includes(item[valueKeys])}
+                />
                 {item[labelKeys]}
               </Select.Option>
             );

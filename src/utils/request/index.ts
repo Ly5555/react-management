@@ -99,7 +99,9 @@ interface RequestParams<R> {
   url: string;
   method?: string;
   data?: R;
-  loading: boolean
+  params?: R;
+  needMask?: boolean;
+  loading?: boolean;
   config?: AxiosRequestConfig;
 }
 /**
@@ -121,23 +123,34 @@ export type ResponseData<T> = {
  * @param RequestParams 请求配置
  * @returns instance 返回实例
  */
-const request = async (options: any) => {
-
-  const { url, method = "get", data = {}, params = {}, ...restOptions } = options;
-
-  try {
-    return instance.request({
+export const lib = {
+  async request(options: any) {
+    const { url, method = "get", data = {}, params = {}, needMask = false, ...restOptions } = options;
+    return await instance.request({
       url,
       method,
       [method.toLowerCase() === 'get' ? 'params' : 'data']: data,
       ...restOptions
-    });
-  } catch (error) {
-    return Promise.reject(error);
-  }
+    })
 
-};
+  },
+
+}
+// const request = async (options: any) => {
+//   const { url, method = "get", data = {}, params = {}, ...restOptions } = options;
+//   try {
+//     return instance.request({
+//       url,
+//       method,
+//       [method.toLowerCase() === 'get' ? 'params' : 'data']: data,
+//       ...restOptions
+//     });
+//   } catch (error) {
+//     return Promise.reject(error);
+//   }
+
+// };
 
 
 
-export default request;
+// export default request;

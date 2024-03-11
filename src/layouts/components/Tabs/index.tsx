@@ -2,12 +2,11 @@
  * @Author: liuyongqing
  * @Date: 2023-07-06 20:26:58
  * @LastEditors: Lyq
- * @LastEditTime: 2024-03-04 22:07:55
+ * @LastEditTime: 2024-03-11 21:05:17
  */
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { Dropdown, MenuProps } from "antd";
 import {
-  CloseCircleFilled,
   ReloadOutlined,
   CloseOutlined,
   RightOutlined,
@@ -60,13 +59,16 @@ const LayoutTabs = () => {
         label: MultiTabOperation.CLOSELEFT,
         icon: <LeftOutlined style={{ fontSize: "16px" }} />,
         key: MultiTabOperation.CLOSELEFT,
-        disabled: tabList.length <= 1 || tabList.findIndex((item) => item.path === openDropdownTabKey) === 0,
+        disabled:
+          tabList.length <= 1 ||
+          tabList.findIndex((item) => item.path === openDropdownTabKey) === 0,
       },
       {
         label: MultiTabOperation.CLOSERIGHT,
         icon: <RightOutlined style={{ fontSize: "16px" }} />,
         key: MultiTabOperation.CLOSERIGHT,
-        disabled: tabList.findIndex((item) => item.path === openDropdownTabKey) === tabList.length - 1,
+        disabled:
+          tabList.findIndex((item) => item.path === openDropdownTabKey) === tabList.length - 1,
       },
       {
         label: MultiTabOperation.CLOSEOTHERS,
@@ -123,6 +125,8 @@ const LayoutTabs = () => {
   const addTabs = () => {
     const route = searchRoute(pathname, routerArray);
     let newTabsList = JSON.parse(JSON.stringify(tabList));
+    // 检查 route 和 route.path 是否有效
+    if (!route || !route.path) return;
     if (tabList.every((item: any) => item.path !== route.path)) {
       newTabsList.push({ ...route, title: route?.meta!?.title, path: route.path });
     }
@@ -140,7 +144,8 @@ const LayoutTabs = () => {
         useNavigateTo(nextTab.path);
       });
     }
-    let newList = tabList.filter((item: { path: string }) => item.path !== tabPath);
+    let newList = tabList.filter((item: { path: string }) => item.path !== tabPath).filter(Boolean);
+
     useTabLists.setState({ tabList: newList });
   };
 
@@ -154,7 +159,6 @@ const LayoutTabs = () => {
   // 关闭所有
   const closeAllTabs = () => {
     useTabLists.setState({ tabList: [] });
-
     useNavigateTo(HOME_URL);
   };
 
@@ -203,6 +207,7 @@ const LayoutTabs = () => {
       <DraggableTab
         hideAdd
         animated
+        size="small"
         onChange={handelClickTabs}
         tabBarGutter={4}
         activeKey={activeKey}

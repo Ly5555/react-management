@@ -2,10 +2,9 @@
  * @Author: Lyq
  * @Date: 2024-01-06 14:56:15
  * @LastEditors: Lyq
- * @LastEditTime: 2024-03-04 20:26:33
+ * @LastEditTime: 2024-03-10 21:45:48
  */
-import React, { useImperativeHandle, useMemo, useState } from "react";
-import { memo } from "react";
+import React, { useImperativeHandle, useMemo, useState, memo } from "react";
 import { Button, FormProps, Row, Col, Space } from "antd";
 import { Form } from "antd";
 import { DownOutlined, SearchOutlined } from "@ant-design/icons";
@@ -68,7 +67,11 @@ function BasicSearch(props: any) {
         {isSearch !== false && (
           <div style={{ textAlign: "right" }}>
             <Space size="small">
-              <Button type="primary" htmlType="submit" loading={isLoading} icon={<SearchOutlined />}>
+              <Button
+                type="primary"
+                htmlType="submit"
+                loading={isLoading}
+                icon={<SearchOutlined />}>
                 {"搜索"}
               </Button>
               <Button onClick={onReset} htmlType="submit">

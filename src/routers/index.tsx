@@ -2,7 +2,7 @@
  * @Author: Lyq
  * @Date: 2023-08-29 21:41:58
  * @LastEditors: Lyq
- * @LastEditTime: 2024-03-06 21:53:00
+ * @LastEditTime: 2024-03-10 21:02:28
  */
 import React, { lazy } from "react";
 import lazyLoad from "@/components/lazyLoad";
@@ -18,6 +18,7 @@ const CustomDetail = lazyLoad(lazy(() => import("@/pages/custom/customDetail")))
 const DataScreen = lazyLoad(lazy(() => import("@/pages/dataScreen")));
 const FormTable = lazyLoad(lazy(() => import("@/pages/FormTable")));
 const RoleManage = lazyLoad(lazy(() => import("@/pages/role/index")));
+const Details = lazyLoad(lazy(() => import("@/pages/role/details")));
 const NotFound = lazyLoad(lazy(() => import("@/components/NotFound/index")));
 
 // 页面组件
@@ -67,6 +68,7 @@ export const routerArray: any = [
       },
     ],
   },
+
   {
     path: "/404",
     element: NotFound,

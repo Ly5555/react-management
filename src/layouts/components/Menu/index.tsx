@@ -2,12 +2,12 @@
  * @Author: liuyongqing
  * @Date: 2023-07-24 21:31:32
  * @LastEditors: Lyq
- * @LastEditTime: 2024-02-19 20:14:44
+ * @LastEditTime: 2024-03-11 20:30:29
  */
 import React, { useState, useEffect } from "react";
 import { Menu } from "antd";
 import { useNavigate, useLocation } from "react-router-dom";
-import request from "@/utils/request";
+import { lib } from "@/utils/request";
 import { searchRoute, getOpenKeys, findAllBreadcrumb } from "@/utils/util";
 import { useGlobalStore, useBreadcrumb } from "@/stores";
 import type { MenuProps } from "antd";
@@ -31,14 +31,14 @@ const LayoutMenu = () => {
   useEffect(() => {
     const fetchMenu = async () => {
       try {
-        const { data } = await request({
+        const { data } = await lib.request({
           url: "https://mock.mengxuegu.com/mock/65d344a5351bbd02cf339ac3/menu/list",
           loading: true,
         });
         setmenuList(deepLoopMenu(data));
         useBreadcrumb.setState({ breadcrumbList: findAllBreadcrumb(data) as any });
       } catch (error) {
-        console.log(error, "1");
+        console.log(error, "menuList error");
       }
     };
     fetchMenu();
