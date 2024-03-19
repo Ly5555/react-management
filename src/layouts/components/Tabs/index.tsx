@@ -2,7 +2,7 @@
  * @Author: liuyongqing
  * @Date: 2023-07-06 20:26:58
  * @LastEditors: Lyq
- * @LastEditTime: 2024-03-11 21:05:17
+ * @LastEditTime: 2024-03-18 22:25:26
  */
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { Dropdown, MenuProps } from "antd";
@@ -14,7 +14,7 @@ import {
   RollbackOutlined,
   RedoOutlined,
 } from "@ant-design/icons";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useTabLists } from "@/stores";
 import { routerArray } from "@/routers/index";
 import { searchRoute } from "@/utils/util";
@@ -32,7 +32,9 @@ enum MultiTabOperation {
 }
 
 const LayoutTabs = () => {
-  const { pathname } = useLocation();
+  const { pathname, search } = useLocation();
+  console.log(pathname, search);
+
   const { tabList } = useTabLists();
   const useNavigateTo = useNavigate();
   const [activeKey, setActiveKey] = useState<string>(pathname);
@@ -102,11 +104,12 @@ const LayoutTabs = () => {
     [items, tabList, openDropdownTabKey],
   );
 
+  // const pathUrl = search ? `${path}${search}` : path;
   const newTabsList = useMemo(() => {
     return tabList
       .map((item: any, index) => {
         return {
-          key: item?.path,
+          key: item.path,
           label: renderTabTitle(item),
           closable: tabList.filter((obj) => Object.keys(obj).length !== 0).length > 1,
         };
@@ -125,11 +128,17 @@ const LayoutTabs = () => {
   const addTabs = () => {
     const route = searchRoute(pathname, routerArray);
     let newTabsList = JSON.parse(JSON.stringify(tabList));
-    // 检查 route 和 route.path 是否有效
+
     if (!route || !route.path) return;
     if (tabList.every((item: any) => item.path !== route.path)) {
-      newTabsList.push({ ...route, title: route?.meta!?.title, path: route.path });
+      newTabsList.push({
+        ...route,
+        title: route?.meta!?.title,
+        // path: route.path,
+        path: route.path.includes(search) ? `${route.path}${search}` : route.path,
+      });
     }
+
     useTabLists.setState({ tabList: newTabsList });
     setActiveKey(pathname);
   };

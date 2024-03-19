@@ -1,8 +1,8 @@
 /*
  * @Author: liuyongqing
  * @Date: 2023-11-16 22:28:43
- * @LastEditors: liuyongqing
- * @LastEditTime: 2023-12-07 21:54:02
+ * @LastEditors: Lyq 
+ * @LastEditTime: 2024-03-18 21:18:56
  */
 import { RouteObject } from "@/routers/type";
 /**
@@ -68,30 +68,17 @@ export const getBreadcrumbList = (path: string, menuList: Menu.MenuOptions[]) =>
 };
 
 /**
- * @description 双重递归 找出所有 面包屑 生成对象存到 redux 中，就不用每次都去递归查找了
+ * @description 双重递归 找出所有 面包屑 生成对象存到  中，就不用每次都去递归查找了
  * @param {String} menuList 当前菜单列表
  * @returns object
  */
 export const findAllBreadcrumb = (menuList: Menu.MenuOptions[]): { [key: string]: any } => {
   let handleBreadcrumbList: any = {};
   const loop = (menuItem: Menu.MenuOptions) => {
-    // 下面判断代码解释 *** !item?.children?.length   ==>   (item.children && item.children.length > 0)
+    // 下面判断代码解释 *** !menuItem?.children?.length  ==> (menuItem.children && menuItem.children.length > 0)
     if (menuItem?.children?.length) menuItem.children.forEach((item) => loop(item));
     else handleBreadcrumbList[menuItem.path] = getBreadcrumbList(menuItem.path, menuList);
   };
   menuList.forEach((item) => loop(item));
   return handleBreadcrumbList;
 };
-/**
- * @description 使用递归处理路由菜单，生成一维数组，做菜单权限判断
- * @param {Array} menuList 所有菜单列表
- * @param {Array} newArr 菜单的一维数组
- * @return array
- */
-export function handleRouter(routerList: Menu.MenuOptions[], newArr: string[] = []) {
-  routerList.forEach((item: Menu.MenuOptions) => {
-    typeof item === "object" && item.path && newArr.push(item.path);
-    item.children && item.children.length && handleRouter(item.children, newArr);
-  });
-  return newArr;
-}

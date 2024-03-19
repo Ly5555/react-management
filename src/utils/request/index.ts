@@ -3,7 +3,6 @@ import { showFullScreenLoading, tryHideFullScreenLoading } from "@/utils/request
 import abortController from './abortController';
 import { useGlobalStore } from '@/stores';
 
-
 // 请求拦截器 引入加载圈
 export const baseURL = process.env.NODE_ENV; //服务
 
@@ -117,7 +116,7 @@ export type ResponseData<T> = {
   data: T;
   total: number;
 };
-
+//  navigate("/details", { state: { id: 1, name: "zhangsan" } });
 /**
  * @method
  * @param RequestParams 请求配置
@@ -134,7 +133,6 @@ export const lib = {
     })
 
   },
-
 }
 // const request = async (options: any) => {
 //   const { url, method = "get", data = {}, params = {}, ...restOptions } = options;

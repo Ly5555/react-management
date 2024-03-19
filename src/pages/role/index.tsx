@@ -2,11 +2,12 @@
  * @Author: Lyq
  * @Date: 2024-03-06 21:44:25
  * @LastEditors: Lyq
- * @LastEditTime: 2024-03-08 22:46:58
+ * @LastEditTime: 2024-03-18 20:18:35
  */
 import React from "react";
 import { Space, Table } from "antd";
-import { useNavigate } from "react-router-dom";
+import { createSearchParams, useNavigate } from "react-router-dom";
+import { lib } from "@/utils/request";
 import styles from "./index.mouule.less";
 const RoleManage = () => {
   const navigate = useNavigate();
@@ -53,7 +54,11 @@ const RoleManage = () => {
     },
   ];
   const handleClick = () => {
-    navigate("/details");
+    const params = { id: "1", name: "zhangsan" };
+    navigate({
+      pathname: "/details",
+      search: `?${createSearchParams(params)}`,
+    });
   };
   return (
     <div className={styles.roleManageBox}>

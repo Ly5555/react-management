@@ -36,6 +36,8 @@ const LayoutMenu = () => {
           loading: true,
         });
         setmenuList(deepLoopMenu(data));
+        console.log(data);
+
         useBreadcrumb.setState({ breadcrumbList: findAllBreadcrumb(data) as any });
       } catch (error) {
         console.log(error, "menuList error");
