@@ -1,8 +1,8 @@
 /*
- * @Author: liuyongqing
+ * @Author: Lyq
  * @Date: 2023-07-06 20:26:58
  * @LastEditors: Lyq
- * @LastEditTime: 2024-03-18 22:25:26
+ * @LastEditTime: 2024-03-22 21:32:54
  */
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { Dropdown, MenuProps } from "antd";
@@ -15,10 +15,12 @@ import {
   RedoOutlined,
 } from "@ant-design/icons";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import { cloneDeep } from "lodash";
 import { useTabLists } from "@/stores";
 import { routerArray } from "@/routers/index";
 import { searchRoute } from "@/utils/util";
 import { DraggableTab } from "./components";
+
 import { HOME_URL } from "@/config/config";
 import styles from "./index.module.less";
 
@@ -32,8 +34,8 @@ enum MultiTabOperation {
 }
 
 const LayoutTabs = () => {
-  const { pathname, search } = useLocation();
-  console.log(pathname, search);
+  const location = useLocation();
+  const { pathname } = location;
 
   const { tabList } = useTabLists();
   const useNavigateTo = useNavigate();
@@ -91,20 +93,21 @@ const LayoutTabs = () => {
     [tabList, openDropdownTabKey],
   );
   const renderTabTitle = useCallback(
-    (item: { title: string }) => {
+    (item: { title: string; search: string }) => {
+      const searchTitle = new URLSearchParams(item.search);
+      const title = searchTitle.get("title");
       return (
         <Dropdown
           menu={{ items, onClick: (e) => handelmenuClick(e, item) }}
           onOpenChange={(open: any, info) => onOpenChange(open, info, item)}
           trigger={["contextMenu"]}>
-          <div>{item.title}</div>
+          <div>{title ? title : item.title}</div>
         </Dropdown>
       );
     },
     [items, tabList, openDropdownTabKey],
   );
 
-  // const pathUrl = search ? `${path}${search}` : path;
   const newTabsList = useMemo(() => {
     return tabList
       .map((item: any, index) => {
@@ -123,38 +126,38 @@ const LayoutTabs = () => {
   const handelClickTabs = (path: string) => {
     useNavigateTo(path);
   };
-
   // 添加 tabs
   const addTabs = () => {
     const route = searchRoute(pathname, routerArray);
-    let newTabsList = JSON.parse(JSON.stringify(tabList));
-
+    const newTabsList = cloneDeep(tabList);
     if (!route || !route.path) return;
-    if (tabList.every((item: any) => item.path !== route.path)) {
+    let path = location.pathname + location.search;
+
+    if (tabList.every((item: any) => item.path !== path)) {
       newTabsList.push({
         ...route,
         title: route?.meta!?.title,
-        // path: route.path,
-        path: route.path.includes(search) ? `${route.path}${search}` : route.path,
+        path: path,
+        search: location.search,
       });
     }
-
+    setActiveKey(path);
     useTabLists.setState({ tabList: newTabsList });
-    setActiveKey(pathname);
   };
 
   // 删除单个tabs
   const clonseTabs = (tabPath: React.MouseEvent | React.KeyboardEvent | string) => {
-    if (pathname === tabPath) {
+    let path = pathname + location.search;
+    if (path === tabPath) {
       tabList.forEach((item, index) => {
-        if (item.path !== pathname) return;
+        if (item.path !== path) return;
         const nextTab = tabList[index + 1] || tabList[index - 1];
         if (!nextTab) return;
+        setActiveKey(nextTab.path);
         useNavigateTo(nextTab.path);
       });
     }
     let newList = tabList.filter((item: { path: string }) => item.path !== tabPath).filter(Boolean);
-
     useTabLists.setState({ tabList: newList });
   };
 

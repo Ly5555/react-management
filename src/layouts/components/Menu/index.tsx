@@ -2,7 +2,7 @@
  * @Author: liuyongqing
  * @Date: 2023-07-24 21:31:32
  * @LastEditors: Lyq
- * @LastEditTime: 2024-03-11 20:30:29
+ * @LastEditTime: 2024-03-21 21:09:57
  */
 import React, { useState, useEffect } from "react";
 import { Menu } from "antd";
@@ -36,8 +36,6 @@ const LayoutMenu = () => {
           loading: true,
         });
         setmenuList(deepLoopMenu(data));
-        console.log(data);
-
         useBreadcrumb.setState({ breadcrumbList: findAllBreadcrumb(data) as any });
       } catch (error) {
         console.log(error, "menuList error");

@@ -44,6 +44,9 @@ dependencies:
   js-md5:
     specifier: ^0.7.3
     version: registry.npmmirror.com/js-md5@0.7.3
+  lodash:
+    specifier: ^4.17.21
+    version: registry.npmmirror.com/lodash@4.17.21
   qs:
     specifier: ^6.11.2
     version: registry.npmmirror.com/qs@6.11.2

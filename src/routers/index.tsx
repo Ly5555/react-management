@@ -2,7 +2,7 @@
  * @Author: Lyq
  * @Date: 2023-08-29 21:41:58
  * @LastEditors: Lyq
- * @LastEditTime: 2024-03-12 21:33:51
+ * @LastEditTime: 2024-03-21 20:44:12
  */
 import React, { lazy } from "react";
 import lazyLoad from "@/components/lazyLoad";
@@ -70,7 +70,7 @@ export const routerArray: any = [
   },
   {
     path: "/details",
-    meta: { requiresAuth: true, title: "测试" },
+    meta: { title: "测试" },
     element: Details,
   },
 

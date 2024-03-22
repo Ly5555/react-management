@@ -2,7 +2,7 @@
  * @Author: Lyq
  * @Date: 2024-03-06 21:44:25
  * @LastEditors: Lyq
- * @LastEditTime: 2024-03-18 20:18:35
+ * @LastEditTime: 2024-03-22 21:34:28
  */
 import React from "react";
 import { Space, Table } from "antd";
@@ -14,12 +14,14 @@ const RoleManage = () => {
   const dataSource = [
     {
       key: "1",
+      id: "1",
       name: "我是权限页面",
       age: 32,
       address: "西湖区湖底公园1号",
     },
     {
       key: "2",
+      id: "2",
       name: "我是权限页面",
       age: 42,
       address: "西湖区湖底公园1号",
@@ -47,17 +49,16 @@ const RoleManage = () => {
       key: "action",
       render: (text: any, record: any, index: any) => (
         <Space>
-          <a onClick={handleClick}>查看</a>
+          <a onClick={() => handleClick(record)}>查看</a>
           <a>删除</a>
         </Space>
       ),
     },
   ];
-  const handleClick = () => {
-    const params = { id: "1", name: "zhangsan" };
+  const handleClick = (record: any) => {
     navigate({
       pathname: "/details",
-      search: `?${createSearchParams(params)}`,
+      search: `?${createSearchParams({ id: record.id, title: `角色管理` })}`,
     });
   };
   return (
