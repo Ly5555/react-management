@@ -1,7 +1,7 @@
 /*
- * @Author: liuyongqing
+ * @Author: Lyq
  * @Date: 2023-09-05 20:13:07
- * @LastEditors: liuyongqing
+ * @LastEditors: Lyq
  * @LastEditTime: 2023-12-11 20:17:34
  */
 import { Button, Checkbox, Input } from "antd";
@@ -79,10 +79,18 @@ const ContextChild = (props: any) => {
     <div style={{ border, color, padding: 20 }}>
       <div>
         <span> 选择主题： </span>
-        <Checkbox name="dark" style={{ color }} checked={type === "dark"} onChange={() => setTheme(theme.dark)}>
+        <Checkbox
+          name="dark"
+          style={{ color }}
+          checked={type === "dark"}
+          onChange={() => setTheme(theme.dark)}>
           主题1
         </Checkbox>
-        <Checkbox name="light" style={{ color }} checked={type === "light"} onChange={() => setTheme(theme.light)}>
+        <Checkbox
+          name="light"
+          style={{ color }}
+          checked={type === "light"}
+          onChange={() => setTheme(theme.light)}>
           主题2
         </Checkbox>
       </div>

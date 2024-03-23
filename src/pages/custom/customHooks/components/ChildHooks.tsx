@@ -1,7 +1,7 @@
 /*
- * @Author: liuyongqing
+ * @Author: Lyq
  * @Date: 2023-09-05 21:10:02
- * @LastEditors: liuyongqing
+ * @LastEditors: Lyq
  * @LastEditTime: 2023-09-06 21:08:27
  */
 import { Button, Input } from "antd";
@@ -50,10 +50,16 @@ const ChildReducer = () => {
       <Button type="primary" onClick={() => dispatch({ type: "add", payload: 1 })}>
         加1
       </Button>
-      <Button type="primary" style={{ marginLeft: 10 }} onClick={() => dispatch({ type: "sub", payload: 1 })}>
+      <Button
+        type="primary"
+        style={{ marginLeft: 10 }}
+        onClick={() => dispatch({ type: "sub", payload: 1 })}>
         减1
       </Button>
-      <Button type="primary" style={{ marginLeft: 10 }} onClick={() => dispatch({ type: "no", payload: 1 })}>
+      <Button
+        type="primary"
+        style={{ marginLeft: 10 }}
+        onClick={() => dispatch({ type: "no", payload: 1 })}>
         无关按钮
       </Button>
     </>

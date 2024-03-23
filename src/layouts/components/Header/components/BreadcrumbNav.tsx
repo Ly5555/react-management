@@ -1,8 +1,8 @@
 /*
- * @Author: liuyongqing
+ * @Author: Lyq
  * @Date: 2023-04-19 21:17:42
  * @LastEditors: Lyq
- * @LastEditTime: 2024-03-18 21:27:29
+ * @LastEditTime: 2024-03-23 16:36:04
  */
 import React from "react";
 import { Breadcrumb } from "antd";
@@ -12,11 +12,12 @@ const BreadcrumbNav = () => {
   const { pathname } = useLocation();
   const { breadcrumbList } = useBreadcrumb();
 
-  const newBreadcrumbList = breadcrumbList[pathname]?.map((item: string) => {
-    return {
-      title: item,
-    };
-  }) || [{ title: "详情页" }];
+  const newBreadcrumbList =
+    breadcrumbList[pathname]?.map((item: string) => {
+      return {
+        title: item,
+      };
+    }) || [];
 
   return (
     <div id="driver_breadcrumb">

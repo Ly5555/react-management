@@ -1,8 +1,8 @@
 <!--
- * @Author: liuyongqing
+ * @Author: Lyq
  * @Date: 2023-09-06 19:51:49
- * @LastEditors: liuyongqing
- * @LastEditTime: 2023-12-11 20:45:11
+ * @LastEditors: Lyq 
+ * @LastEditTime: 2024-03-22 21:42:15
 -->
 # Hooks 🚀
 
@@ -43,5 +43,20 @@ Hooks
 ├─ README.md              # README 介绍
 ├─ tsconfig.json          # typescript 全局配置
 ```
+### 四、部分使用 📑
 
+- **打开新页面使用**
+
+```
+pathname: "路径",
+search:"查询参数"
+tile:"标题" 不配置这个默认路由名称
+```
+```text
+
+navigate({
+  pathname: "/details",
+  search: `?${createSearchParams({ id: record.id, title: `角色管理` })}`,
+});
+```
 
