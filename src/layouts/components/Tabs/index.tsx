@@ -2,7 +2,7 @@
  * @Author: Lyq
  * @Date: 2023-07-06 20:26:58
  * @LastEditors: Lyq
- * @LastEditTime: 2024-03-22 21:32:54
+ * @LastEditTime: 2024-03-25 20:02:37
  */
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { Dropdown, MenuProps } from "antd";
@@ -36,7 +36,6 @@ enum MultiTabOperation {
 const LayoutTabs = () => {
   const location = useLocation();
   const { pathname } = location;
-
   const { tabList } = useTabLists();
   const useNavigateTo = useNavigate();
   const [activeKey, setActiveKey] = useState<string>(pathname);
@@ -45,7 +44,6 @@ const LayoutTabs = () => {
   useEffect(() => {
     addTabs();
   }, [pathname]);
-
   const generateMenuItems = (tabList: any[], openDropdownTabKey: string) => {
     return [
       {
@@ -88,6 +86,7 @@ const LayoutTabs = () => {
       },
     ];
   };
+
   const items: MenuProps["items"] = useMemo(
     () => generateMenuItems(tabList, openDropdownTabKey),
     [tabList, openDropdownTabKey],
@@ -107,7 +106,6 @@ const LayoutTabs = () => {
     },
     [items, tabList, openDropdownTabKey],
   );
-
   const newTabsList = useMemo(() => {
     return tabList
       .map((item: any, index) => {
@@ -124,6 +122,7 @@ const LayoutTabs = () => {
     setopenDropdownTabKey(open ? item.path : "");
   };
   const handelClickTabs = (path: string) => {
+    setActiveKey(path);
     useNavigateTo(path);
   };
   // 添加 tabs

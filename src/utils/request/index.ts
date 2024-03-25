@@ -1,7 +1,9 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { showFullScreenLoading, tryHideFullScreenLoading } from "@/utils/request/serviceLoading";
+import { createSearchParams, useNavigate } from 'react-router-dom';
 import abortController from './abortController';
 import { useGlobalStore } from '@/stores';
+
 
 // 请求拦截器 引入加载圈
 export const baseURL = process.env.NODE_ENV; //服务
@@ -116,7 +118,6 @@ export type ResponseData<T> = {
   data: T;
   total: number;
 };
-//  navigate("/details", { state: { id: 1, name: "zhangsan" } });
 /**
  * @method
  * @param RequestParams 请求配置
@@ -133,21 +134,9 @@ export const lib = {
     })
 
   },
-}
-// const request = async (options: any) => {
-//   const { url, method = "get", data = {}, params = {}, ...restOptions } = options;
-//   try {
-//     return instance.request({
-//       url,
-//       method,
-//       [method.toLowerCase() === 'get' ? 'params' : 'data']: data,
-//       ...restOptions
-//     });
-//   } catch (error) {
-//     return Promise.reject(error);
-//   }
 
-// };
+}
+
 
 
 

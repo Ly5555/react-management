@@ -2,13 +2,12 @@
  * @Author: Lyq
  * @Date: 2024-03-06 21:44:25
  * @LastEditors: Lyq
- * @LastEditTime: 2024-03-22 21:34:28
+ * @LastEditTime: 2024-03-25 21:16:09
  */
 import React from "react";
 import { Space, Table } from "antd";
 import { createSearchParams, useNavigate } from "react-router-dom";
-import { lib } from "@/utils/request";
-import styles from "./index.mouule.less";
+import styles from "./index.module.less";
 const RoleManage = () => {
   const navigate = useNavigate();
   const dataSource = [
