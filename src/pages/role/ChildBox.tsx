@@ -2,24 +2,26 @@
  * @Author: Lyq
  * @Date: 2024-03-25 21:36:18
  * @LastEditors: Lyq
- * @LastEditTime: 2024-03-26 22:30:50
+ * @LastEditTime: 2024-04-01 22:40:47
  */
 //@ts-nocheck
 import React, { useEffect, useState } from "react";
-import { Table, Button } from "antd";
+import { Table, Button, Checkbox } from "antd";
+import { Length } from "class-validator";
+
 const Child = (props) => {
-  const { dataList } = props;
-  const [columns, setColumns] = useState([]);
+  const { dataList, data2 } = props;
   // 处理数据
   const encodeData = (data, depth = 0, parentData = {}) => {
     let result = [];
     data?.forEach((item) => {
-      let currentData = { ...parentData, [depth]: item.permission_id };
+      let currentData = { ...parentData, [depth]: item.permission_id, buttons: item.buttons };
       if (!item?.children) return result.push(currentData);
       result.push(...encodeData(item.children, depth + 1, currentData));
     });
     return result;
   };
+
   const getMaxDepth = (data) => {
     let max = 1;
     data?.map((item) => {
@@ -30,60 +32,76 @@ const Child = (props) => {
     });
     return max;
   };
-  // 处理成 antd table 想要的格式
   const generateData = (list) => {
     const dataSource = encodeData(list);
-    //最大深度, 用于确认表格列数
-    const max = getMaxDepth(list);
+    const maxDepth = getMaxDepth(list);
     const columns = [];
-    for (let i = 0; i < max; i++) {
+    for (let columnIndex = 0; columnIndex < maxDepth; columnIndex++) {
       columns.push({
-        key: i,
-        dataIndex: i,
-        title: i,
-        render: (t, r, rowIndex) => {
-          const obj = {
-            children: t ? getCheckBox(t, list) : "",
-            props: {},
-          };
-          //列合并
-          if (r[i] === undefined) {
-            obj.props.colSpan = 0;
-          } else if (r[i + 1] === undefined && i < max - 1) {
-            obj.props.colSpan = max - i;
+        key: columnIndex,
+        dataIndex: columnIndex,
+        align: "center",
+        title:
+          columnIndex <= 2
+            ? `${columnIndex === 0 ? "一级" : columnIndex === 1 ? "二级" : "三级"}菜单`
+            : "按钮",
+        render: (text) => <span>{text}</span>,
+        onCell: (record, rowIndex) => {
+          let obj = { rowSpan: 0, colSpan: 0 };
+          if (record[rowIndex] === undefined) {
+            obj.colSpan = 0;
+          } else if (record[columnIndex + 1] === undefined && columnIndex < maxDepth - 1) {
+            obj.colSpan = maxDepth - columnIndex;
           }
           //行合并
-          if (dataSource[rowIndex - 1] && dataSource[rowIndex - 1][i] === dataSource[rowIndex][i]) {
-            obj.props.rowSpan = 0;
+          if (
+            dataSource[rowIndex - 1] &&
+            dataSource[rowIndex - 1][columnIndex] === dataSource[rowIndex][columnIndex]
+          ) {
+            obj.rowSpan = 0;
           } else {
             let rowSpan = 1;
             for (
               let j = 1;
-              dataSource[rowIndex + j] && dataSource[rowIndex + j][i] === dataSource[rowIndex][i];
+              dataSource[rowIndex + j] &&
+              dataSource[rowIndex + j][columnIndex] === dataSource[rowIndex][columnIndex];
               j++
             ) {
               rowSpan++;
             }
-            obj.props.rowSpan = rowSpan;
+            obj.rowSpan = rowSpan;
           }
           return obj;
         },
       });
     }
-    return columns;
+    return { columns, dataSource };
   };
 
+  const getCheckBox = (record, data) => {
+    let obj = {};
+    return <Checkbox>{mapData(obj, record, dataList).permission_name}</Checkbox>;
+  };
+
+  const mapData = (obj, id, list) => {
+    list.map((item) => {
+      //如果id相等，则把整个对象赋给ogj,否则如果有子数据就递归
+      if (item.permission_id === id) {
+        obj = item;
+      } else if (item.children) {
+        obj = mapData(obj, id, item.children);
+      }
+    });
+    //最后将对象返回
+    return obj;
+  };
+  const { columns, dataSource } = generateData(dataList);
   return (
     <>
-      <Button type="primary">保存2</Button>
-      <Table
-        columns={generateData(dataList)}
-        bordbordered
-        size="small"
-        ered
-        pagination={false}
-        dataSource={generateData(dataList)}
-      />
+      <Button type="primary" style={{ marginBottom: 8 }}>
+        保存
+      </Button>
+      <Table columns={columns} bordered size="small" pagination={false} dataSource={dataSource} />
     </>
   );
 };

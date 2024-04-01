@@ -2,7 +2,7 @@
  * @Author: Lyq
  * @Date: 2024-03-08 21:23:44
  * @LastEditors: Lyq
- * @LastEditTime: 2024-03-26 21:35:04
+ * @LastEditTime: 2024-03-27 22:24:31
  */
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -37,6 +37,7 @@ const Details = () => {
               permission_id: "1-1-1",
               permission_name: "权限1-1-1",
               permission_pid: "1-1",
+              buttons: [],
               children: [
                 {
                   IsObtain: false,
@@ -120,10 +121,51 @@ const Details = () => {
       ],
     },
   ]);
+  const data2 = [
+    {
+      icon: "HomeOutlined",
+      title: "首页",
+      id: 1,
+      buttons: [{ id: 11 }, { id: 12 }],
+    },
+    {
+      icon: "HomeOutlined",
+      title: "轮播图",
+      buttons: [],
+      id: 2,
+    },
+    {
+      title: "测试目录",
+      buttons: [],
+      id: 3,
+      children: [
+        {
+          buttons: [],
+          title: "自定义hooks",
+          id: 31,
+        },
+        {
+          buttons: [],
+          title: "详情页",
+          id: 32,
+        },
+      ],
+    },
 
+    {
+      buttons: [],
+      title: "表单Table",
+      id: 4,
+    },
+    {
+      id: 5,
+      title: "数据大屏",
+      buttons: [],
+    },
+  ];
   return (
     <div className={styles.roleDetailsBox}>
-      <Child dataList={data} setdataList={stedata} />
+      <Child dataList={data} data2={data2} setdataList={stedata} />
     </div>
   );
 };
