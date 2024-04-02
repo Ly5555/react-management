@@ -58,6 +58,7 @@ module.exports = merge(baseConfig, {
             pure_funcs: ["console.log"], // 删除console.log
           },
         },
+        extractComments: true,//将注释剥离到单独的文件中
       }),
     ],
     splitChunks: {
