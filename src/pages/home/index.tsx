@@ -1,14 +1,15 @@
 /*
  * @Author: Lyq
  * @Date: 2023-07-11 19:19:04
- * @LastEditors: Lyq
- * @LastEditTime: 2024-03-11 22:06:50
+ * @LastEditors: Lyq 
+ * @LastEditTime: 2024-04-10 21:06:34
  */
 import React, { Children, useCallback, useEffect, useState } from "react";
 import { Son } from "./components";
 import { Button, Select } from "antd";
 import styles from "./home.mouule.less";
-import { downloadGet } from "@/utils/request";
+import { downloadGet, lib } from "@/utils/request";
+import axios from "axios";
 enum cardType {
   DEFAULT = "default",
   MIX = "mix",
@@ -20,6 +21,9 @@ interface ISubSectionData {
   cardType: string;
 }
 const Home = () => {
+  useEffect(() => {
+    handleClock();
+  }, []);
   const details = [
     { name: "1", age: 13, cardType: "default" },
     { name: "2", age: 23, cardType: "mix" },
@@ -40,7 +44,10 @@ const Home = () => {
     }
   }, []);
   const handleClock = async () => {
-    downloadGet("http://localhost:3000/upload/export", "lyq.zip");
+    // downloadGet("http://localhost:3000/upload/export", "lyq.zip");
+    lib.request({
+      url: "www.facebook.com",
+    });
   };
 
   return (

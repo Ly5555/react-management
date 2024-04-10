@@ -1,10 +1,10 @@
 // 公共配置
 const path = require("path");
+const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CompressionPlugin = require("compression-webpack-plugin");
 
-const webpack = require("webpack");
-const WebpackBar = require("webpackbar");
 const isDev = process.env.NODE_ENV === "development"; // 是否是开发模式
 
 module.exports = {
@@ -104,7 +104,14 @@ module.exports = {
     new webpack.DefinePlugin({
       "process.env.BASE_ENV": JSON.stringify(process.env.BASE_ENV),
     }),
-    new WebpackBar(),
+    // new CompressionPlugin({
+    //   filename: "[path].gz[query]", // 文件命名
+    //   algorithm: "gzip", // 压缩格式,默认是gzip
+    //   test: /\.js$|\.css$|\.html$|\.ttf$|\.eot$|\.woff$/, // 只生成css,js压缩文件
+    //   threshold: 10240, // 只有大小大于该值的资源会被处理。默认值是 10k
+    //   minRatio: 0.8, // 压缩率,默认值是 0.8
+    //   deleteOriginalAssets: false// 假如出现访问.gz文件访问不到的时候，还可以访问源文件双重保障
+    // }),
   ],
   cache: {
     type: "filesystem", // 使用文件缓存

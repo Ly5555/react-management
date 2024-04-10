@@ -1,8 +1,8 @@
 /*
  * @Author: Lyq
  * @Date: 2023-07-25 21:03:23
- * @LastEditors: Lyq
- * @LastEditTime: 2024-03-12 21:13:28
+ * @LastEditors: Lyq 
+ * @LastEditTime: 2024-04-10 20:47:01
  */
 import React, { useEffect, useState } from "react";
 import md5 from "js-md5";
@@ -34,11 +34,11 @@ const LoginForm = () => {
       // setLoading(true);
       const values = await form.validateFields();
       console.log(values);
-      const res = await lib.request({
-        url: "/api/user/create",
-        method: "post",
-        data: values,
-      });
+      // const res = await lib.request({
+      //   url: "/api/user/create",
+      //   method: "post",
+      //   data: values,
+      // });
       // useGlobalStore.setState({ token: data.access_token });
       // useTabLists.setState({ tabList: [] });
       navigaiteTo(HOME_URL);
