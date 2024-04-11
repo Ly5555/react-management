@@ -1,8 +1,8 @@
 /*
  * @Author: Lyq
  * @Date: 2023-07-11 19:19:04
- * @LastEditors: Lyq 
- * @LastEditTime: 2024-04-10 21:06:34
+ * @LastEditors: Lyq
+ * @LastEditTime: 2024-04-11 22:18:32
  */
 import React, { Children, useCallback, useEffect, useState } from "react";
 import { Son } from "./components";
@@ -43,11 +43,14 @@ const Home = () => {
         return null;
     }
   }, []);
+
   const handleClock = async () => {
     // downloadGet("http://localhost:3000/upload/export", "lyq.zip");
-    lib.request({
-      url: "www.facebook.com",
-    });
+    [1, 2, 3].map((item) =>
+      lib.request({
+        url: "https://mock.mengxuegu.com/mock/65d344a5351bbd02cf339ac3/menu/list",
+      }),
+    );
   };
 
   return (

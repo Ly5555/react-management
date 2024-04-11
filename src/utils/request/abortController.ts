@@ -2,10 +2,11 @@
  * @Author: Lyq
  * @Date: 2024-04-08 22:35:33
  * @LastEditors: Lyq
- * @LastEditTime: 2024-04-09 22:36:18
+ * @LastEditTime: 2024-04-11 22:09:10
  */
-import axios, { AxiosRequestConfig, Canceler } from "axios";
+import axios, { Axios, AxiosRequestConfig, Canceler } from "axios";
 import qs from "qs";
+import { MyRequestConfig } from "./type";
 // 用于存储每个请求的标识和取消函数
 const pendingMap = new Map<string, Canceler>();
 
@@ -21,16 +22,21 @@ export class AxiosCanceler {
    * 添加请求
    * @param config 请求配置
    */
-  public addPending(config: AxiosRequestConfig): void {
-    this.removePending(config);
+  public addPending(config: MyRequestConfig): void {
     const url = getPendingUrl(config);
-    config.cancelToken =
-      config.cancelToken ||
-      new axios.CancelToken((cancel) => {
-        if (!pendingMap.has(url)) {
-          pendingMap.set(url, cancel);
-        }
+    if (config.cancelRequest && pendingMap.has(url)) {
+      config.cancelToken = new axios.CancelToken((cancel) => {
+        cancel(`${config.url} 请求已取消`);
       });
+    } else {
+      config.cancelToken =
+        config.cancelToken ||
+        new axios.CancelToken((cancel) => {
+          if (!pendingMap.has(url)) {
+            pendingMap.set(url, cancel);
+          }
+        });
+    }
   }
 
   /**
@@ -52,7 +58,7 @@ export class AxiosCanceler {
     if (pendingMap.has(url)) {
       // 如果当前请求在等待中，取消它并将其从等待中移除
       const cancel = pendingMap.get(url);
-      cancel && cancel();
+      cancel && cancel(url);
       pendingMap.delete(url);
     }
   }

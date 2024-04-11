@@ -1,29 +1,22 @@
-import axios, { Axios, AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
+import axios, { Axios, AxiosError, AxiosRequestConfig, AxiosResponse, isCancel } from "axios";
 import { showFullScreenLoading, tryHideFullScreenLoading } from "@/utils/request/serviceLoading";
 import abortController from "./abortController";
 import { useGlobalStore } from "@/stores";
 
-// 请求拦截器 引入加载圈
 export const baseURL = process.env.NODE_ENV; //服务
 axios.defaults.baseURL = baseURL;
-console.log(JSON.stringify(process.env.BASE_ENV), "1");
-
 const config = {
-  // 默认地址请求地址，可在 .env 开头文件中修改
   baseURL: baseURL,
+  cancelRequest: true,
   retryCount: 3,
   retryDelay: 1000,
-  // 设置超时时间（10s）
-  // timeout: 1000 * 5,
-  // 跨域时候允许携带凭证
-  // withCredentials: true
 };
-console.log(config, "20");
-// 创建axios实例
-let instance = axios.create(config);
+let instance = axios.create(config); // 创建axios实例
+
 /**
  * @description 请求拦截器
- *
+ * 客户端发送请求 -> [请求拦截器] -> 服务器
+ * token校验(JWT) : 接受服务器返回的token,存储到状态管理库
  */
 instance.interceptors.request.use(
   (config: any) => {
@@ -52,27 +45,36 @@ instance.interceptors.response.use(
     return data;
   },
   // 请求失败
-  async (error: any) => {
+  async (error: AxiosError) => {
+    const { config } = error;
+    abortController.removePending(config || {});
     tryHideFullScreenLoading();
-    var config = error.config;
-    if (!config || !config?.retryCount) return Promise.reject(error);
-
-    config.__retryCount = config.__retryCount || 0;
-    if (config.__retryCount >= config.retryCount) {
-      return Promise.reject(error);
+    if (!isCancel(error)) {
+      return againRequest(error);
     }
-    config.__retryCount += 1;
-    var backoff = new Promise(function (resolve) {
-      setTimeout(function () {
-        resolve(null);
-      }, config.retryDelay || 1000);
-    });
-    return backoff.then(function () {
-      return axios(config);
-    });
+    return Promise.reject(error);
   },
 );
 
+// 失败重新请求
+export function againRequest(error: any) {
+  var config = error.config;
+  if (!config || !config?.retryCount) return Promise.reject(error);
+
+  config.__retryCount = config.__retryCount || 0;
+  if (config.__retryCount >= config.retryCount) {
+    return Promise.reject(error);
+  }
+  config.__retryCount += 1;
+  var backoff = new Promise(function (resolve) {
+    setTimeout(function () {
+      resolve(null);
+    }, config.retryDelay || 1000);
+  });
+  return backoff.then(function () {
+    return instance.request(config);
+  });
+}
 // 通用下载方法get
 export function downloadGet(url: string, filename: string) {
   return instance
