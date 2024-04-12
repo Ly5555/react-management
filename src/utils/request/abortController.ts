@@ -2,7 +2,7 @@
  * @Author: Lyq
  * @Date: 2024-04-08 22:35:33
  * @LastEditors: Lyq
- * @LastEditTime: 2024-04-11 22:09:10
+ * @LastEditTime: 2024-04-12 19:44:24
  */
 import axios, { Axios, AxiosRequestConfig, Canceler } from "axios";
 import qs from "qs";
@@ -24,18 +24,17 @@ export class AxiosCanceler {
    */
   public addPending(config: MyRequestConfig): void {
     const url = getPendingUrl(config);
-    if (config.cancelRequest && pendingMap.has(url)) {
+    if (config.cancelRequest) {
+      if (pendingMap.has(url)) {
+        const cancel = pendingMap.get(url);
+        cancel && cancel(`${config.url} 请求已取消`);
+        pendingMap.delete(url);
+      }
       config.cancelToken = new axios.CancelToken((cancel) => {
-        cancel(`${config.url} 请求已取消`);
+        if (!pendingMap.has(url)) {
+          pendingMap.set(url, cancel);
+        }
       });
-    } else {
-      config.cancelToken =
-        config.cancelToken ||
-        new axios.CancelToken((cancel) => {
-          if (!pendingMap.has(url)) {
-            pendingMap.set(url, cancel);
-          }
-        });
     }
   }
 

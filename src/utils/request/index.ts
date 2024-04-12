@@ -47,9 +47,9 @@ instance.interceptors.response.use(
   // 请求失败
   async (error: AxiosError) => {
     const { config } = error;
-    abortController.removePending(config || {});
     tryHideFullScreenLoading();
     if (!isCancel(error)) {
+      abortController.removePending(config || {});
       return againRequest(error);
     }
     return Promise.reject(error);

@@ -1,16 +1,16 @@
 /*
  * @Author: Lyq
  * @Date: 2024-01-31 20:24:53
- * @LastEditors: Lyq 
- * @LastEditTime: 2024-01-31 20:29:32
+ * @LastEditors: Lyq
+ * @LastEditTime: 2024-04-12 20:27:10
  */
 
 import React, { useEffect } from "react";
 import { Switch } from "antd";
 import { useGlobalStore } from "@/stores";
-
+import styles from "./theme.module.less";
 const SwitchTheme = () => {
-  const { darkMode, setDarkMode,  } = useGlobalStore();
+  const { darkMode, setDarkMode } = useGlobalStore();
   useEffect(() => {
     applyTheme(darkMode);
   }, [darkMode]);

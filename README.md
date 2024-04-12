@@ -2,7 +2,7 @@
  * @Author: Lyq
  * @Date: 2023-09-06 19:51:49
  * @LastEditors: Lyq 
- * @LastEditTime: 2024-03-22 21:42:15
+ * @LastEditTime: 2024-04-12 19:50:35
 -->
 # Hooks 🚀
 
@@ -46,7 +46,17 @@ Hooks
 ### 四、部分使用 📑
 
 - **打开新页面使用**
-
+```
+页面请求
+lib.request({
+  url:"xxxxxxx",
+  data:{},|| params:{},
+  method:默认get,
+  cancelRequest:默认true,false 开启同一接口可以多次请求
+})
+接口请求失败会默认重新请求3次
+同一接口请求多次会取消后面的请求
+```
 ```
 pathname: "路径",
 search:"查询参数"

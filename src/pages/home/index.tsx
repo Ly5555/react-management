@@ -2,14 +2,13 @@
  * @Author: Lyq
  * @Date: 2023-07-11 19:19:04
  * @LastEditors: Lyq
- * @LastEditTime: 2024-04-11 22:18:32
+ * @LastEditTime: 2024-04-12 20:30:21
  */
-import React, { Children, useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect } from "react";
 import { Son } from "./components";
-import { Button, Select } from "antd";
-import styles from "./home.mouule.less";
-import { downloadGet, lib } from "@/utils/request";
-import axios from "axios";
+import { Button } from "antd";
+import styles from "./home.module.less";
+import { lib } from "@/utils/request";
 enum cardType {
   DEFAULT = "default",
   MIX = "mix",
@@ -46,11 +45,6 @@ const Home = () => {
 
   const handleClock = async () => {
     // downloadGet("http://localhost:3000/upload/export", "lyq.zip");
-    [1, 2, 3].map((item) =>
-      lib.request({
-        url: "https://mock.mengxuegu.com/mock/65d344a5351bbd02cf339ac3/menu/list",
-      }),
-    );
   };
 
   return (
