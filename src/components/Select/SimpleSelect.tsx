@@ -5,7 +5,7 @@
  * @LastEditTime: 2024-01-05 19:57:05
  */
 
-import React, { useCallback, useEffect, useState } from "react";
+import React, { memo, useCallback, useEffect, useState } from "react";
 import { Select } from "antd";
 import type { SelectProps } from "antd";
 interface IProps {
@@ -20,7 +20,10 @@ const SimpleSelect = (props: IProps) => {
   const [value, setValue] = useState<SelectProps[]>([]);
   useEffect(() => {
     if (options) {
-      const selectValue = options.map((item: any) => ({ label: item[labelKeys], value: item[valueKeys] }));
+      const selectValue = options.map((item: any) => ({
+        label: item[labelKeys],
+        value: item[valueKeys],
+      }));
       setValue(selectValue);
     }
   }, [options]);
@@ -28,4 +31,4 @@ const SimpleSelect = (props: IProps) => {
   return <Select options={value} {...restProps} />;
 };
 
-export default SimpleSelect;
+export default memo(SimpleSelect);

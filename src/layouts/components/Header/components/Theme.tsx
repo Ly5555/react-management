@@ -2,20 +2,24 @@
  * @Author: Lyq
  * @Date: 2024-01-20 16:04:56
  * @LastEditors: Lyq
- * @LastEditTime: 2024-01-31 20:33:02
+ * @LastEditTime: 2024-04-14 20:27:30
  */
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, ColorPicker, Drawer, Space } from "antd";
 import { SkinOutlined } from "@ant-design/icons";
 import { useGlobalStore } from "@/stores";
 import { SwitchTheme } from "@/components";
 import type { ColorPickerProps } from "antd";
 import styles from "./theme.module.less";
+
 const Theme = () => {
   const [open, setOpen] = useState(false);
   const [formatHex, setFormatHex] = useState<ColorPickerProps["format"]>("hex");
-  const { themeColor, setThemeColor } = useGlobalStore();
+  const { themeColor, darkMode, setThemeColor } = useGlobalStore();
+  useEffect(() => {
+    applyTheme(darkMode);
+  }, []);
   const presets = [
     {
       label: "推荐",
@@ -59,6 +63,9 @@ const Theme = () => {
   };
   const onClose = () => {
     setOpen(false);
+  };
+  const applyTheme = (isDarkMode: boolean) => {
+    document?.querySelector("html")?.setAttribute("data-theme", isDarkMode ? "dark" : "light");
   };
 
   // 主题颜色

@@ -1,23 +1,8 @@
-/* 请求 Loading 遮罩层样式 */
-/* #loading {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 9998;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  background: rgb(0 0 0 / 50%);
-} */
 @import "~slick-carousel/slick/slick.css";
 @import "~slick-carousel/slick/slick-theme.css";
 
-/* 测试 */
-
-.dark {
+/* 暗色主题 */
+html[data-theme="dark"] {
   --yz-background-color: #141414;
   --yz-font-color: #a3a6ad;
   /* --yz-border-color: #414243; */
@@ -28,8 +13,8 @@
   /* --yz-border-color-dark: #414243; */
 }
 
-/* Light theme styles */
-.light {
+/* 默认亮色主题 */
+:root {
   --yz-background-color: #f0f2f5;
   --yz-font-color: #323232;
   /* --yz-login-font-color: #323232;

@@ -2,7 +2,7 @@
  * @Author: Lyq
  * @Date: 2023-09-06 19:51:49
  * @LastEditors: Lyq
- * @LastEditTime: 2024-01-06 14:37:13
+ * @LastEditTime: 2024-04-14 19:28:53
  */
 import { Button, Form, Input, Modal } from "antd";
 import React, { useEffect, useState } from "react";
@@ -11,14 +11,15 @@ import styles from "./carousel.module.less";
 
 const CarouselChart = () => {
   const settings = {
-    className: "",
-    dots: true,
-    infinite: true,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    adaptiveHeight: true,
-    nextArrow: <SampleNextArrow />,
-    prevArrow: <SamplePrevArrow />,
+    className: "center",
+    // dots: true,
+    // infinite: true,
+    // slidesToShow: 1,
+    // slidesToScroll: 1,
+    // slidesPerRow: 1,
+    // adaptiveHeight: true,
+    // nextArrow: <SampleNextArrow />,
+    // prevArrow: <SamplePrevArrow />,
   };
   const [form] = Form.useForm();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -44,7 +45,12 @@ const CarouselChart = () => {
       <Button type="primary" onClick={showModal}>
         Open Modal
       </Button>
-      <Modal title="Basic Modal" destroyOnClose open={isModalOpen} onCancel={handleCancel} onOk={handleOk}>
+      <Modal
+        title="Basic Modal"
+        destroyOnClose
+        open={isModalOpen}
+        onCancel={handleCancel}
+        onOk={handleOk}>
         <Form form={form} name="control-hooks">
           <Form.Item name="note1" label="Note1" rules={[{ required: true }]}>
             <Input />

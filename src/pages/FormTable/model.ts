@@ -2,7 +2,7 @@
  * @Author: Lyq
  * @Date: 2024-01-01 20:20:03
  * @LastEditors: Lyq
- * @LastEditTime: 2024-02-19 20:18:07
+ * @LastEditTime: 2024-04-14 19:47:31
  */
 
 // 搜索数据
@@ -28,7 +28,7 @@ export const searchList = [
     wrapperCol: 200,
     component: "ApiAllSelect",
     componentProps: {
-      maxTagCount: 1,
+      maxTagCount: 2,
       allowClear: true,
     },
   },
@@ -147,4 +147,3 @@ export const searchList = [
 ];
 
 //表格数据
-

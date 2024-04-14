@@ -2,7 +2,7 @@
  * @Author: Lyq
  * @Date: 2023-08-29 21:03:53
  * @LastEditors: Lyq
- * @LastEditTime: 2024-04-10 22:01:09
+ * @LastEditTime: 2024-04-14 20:27:57
  */
 import React from "react";
 import { ConfigProvider, App as AntdApp, theme } from "antd";
@@ -20,7 +20,6 @@ import "./app.css";
 dayjs.locale("en");
 function App() {
   const { darkMode, themeColor } = useGlobalStore();
-
   return (
     <ConfigProvider
       locale={zhCN}
