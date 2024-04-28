@@ -2,7 +2,7 @@
  * @Author: Lyq
  * @Date: 2023-09-06 17:13:39
  * @LastEditors: Lyq
- * @LastEditTime: 2024-01-30 21:15:50
+ * @LastEditTime: 2024-04-15 22:17:16
  */
 export interface TabLists {
   tabList: {
@@ -10,6 +10,9 @@ export interface TabLists {
     title: string;
     path: string;
   }[];
+}
+export interface Loading {
+  loading: boolean;
 }
 export interface IsExpand {
   IsExpand: boolean;

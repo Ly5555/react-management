@@ -2,7 +2,7 @@
  * @Author: Lyq
  * @Date: 2023-11-16 22:28:43
  * @LastEditors: Lyq
- * @LastEditTime: 2024-03-18 21:18:56
+ * @LastEditTime: 2024-04-22 21:10:50
  */
 import { RouteObject } from "@/routers/type";
 /**
@@ -28,10 +28,10 @@ export const searchRoute = (path: string, routes: RouteObject[] = []): RouteObje
  * @returns array
  */
 export const getOpenKeys = (path: string) => {
-  const arr: any[] = path.split("/").filter(item => item !== ""); // 使用 filter 过滤掉空字符串
+  const arr: any[] = path.split("/").filter((item) => item !== ""); // 使用 filter 过滤掉空字符串
   const newArr: any[] = arr.map((_, index) => `/${arr.slice(0, index + 1).join("/")}`);
   // 使用 slice 和 join 优化字符串拼接
-  return newArr
+  return newArr;
 };
 /**
  * @description 递归当前路由的 所有 关联的路由，生成面包屑导航栏
@@ -75,10 +75,11 @@ export const getBreadcrumbList = (path: string, menuList: Menu.MenuOptions[]) =>
 export const findAllBreadcrumb = (menuList: Menu.MenuOptions[]): { [key: string]: any } => {
   let handleBreadcrumbList: any = {};
   const loop = (menuItem: Menu.MenuOptions) => {
-    // 下面判断代码解释 *** !menuItem?.children?.length  ==> (menuItem.children && menuItem.children.length > 0)
     if (menuItem?.children?.length) menuItem.children.forEach((item) => loop(item));
     else handleBreadcrumbList[menuItem.path] = getBreadcrumbList(menuItem.path, menuList);
   };
   menuList.forEach((item) => loop(item));
+  console.log(handleBreadcrumbList, "83");
+
   return handleBreadcrumbList;
 };

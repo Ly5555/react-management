@@ -2,19 +2,21 @@
  * @Author: Lyq
  * @Date: 2024-01-20 16:04:56
  * @LastEditors: Lyq
- * @LastEditTime: 2024-04-10 19:59:01
+ * @LastEditTime: 2024-04-16 20:50:45
  */
 
-import React from "react";
+import React, { memo } from "react";
 import { Spin } from "antd";
+import { useLoading } from "@/stores";
 import styles from "./index.module.less";
 
 const Loading = () => {
-	return (
-		<div className={styles.request_loading}>
-			<Spin size="large" />
-		</div>
-	);
+  const { loading } = useLoading();
+  return (
+    <div className={styles.request_loading}>
+      <Spin spinning={loading} delay={500} />
+    </div>
+  );
 };
 
-export default Loading;
+export default memo(Loading);

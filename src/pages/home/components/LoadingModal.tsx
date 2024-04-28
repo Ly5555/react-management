@@ -1,6 +1,11 @@
+/*
+ * @Author: Lyq
+ * @Date: 2024-01-20 16:04:56
+ * @LastEditors: Lyq
+ * @LastEditTime: 2024-04-15 22:06:11
+ */
 import React, { useEffect, useState } from "react";
 import { Button, Modal, Spin } from "antd";
-import { Loading } from "./index";
 const LoadingModal = () => {
   const [open, setOpen] = useState(false);
   // const [loading, setLoading] = useState<boolean>(false);

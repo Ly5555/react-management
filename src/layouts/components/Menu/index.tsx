@@ -1,15 +1,15 @@
 /*
  * @Author: Lyq
  * @Date: 2023-07-24 21:31:32
- * @LastEditors: Lyq 
- * @LastEditTime: 2024-03-22 21:37:32
+ * @LastEditors: Lyq
+ * @LastEditTime: 2024-04-22 22:56:59
  */
 import React, { useState, useEffect } from "react";
 import { Menu } from "antd";
 import { useNavigate, useLocation } from "react-router-dom";
 import { lib } from "@/utils/request";
 import { searchRoute, getOpenKeys, findAllBreadcrumb } from "@/utils/util";
-import { useGlobalStore, useBreadcrumb } from "@/stores";
+import { useGlobalStore, useBreadcrumb, useMenuList } from "@/stores";
 import type { MenuProps } from "antd";
 import * as Icons from "@ant-design/icons";
 import { LayoutLogo } from "../index";
@@ -23,11 +23,11 @@ const LayoutMenu = () => {
   const [openKeys, setOpenKeys] = useState<string[]>([]);
   const [selectedKeys, setSelectedKeys] = useState<string[]>([pathname]);
   const { collapsed } = useGlobalStore();
-
   useEffect(() => {
     setSelectedKeys([pathname]);
     collapsed ? null : setOpenKeys(getOpenKeys(pathname));
   }, [pathname, collapsed]);
+
   useEffect(() => {
     const fetchMenu = async () => {
       try {
@@ -36,9 +36,11 @@ const LayoutMenu = () => {
           loading: true,
         });
         setmenuList(deepLoopMenu(data));
+        useMenuList.setState({ menuList: data });
         useBreadcrumb.setState({ breadcrumbList: findAllBreadcrumb(data) as any });
       } catch (error) {
         console.log(error, "menuList error");
+      } finally {
       }
     };
     fetchMenu();

@@ -2,7 +2,8 @@
 import { useEffect, useState } from "react";
 import { Checkbox, Table, Button, message } from "antd";
 // import { postaddpermission } from "../../../api/permissionGroup";
-export default function RoleList(props) {
+expimport { Checkbox } from 'antd';
+ort default function RoleList(props) {
   const [dataSource1, setdataSource] = useState();
   const [columns1, setcolumns] = useState();
   const [ccType, setccType] = useState(false);
@@ -137,6 +138,10 @@ export default function RoleList(props) {
       }
     });
   };
+
+  const Checkbox=()=>{
+    
+  }
 
   //第六步，点击选择框
   //data:总数据，checked：选择框的状态，id：当前数据的id

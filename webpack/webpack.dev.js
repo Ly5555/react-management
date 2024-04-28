@@ -1,8 +1,8 @@
 /*
  * @Author: Lyq
  * @Date: 2024-01-20 16:04:56
- * @LastEditors: Lyq
- * @LastEditTime: 2024-04-10 22:07:12
+ * @LastEditors: Lyq 
+ * @LastEditTime: 2024-04-22 21:21:38
  */
 const path = require("path");
 const { merge } = require("webpack-merge");
@@ -39,9 +39,7 @@ module.exports = merge(baseConfig, {
   devtool: "eval-cheap-module-source-map",
   plugins: [
     // 开启react模块热替换插件
-    new ReactRefreshWebpackPlugin({
-      overlay: false,
-    }),
+    new ReactRefreshWebpackPlugin(),
     new WebpackBar(),
   ],
 });

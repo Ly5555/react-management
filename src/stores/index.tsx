@@ -1,17 +1,19 @@
 /*
  * @Author: Lyq
  * @Date: 2023-09-06 16:13:55
- * @LastEditors: Lyq 
- * @LastEditTime: 2024-01-30 21:25:49
+ * @LastEditors: Lyq
+ * @LastEditTime: 2024-04-21 20:12:14
  */
 import { create } from "zustand";
 import { devtools, persist, createJSONStorage } from "zustand/middleware";
-import { TabLists, State, Action } from "./type";
+import { TabLists, State, Action, Loading } from "./type";
 // tabs
 const useTabLists = create<TabLists>()((set) => ({
   tabList: [],
 }));
-
+const useMenuList = create<any>()((set) => ({
+  menuList: [],
+}));
 // 面包屑
 const useBreadcrumb = create<any>()(() => ({
   breadcrumbList: [],
@@ -43,4 +45,8 @@ const useGlobalStore = create<State & Action>()(
   ),
 );
 
-export { useTabLists, useBreadcrumb, useGlobalStore };
+// loading
+const useLoading = create<Loading>()(() => ({
+  loading: true,
+}));
+export { useTabLists, useMenuList, useBreadcrumb, useGlobalStore, useLoading };

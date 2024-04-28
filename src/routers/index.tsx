@@ -1,12 +1,14 @@
 /*
  * @Author: Lyq
  * @Date: 2023-08-29 21:41:58
- * @LastEditors: Lyq 
- * @LastEditTime: 2024-03-23 16:35:37
+ * @LastEditors: Lyq
+ * @LastEditTime: 2024-04-27 15:51:26
  */
 import React, { lazy } from "react";
 import lazyLoad from "@/components/lazyLoad";
 import { Navigate, useRoutes } from "react-router-dom";
+import { useMenuList } from "@/stores";
+import path from "path";
 
 // 页面组件
 const LoginPage = lazyLoad(lazy(() => import("@/pages/LoginPage")));
@@ -37,9 +39,21 @@ export const routerArray: any = [
     meta: { requiresAuth: true, title: "轮播图" },
     children: [
       {
-        path: "/custom/custom-hooks",
+        // path: "/custom/custom-hooks",
         meta: { requiresAuth: true, title: "hooks&自定义" },
-        element: CustomHooks,
+        children: [
+          {
+            path: "/custom/custom-hooks/use-debounce",
+            meta: { requiresAuth: true, title: "useDebounce" },
+            element: FormTable,
+          },
+          {
+            path: "/custom/custom-hooks/use-throttle",
+            meta: { requiresAuth: true, title: "useThrottle" },
+            element: FormTable,
+          },
+        ],
+        // element: CustomHooks,
       },
       {
         path: "/custom/custom-detail",
@@ -59,7 +73,7 @@ export const routerArray: any = [
     element: DataScreen,
   },
   {
-    meta: { requiresAuth: true, title: "轮播图" },
+    meta: { requiresAuth: true, title: "轮播图2" },
     children: [
       {
         path: "/role/role-manage",
@@ -73,19 +87,9 @@ export const routerArray: any = [
     meta: { title: "测试" },
     element: Details,
   },
-
-  {
-    path: "/404",
-    element: NotFound,
-    meta: {
-      requiresAuth: false,
-      title: "404页面",
-      key: "404",
-    },
-  },
   {
     path: "*",
-    element: <Navigate to="/404" />,
+    element: NotFound,
   },
 ];
 
@@ -105,5 +109,18 @@ const Router = () => {
   const routes = useRoutes(rootRouter);
   return routes;
 };
-
+// {
+//   icon: "PieChartOutlined",
+//   title: "测试目录",
+//   path: "/custom",
+//   children: [{
+//       path: "/custom/custom-hooks",
+//       title: "自定义hooks",
+//     },
+//     {
+//       path: "/custom/custom-detail",
+//       title: "详情页",
+//     },
+//   ],
+// },
 export default Router;

@@ -1,27 +1,33 @@
 /*
  * @Author: Lyq
  * @Date: 2024-03-25 21:36:18
- * @LastEditors: Lyq
- * @LastEditTime: 2024-04-02 21:42:59
+ * @LastEditors: Lyq 
+ * @LastEditTime: 2024-04-20 21:53:26
  */
 //@ts-nocheck
 import React, { useEffect, useState } from "react";
 import { Table, Button, Checkbox } from "antd";
-import { Length } from "class-validator";
 import styles from "./childBox.module.less";
+
 const Child = (props) => {
   const { dataList, data2 } = props;
+  const [checkedList, setCheckedList] = useState(dataList || []);
+  let [checkSet, setCheckSet] = useState(new Set());
+
+  useEffect(() => {
+    setCheckSet(new Set([...checkSet]));
+  }, []);
   // 处理数据
   const encodeData = (data, depth = 0, parentData = {}) => {
     let result = [];
     data?.forEach((item) => {
       let currentData = {
         ...parentData,
-        [depth]: item.permission_id,
-        key: item.permission_id,
+        [depth]: item.id,
+        key: item.id,
         buttons: item.buttons,
       };
-      if (!item?.children) return result.push(currentData);
+      if (!item?.children?.length) return result.push(currentData);
       result.push(...encodeData(item.children, depth + 1, currentData));
     });
     return result;
@@ -30,8 +36,9 @@ const Child = (props) => {
   const getMaxDepth = (data) => {
     let max = 1;
     data?.map((item) => {
-      if (item.children) {
+      if (item?.children?.length > 0) {
         let childDepth = getMaxDepth(item.children);
+
         if (max < 1 + childDepth) max = 1 + childDepth;
       }
     });
@@ -51,7 +58,7 @@ const Child = (props) => {
             : "按钮",
         render: (text) => (
           <span style={{ display: "table-cell", verticalAlign: "middle" }}>
-            {text ? getCheckBox(text, list) : ""}
+            {text ? <>{getCheckBox(text, list)}</> : ""}
           </span>
         ),
         onCell: (record, rowIndex) => {
@@ -80,19 +87,86 @@ const Child = (props) => {
     }
     return columns;
   };
-
-  const getCheckBox = (record, data) => {
+  const getCheckBox = (text, data) => {
     let obj = {};
-    return <Checkbox onChange={handleChecked}>123</Checkbox>;
+    return (
+      <Checkbox
+        onChange={(e) => {
+          handleChecked(e.target.checked, text, data);
+        }}
+        // indeterminate={indeterminate[cd.key]}
+        // indeterminate={mapData(obj, text, data).checked ? false : false}
+        checked={mapData(obj, text, data).checked}>
+        123
+      </Checkbox>
+    );
   };
-  const handleChecked = (e) => {
-    const isChecked = e.target.checked;
+  function isIndeterminate(item, checkSet) {
+    return (
+      [...item.childKeys, ...item.buttonKeys].some(item => Array.from(checkSet).includes(item)) &&
+      !isContain([...checkSet], [...item.childKeys, ...item.buttonKeys])
+    );
+  }
+  const handleChecked = (checked, id, data) => {
+    const newCheckData = data.map((item) => {
+      if (item.id === id) {
+        item.checked = checked;
+        if (item?.children?.length) {
+          checkAllbtn(checked, item.children);
+        }
+        if (item.parent_id) {
+          //反选/半选
+          // reversecheck(checkedList);
+          // halfchecked(checkedList);
+          // 反选半选
+        }
+      } else if (item?.children?.length) {
+        handleChecked(checked, id, item.children);
+      }
+      return item;
+    });
+    setCheckedList(newCheckData);
   };
-
+  // 全选
+  const checkAllbtn = (checked, data) => {
+    // const newChecked = data.map((item) => {
+    //   item.checked = checked;
+    //   if (item.children) {
+    //     checkAllbtn(checked, item.children);
+    //   }
+    //   return item;
+    // });
+    // setCheckedList(newChecked);
+  };
+  // 反选
+  // const reversecheck = (list) => {
+  //   const newCheckData = list.map((item) => {
+  //     if (item?.children?.length) {
+  //       // 用数组的方法，全部都为true才为true
+  //       let flag = item?.children.every((item) => item.checked);
+  //       item.checked = flag;
+  //       reversecheck(item.children);
+  //     }
+  //   });
+  //   setCheckedList(newCheckData);
+  // };
+  //半选
+  // const halfchecked = (list) => {
+  //   const newCheckData = list.map((item) => {
+  //     if (item?.children?.length) {
+  //       // 用数组的方法，有一个为true就为true,这里一定要加上|| item.halfchecked，因为如果是半选状态，它的父级也应该是半选状态，不加会导致三个层级以上出现bug
+  //       let flag = item?.children.some((item) => item.checked);
+  //       item.checked = flag;
+  //       // 再递归
+  //       halfchecked(item.children);
+  //     }
+  //   });
+  //   setCheckedList(newCheckData);
+  // };
   const mapData = (obj, id, list) => {
     list.map((item) => {
       //如果id相等，则把整个对象赋给ogj,否则如果有子数据就递归
-      if (item.permission_id === id) {
+      if (item.id === id) {
         obj = item;
       } else if (item.children) {
         obj = mapData(obj, id, item.children);
@@ -101,8 +175,17 @@ const Child = (props) => {
     //最后将对象返回
     return obj;
   };
-  console.log(encodeData(dataList));
-
+  function getChildKey(obj) {
+    return (
+      obj.list?.reduce((prev, curr) => {
+        if (curr.id) {
+          return prev.concat([curr.id], getChildKey(curr));
+        } else {
+          return prev.concat(getChildKey(curr));
+        }
+      }, []) || []
+    );
+  }
   return (
     <div className={styles.childBox}>
       <Button type="primary" style={{ marginBottom: 8 }}>
@@ -114,7 +197,7 @@ const Child = (props) => {
         rowKey={(record) => record.key}
         size="small"
         pagination={false}
-        dataSource={encodeData(dataList)}
+        dataSource={encodeData(checkedList)}
       />
     </div>
   );

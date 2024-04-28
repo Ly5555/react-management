@@ -1,8 +1,7 @@
 import axios, { Axios, AxiosError, AxiosRequestConfig, AxiosResponse, isCancel } from "axios";
 import { showFullScreenLoading, tryHideFullScreenLoading } from "@/utils/request/serviceLoading";
 import abortController from "./abortController";
-import { useGlobalStore } from "@/stores";
-
+import { useGlobalStore, useLoading } from "@/stores";
 export const baseURL = process.env.NODE_ENV; //服务
 axios.defaults.baseURL = baseURL;
 const config = {
@@ -21,7 +20,7 @@ let instance = axios.create(config); // 创建axios实例
 instance.interceptors.request.use(
   (config: any) => {
     abortController.addPending(config);
-    config?.loading && showFullScreenLoading();
+    config?.loading || useLoading.setState({ loading: true });
     const { token } = useGlobalStore.getState();
     return {
       ...config,
@@ -41,13 +40,18 @@ instance.interceptors.response.use(
   (response: AxiosResponse) => {
     const { data, config } = response;
     abortController.removePending(config);
-    tryHideFullScreenLoading();
+    useLoading.setState({ loading: false });
+    // tryHideFullScreenLoading();
     return data;
   },
   // 请求失败
   async (error: AxiosError) => {
     const { config } = error;
-    tryHideFullScreenLoading();
+    // tryHideFullScreenLoading();
+    useLoading.setState({ loading: false });
+    if (error.code === "ERR_CANCELED") {
+      return Promise.resolve({ status: 499 });
+    }
     if (!isCancel(error)) {
       abortController.removePending(config || {});
       return againRequest(error);
