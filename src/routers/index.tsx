@@ -1,8 +1,8 @@
 /*
  * @Author: Lyq
  * @Date: 2023-08-29 21:41:58
- * @LastEditors: Lyq 
- * @LastEditTime: 2024-03-23 16:35:37
+ * @LastEditors: Lyq
+ * @LastEditTime: 2024-06-11 21:29:25
  */
 import React, { lazy } from "react";
 import lazyLoad from "@/components/lazyLoad";
@@ -39,7 +39,19 @@ export const routerArray: any = [
       {
         path: "/custom/custom-hooks",
         meta: { requiresAuth: true, title: "hooks&自定义" },
-        element: CustomHooks,
+        // element: CustomHooks,
+        children:[
+          {
+            path: "/custom/custom-hooks/use-debounce",
+            meta: { requiresAuth: true, title: "轮播图" },
+            element: CarouselChart,
+          },
+          {
+            path: "/custom/custom-hooks/use-throttle",
+            meta: { requiresAuth: true, title: "表单Table" },
+            element: FormTable,
+          },
+        ]
       },
       {
         path: "/custom/custom-detail",

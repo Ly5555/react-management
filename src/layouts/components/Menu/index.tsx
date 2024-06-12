@@ -1,14 +1,14 @@
 /*
  * @Author: Lyq
  * @Date: 2023-07-24 21:31:32
- * @LastEditors: Lyq 
- * @LastEditTime: 2024-03-22 21:37:32
+ * @LastEditors: Lyq
+ * @LastEditTime: 2024-06-12 21:28:40
  */
 import React, { useState, useEffect } from "react";
 import { Menu } from "antd";
 import { useNavigate, useLocation } from "react-router-dom";
 import { lib } from "@/utils/request";
-import { searchRoute, getOpenKeys, findAllBreadcrumb } from "@/utils/util";
+import { searchRoute, getOpenKeys } from "@/utils/util";
 import { useGlobalStore, useBreadcrumb } from "@/stores";
 import type { MenuProps } from "antd";
 import * as Icons from "@ant-design/icons";
@@ -36,7 +36,7 @@ const LayoutMenu = () => {
           loading: true,
         });
         setmenuList(deepLoopMenu(data));
-        useBreadcrumb.setState({ breadcrumbList: findAllBreadcrumb(data) as any });
+        useBreadcrumb.setState({ breadcrumbList: data });
       } catch (error) {
         console.log(error, "menuList error");
       }

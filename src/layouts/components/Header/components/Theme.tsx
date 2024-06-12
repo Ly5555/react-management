@@ -2,7 +2,7 @@
  * @Author: Lyq
  * @Date: 2024-01-20 16:04:56
  * @LastEditors: Lyq
- * @LastEditTime: 2024-04-14 20:27:30
+ * @LastEditTime: 2024-06-06 21:24:19
  */
 
 import React, { useEffect, useState } from "react";
@@ -75,7 +75,7 @@ const Theme = () => {
   return (
     <div id="driverjs_theme" className={styles.themeBox}>
       <SkinOutlined onClick={showDrawer} style={{ fontSize: 19, marginRight: 16 }} />
-      <Drawer title="设置🎨" placement="right" closable={false} onClose={onClose} open={open}>
+      <Drawer title="设置 🎨" placement="right" closable={false} onClose={onClose} open={open}>
         <Space direction="vertical">
           <div className={styles.themeDrawerBox}>
             <span className={styles.themeTitle}>主题颜色:</span>

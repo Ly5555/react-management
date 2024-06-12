@@ -2,7 +2,7 @@
  * @Author: Lyq
  * @Date: 2023-09-06 19:51:49
  * @LastEditors: Lyq
- * @LastEditTime: 2024-04-14 19:28:53
+ * @LastEditTime: 2024-06-06 21:50:22
  */
 import { Button, Form, Input, Modal } from "antd";
 import React, { useEffect, useState } from "react";
@@ -84,13 +84,5 @@ const CarouselChart = () => {
     </div>
   );
 };
-function SampleNextArrow(props: any) {
-  const { className, style, onClick } = props;
-  return <div className={className} style={{ ...style, marginRight: 10 }} onClick={onClick} />;
-}
 
-function SamplePrevArrow(props: any) {
-  const { className, style, onClick } = props;
-  return <div className={className} style={{ ...style, marginLeft: 10 }} onClick={onClick} />;
-}
 export default CarouselChart;
