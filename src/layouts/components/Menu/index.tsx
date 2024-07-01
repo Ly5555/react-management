@@ -2,16 +2,15 @@
  * @Author: Lyq
  * @Date: 2023-07-24 21:31:32
  * @LastEditors: Lyq
- * @LastEditTime: 2024-06-12 21:28:40
+ * @LastEditTime: 2024-07-01 21:00:08
  */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, lazy, Suspense } from "react";
 import { Menu } from "antd";
 import { useNavigate, useLocation } from "react-router-dom";
 import { lib } from "@/utils/request";
 import { searchRoute, getOpenKeys } from "@/utils/util";
 import { useGlobalStore, useBreadcrumb } from "@/stores";
 import type { MenuProps } from "antd";
-import * as Icons from "@ant-design/icons";
 import { LayoutLogo } from "../index";
 import styles from "./index.module.less";
 type MenuItem = Required<MenuProps>["items"][number];
@@ -45,10 +44,15 @@ const LayoutMenu = () => {
   }, []);
 
   // 动态Icon处理
-  const customIcons: { [key: string]: any } = Icons;
   const addIcon = (name: string) => {
-    const CustomIcon = customIcons[name];
-    return <CustomIcon />;
+    const LazyIcon = lazy(() =>
+      import(`@ant-design/icons/es/icons/${name}`).catch(() => ({ default: () => null }))
+    );
+    return (
+      <Suspense fallback={null}>
+        <LazyIcon />
+      </Suspense>
+    );
   };
   const getItem = (
     label: React.ReactNode,

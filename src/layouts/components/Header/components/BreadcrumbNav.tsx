@@ -1,8 +1,8 @@
 /*
  * @Author: Lyq
  * @Date: 2023-04-19 21:17:42
- * @LastEditors: Lyq
- * @LastEditTime: 2024-06-12 21:27:16
+ * @LastEditors: Lyq 
+ * @LastEditTime: 2024-07-01 20:56:59
  */
 import React, { useEffect } from "react";
 import { Breadcrumb } from "antd";
@@ -28,6 +28,7 @@ const BreadcrumbNav = () => {
     traverse(items);
     return result;
   };
+
   return (
     <div id="driver_breadcrumb">
       <Breadcrumb items={transformMenu(breadcrumbList)[pathname] || []} />
