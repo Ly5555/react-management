@@ -1,36 +1,63 @@
 /*
  * @Author: Lyq
  * @Date: 2023-12-04 20:06:47
- * @LastEditors: Lyq
- * @LastEditTime: 2024-01-04 21:46:06
+ * @LastEditors: Lyq 
+ * @LastEditTime: 2024-07-10 21:05:53
  */
-import React from "react";
-import { Button } from "antd";
-import { driver } from "driver.js";
-import "driver.js/dist/driver.css";
+import React, { useEffect, useRef, useState } from "react";
+import { Button, Tour } from "antd";
+import type { GetRef, TourProps } from "antd";
 
 const TourModal = () => {
-  const driverObj = driver({
-    showProgress: true,
-    nextBtnText: "下一步",
-    prevBtnText: "上一步",
-    doneBtnText: "关闭",
-    steps: [
-      { element: "#drive_layout", popover: { title: "Title", description: "这是菜单" } },
-      { element: "#isCollapse", popover: { title: "菜单", description: "菜单展示缩小" } },
-      { element: "#driver_breadcrumb", popover: { title: "面包屑", description: "这是面包屑" } },
-      { element: "#driverjs_theme", popover: { title: "设置", description: "设置" } },
-      { element: "#driver_avatar", popover: { title: "个人信息", description: "这是个人信息" } },
-    ],
-  });
-  const handleTour = () => {
-    driverObj.drive();
+  const refs = {
+    driveLayout: useRef<HTMLElement | null>(null),
+    isCollapse: useRef<HTMLElement | null>(null),
+    driverBreadcrumb: useRef<HTMLElement | null>(null),
+    driverJsTheme: useRef<HTMLElement | null>(null),
+    driverAvatar: useRef<HTMLElement | null>(null)
   };
+
+  useEffect(() => {
+    refs.driveLayout.current = document.getElementById("drive_layout") as HTMLElement;
+    refs.isCollapse.current = document.getElementById("isCollapse") as HTMLElement;
+    refs.driverBreadcrumb.current = document.getElementById("driver_breadcrumb") as HTMLElement;
+    refs.driverJsTheme.current = document.getElementById("driverjs_theme") as HTMLElement;
+    refs.driverAvatar.current = document.getElementById("driver_avatar") as HTMLElement;
+  }, []);
+  const [open, setOpen] = useState<boolean>(false);
+  const steps: TourProps["steps"] = [
+    {
+      title: "Title",
+      description: "这是菜单",
+      target: () => refs.driveLayout.current!,
+    },
+    {
+      title: "菜单",
+      description: "菜单展示缩小",
+      target: () => refs.isCollapse.current!,
+    },
+    {
+      title: "面包屑",
+      description: "这是面包屑",
+      target: () => refs.driverBreadcrumb.current!,
+    },
+    {
+      title: "设置",
+      description: "设置",
+      target: () => refs.driverJsTheme.current!,
+    },
+    {
+      title: "个人信息",
+      description: "这是个人信息",
+      target: () => refs.driverAvatar.current!,
+    },
+  ];
   return (
     <div>
-      <Button type="primary" onClick={handleTour}>
-        123
+      <Button type="primary" onClick={() => setOpen(true)}>
+        Begin Tour
       </Button>
+      <Tour open={open}   onClose={() => setOpen(false)} steps={steps} />
     </div>
   );
 };

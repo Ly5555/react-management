@@ -2,7 +2,7 @@
  * @Author: Lyq
  * @Date: 2023-11-16 22:28:43
  * @LastEditors: Lyq
- * @LastEditTime: 2023-12-19 20:53:08
+ * @LastEditTime: 2024-07-10 21:26:27
  */
 import React from "react";
 import { Avatar, Dropdown, Space } from "antd";
@@ -34,7 +34,7 @@ const AvatarIcon = () => {
     },
   ];
   return (
-    <div id="driver_avatar">
+    <div  id="driver_avatar">
       <Dropdown menu={{ items }} arrow={{ pointAtCenter: true }}>
         <Space>
           <Avatar style={{ backgroundColor: "#87d068" }} icon={<UserOutlined />}></Avatar>

@@ -2,15 +2,13 @@
  * @Author: Lyq
  * @Date: 2023-07-24 21:31:32
  * @LastEditors: Lyq
- * @LastEditTime: 2024-04-14 20:22:46
+ * @LastEditTime: 2024-07-10 21:23:03
  */
 import React, { useState } from "react";
 import { Layout, theme } from "antd";
 import { CollapseIcon, BreadcrumbNav, Theme, AvatarIcon } from "./components/index";
 import styles from "./index.module.less";
-import { SkinOutlined } from "@ant-design/icons";
 const LayoutHeader = () => {
-  const [open, setOpen] = useState(false);
   const { Header } = Layout;
   const {
     token: { colorBgContainer },

@@ -2,7 +2,7 @@
  * @Author: Lyq
  * @Date: 2023-08-29 21:03:53
  * @LastEditors: Lyq
- * @LastEditTime: 2024-04-14 20:27:57
+ * @LastEditTime: 2024-07-01 21:07:01
  */
 import React from "react";
 import { ConfigProvider, App as AntdApp, theme } from "antd";
@@ -14,7 +14,6 @@ import Router from "@/routers/index";
 import zhCN from "antd/locale/zh_CN";
 import "dayjs/locale/zh-cn";
 import "antd/dist/reset.css";
-import "@/style/reset.less";
 import "./app.css";
 
 dayjs.locale("en");
