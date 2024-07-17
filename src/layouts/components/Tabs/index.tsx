@@ -2,7 +2,7 @@
  * @Author: Lyq
  * @Date: 2023-07-06 20:26:58
  * @LastEditors: Lyq
- * @LastEditTime: 2024-03-25 20:02:37
+ * @LastEditTime: 2024-07-17 21:04:49
  */
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { Dropdown, MenuProps } from "antd";
@@ -104,9 +104,9 @@ const LayoutTabs = () => {
         </Dropdown>
       );
     },
-    [items, tabList, openDropdownTabKey],
+    [tabList, openDropdownTabKey]
   );
-  const newTabsList = useMemo(() => {
+  const updatedTabsList = useMemo(() => {
     return tabList
       .map((item: any, index) => {
         return {
@@ -121,17 +121,16 @@ const LayoutTabs = () => {
   const onOpenChange = (open: any, info: any, item: any) => {
     setopenDropdownTabKey(open ? item.path : "");
   };
-  const handelClickTabs = (path: string) => {
+  const handelClickTabs = useCallback((path: string) => {
     setActiveKey(path);
     useNavigateTo(path);
-  };
+  },[]);
   // 添加 tabs
   const addTabs = () => {
     const route = searchRoute(pathname, routerArray);
     const newTabsList = cloneDeep(tabList);
     if (!route || !route.path) return;
     let path = location.pathname + location.search;
-
     if (tabList.every((item: any) => item.path !== path)) {
       newTabsList.push({
         ...route,
@@ -145,7 +144,7 @@ const LayoutTabs = () => {
   };
 
   // 删除单个tabs
-  const clonseTabs = (tabPath: React.MouseEvent | React.KeyboardEvent | string) => {
+  const closeTabs = (tabPath: React.MouseEvent | React.KeyboardEvent | string) => {
     let path = pathname + location.search;
     if (path === tabPath) {
       tabList.forEach((item, index) => {
@@ -174,22 +173,26 @@ const LayoutTabs = () => {
   };
 
   // 关闭左侧
-  const closeLeftTabs = (tabPath: string) => {
-    const currentTabIndex = tabList.findIndex((item) => item.path === tabPath);
-    const newTabs = tabList.slice(currentTabIndex);
-    useTabLists.setState({ tabList: newTabs });
-    setActiveKey(tabPath);
-  };
+  const closeLeftTabs = useCallback((tabPath: string) => {
+    const currentTabIndex = tabList.findIndex(item => item.path === tabPath);
+    if (currentTabIndex > 0) {
+      const newTabs = tabList.slice(currentTabIndex);
+      useTabLists.setState({ tabList: newTabs });
+      setActiveKey(tabPath);
+    }
+  }, [tabList, useTabLists]);
 
   // 关闭右侧
-  const closeRightTabs = (tabPath: string) => {
-    const currentTabIndex = tabList.findIndex((item) => item.path === tabPath);
-    const newTabs = tabList.slice(0, currentTabIndex + 1);
-    useTabLists.setState({ tabList: newTabs });
-    setActiveKey(tabPath);
-  };
+  const closeRightTabs = useCallback((tabPath: string) => {
+    const currentTabIndex = tabList.findIndex(item => item.path === tabPath);
+    if (currentTabIndex < tabList.length - 1) {
+      const newTabs = tabList.slice(0, currentTabIndex + 1);
+      useTabLists.setState({ tabList: newTabs });
+      setActiveKey(tabPath);
+    }
+  }, [tabList, useTabLists]);
 
-  //删除点击
+  //右键菜单
   const handelmenuClick = useCallback(
     (e: any, item: any) => {
       const { key, domEvent } = e || {};
@@ -198,7 +201,7 @@ const LayoutTabs = () => {
         case MultiTabOperation.REFRESH:
           return;
         case MultiTabOperation.CLOSE:
-          return clonseTabs(item.path);
+          return closeTabs(item.path);
         case MultiTabOperation.CLOSEOTHERS:
           return closeOtherTabs(item.path);
         case MultiTabOperation.CLOSELEFT:
@@ -211,8 +214,9 @@ const LayoutTabs = () => {
           break;
       }
     },
-    [clonseTabs, closeOtherTabs, closeLeftTabs, closeRightTabs, closeAllTabs],
+    [closeTabs, closeOtherTabs, closeLeftTabs, closeRightTabs, closeAllTabs],
   );
+
   return (
     <div className={styles.tabs_box}>
       <DraggableTab
@@ -223,8 +227,8 @@ const LayoutTabs = () => {
         tabBarGutter={4}
         activeKey={activeKey}
         type="editable-card"
-        onEdit={clonseTabs}
-        items={newTabsList}
+        onEdit={closeTabs}
+        items={updatedTabsList}
       />
     </div>
   );

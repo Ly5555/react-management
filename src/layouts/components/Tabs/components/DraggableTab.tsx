@@ -2,9 +2,9 @@
  * @Author: Lyq
  * @Date: 2023-11-17 22:15:44
  * @LastEditors: Lyq
- * @LastEditTime: 2024-03-09 09:32:37
+ * @LastEditTime: 2024-07-17 21:24:41
  */
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import type { DragEndEvent } from "@dnd-kit/core";
 import { DndContext, PointerSensor, useSensor } from "@dnd-kit/core";
 import {
@@ -16,6 +16,7 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import { restrictToHorizontalAxis } from "@dnd-kit/modifiers";
 import { Tabs, TabsProps } from "antd";
+import { useTabLists } from "@/stores";
 interface DraggableTabPaneProps extends React.HTMLAttributes<HTMLDivElement> {
   items: never[];
   "data-node-key": string;
@@ -40,32 +41,28 @@ const DraggableTabNode = (props: DraggableTabPaneProps) => {
   });
 };
 const DraggableTab = (props: TabsProps) => {
+
+  const { items:tabsItem } = props || {};
+  const items = tabsItem ?? [];
   const sensor = useSensor(PointerSensor, {
     activationConstraint: { distance: 10 },
   });
-
-  const { items } = props;
-  const [tabItem, setTabItems] = useState(items || []);
-
-  useEffect(() => {
-    setTabItems(props.items || []);
-  }, [items]);
-
   // 拖拽
   const onDragEnd = ({ active, over }: DragEndEvent) => {
     if (active.id !== over?.id) {
-      setTabItems((prev) => {
-        const activeIndex = prev.findIndex((i) => i.key === active.id);
-        const overIndex = prev.findIndex((i) => i.key === over?.id);
-        return arrayMove(prev, activeIndex, overIndex);
-      });
+      const activeIndex = items.findIndex((i) => i.key === active.id);
+      const overIndex = items.findIndex((i) => i.key === over?.id);
+      const newItems = arrayMove(items, activeIndex, overIndex);
+      useTabLists.setState((prevState) => ({tabList: arrayMove(prevState.tabList, activeIndex, overIndex)}));
+      return newItems
     }
   };
+
   // 渲染TabBar
   const renderTabBar: TabsProps["renderTabBar"] = (props, DefaultTabBar) => {
     return (
       <DndContext sensors={[sensor]} onDragEnd={onDragEnd} modifiers={[restrictToHorizontalAxis]}>
-        <SortableContext items={tabItem.map((i) => i.key)} strategy={horizontalListSortingStrategy}>
+        <SortableContext items={items?.map((i) => i.key)} strategy={horizontalListSortingStrategy}>
           <DefaultTabBar {...props}>
             {(node) => (
               <DraggableTabNode {...node.props} key={node.key}>
@@ -77,7 +74,14 @@ const DraggableTab = (props: TabsProps) => {
       </DndContext>
     );
   };
-  return <Tabs renderTabBar={renderTabBar} {...props} items={tabItem} className="tab-layout" />;
+  return (
+    <Tabs
+      renderTabBar={renderTabBar}
+      {...props}
+      items={items}
+      className="tab-layout"
+    />
+  );
 };
 
-export default DraggableTab;
+export default memo(DraggableTab);

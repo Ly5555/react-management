@@ -5,6 +5,7 @@
 html[data-theme="dark"] {
   --yz-background-color: #141414;
   --yz-font-color: #a3a6ad;
+  --yz-bold-color: #303030;
   /* --yz-border-color: #414243; */
   /* --yz-login-font-color: #e5eaf3;
   --yz-login-bg-color: #141414b2;
@@ -17,6 +18,7 @@ html[data-theme="dark"] {
 :root {
   --yz-background-color: #f0f2f5;
   --yz-font-color: #323232;
+  --yz-bold-color: #FFFFFF;
   /* --yz-login-font-color: #323232;
   --yz-svg-color: #323233;
   --yz-font-color-2: #666666; */

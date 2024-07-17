@@ -1,12 +1,12 @@
 /*
  * @Author: Lyq
  * @Date: 2023-12-04 20:06:47
- * @LastEditors: Lyq 
+ * @LastEditors: Lyq
  * @LastEditTime: 2024-07-10 21:05:53
  */
 import React, { useEffect, useRef, useState } from "react";
 import { Button, Tour } from "antd";
-import type { GetRef, TourProps } from "antd";
+import type {  TourProps } from "antd";
 
 const TourModal = () => {
   const refs = {
