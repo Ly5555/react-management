@@ -2,11 +2,11 @@
  * @Author: Lyq
  * @Date: 2023-07-24 21:31:32
  * @LastEditors: Lyq
- * @LastEditTime: 2024-07-10 21:23:03
+ * @LastEditTime: 2024-08-10 21:08:13
  */
 import React, { useState } from "react";
 import { Layout, theme } from "antd";
-import { CollapseIcon, BreadcrumbNav, Theme, AvatarIcon } from "./components/index";
+import { CollapseIcon, BreadcrumbNav, Theme, AvatarIcon, BadgeCount } from "./components/index";
 import styles from "./index.module.less";
 const LayoutHeader = () => {
   const { Header } = Layout;
@@ -20,6 +20,7 @@ const LayoutHeader = () => {
         <BreadcrumbNav />
       </div>
       <div className={styles.header_ri}>
+        <BadgeCount />
         <Theme />
         <AvatarIcon />
       </div>

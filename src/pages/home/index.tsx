@@ -2,7 +2,7 @@
  * @Author: Lyq
  * @Date: 2023-07-11 19:19:04
  * @LastEditors: Lyq
- * @LastEditTime: 2024-07-15 20:24:23
+ * @LastEditTime: 2024-08-08 07:49:21
  */
 import React, { useCallback, useEffect } from "react";
 import { Son } from "./components";
@@ -19,6 +19,7 @@ interface ISubSectionData {
   age: number;
   cardType: string;
 }
+
 const Home = () => {
   useEffect(() => {
     handleClock();

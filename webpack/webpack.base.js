@@ -46,7 +46,7 @@ module.exports = {
         test: /.(js|ts|tsx)$/,
         include: [path.resolve(__dirname, "../src")], //只对项目src文件的ts,tsx进行loader解析
         use: ["thread-loader", "babel-loader"],
-        
+
       },
       {
         test: /.(png|jpg|jpeg|gif|svg)$/, // 匹配图片文件

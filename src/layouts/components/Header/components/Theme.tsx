@@ -2,7 +2,7 @@
  * @Author: Lyq
  * @Date: 2024-01-20 16:04:56
  * @LastEditors: Lyq 
- * @LastEditTime: 2024-07-10 21:16:41
+ * @LastEditTime: 2024-08-05 22:10:27
  */
 
 import React, { useEffect, useState } from "react";
@@ -11,7 +11,7 @@ import { SkinOutlined } from "@ant-design/icons";
 import { useGlobalStore } from "@/stores";
 import { SwitchTheme } from "@/components";
 import type { ColorPickerProps } from "antd";
-import styles from "./theme.module.less";
+import styles from "../less/theme.module.less";
 
 const Theme = () => {
   const [open, setOpen] = useState(false);
@@ -74,7 +74,7 @@ const Theme = () => {
   };
   return (
     <div id="driverjs_theme" className={styles.themeBox}>
-      <SkinOutlined onClick={showDrawer} style={{ fontSize: 19}} />
+      <SkinOutlined onClick={showDrawer} style={{ fontSize: 20}} />
       <Drawer title="设置 🎨" placement="right" closable={false} onClose={onClose} open={open}>
         <Space direction="vertical">
           <div className={styles.themeDrawerBox}>
