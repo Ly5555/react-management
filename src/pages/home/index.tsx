@@ -1,18 +1,14 @@
 /*
- * @Author: liuyongqing
+ * @Author: Lyq
  * @Date: 2023-07-11 19:19:04
- * @LastEditors: liuyongqing
- * @LastEditTime: 2023-09-04 20:58:41
+ * @LastEditors: Lyq
+ * @LastEditTime: 2024-08-08 07:49:21
  */
-import React, { Children, useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect } from "react";
 import { Son } from "./components";
-import Grandp from "./components/Grandpa";
 import { Button } from "antd";
-import request from "@/utils/request/request";
-import welcome from "@/assets/images/welcome.png";
-
-import styles from "./index.mouule.less";
-
+import styles from "./home.module.less";
+import { lib } from "@/utils/request";
 enum cardType {
   DEFAULT = "default",
   MIX = "mix",
@@ -23,12 +19,17 @@ interface ISubSectionData {
   age: number;
   cardType: string;
 }
+
 const Home = () => {
+  useEffect(() => {
+    handleClock();
+  }, []);
   const details = [
     { name: "1", age: 13, cardType: "default" },
     { name: "2", age: 23, cardType: "mix" },
     { name: "3", age: 33, cardType: "item" },
   ];
+
   const renderCard = useCallback((card: ISubSectionData, key: number) => {
     const { cardType: type } = card || {};
     switch (type) {
@@ -42,7 +43,17 @@ const Home = () => {
         return null;
     }
   }, []);
-  return <div>{details && details.map((item, index) => renderCard(item, index))}</div>;
+
+  const handleClock = async () => {
+    // downloadGet("http://localhost:3000/upload/export", "lyq.zip");
+  };
+
+  return (
+    <div className={styles.home_card}>
+      {details && details.map((item, index) => renderCard(item, index))}
+      <Button onClick={handleClock}>测试下载</Button>
+    </div>
+  );
 };
 
 export default Home;

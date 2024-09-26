@@ -1,26 +1,27 @@
 // 公共配置
 const path = require("path");
+const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+// const CompressionPlugin = require("compression-webpack-plugin");
 
-const webpack = require("webpack");
-const WebpackBar = require("webpackbar");
 const isDev = process.env.NODE_ENV === "development"; // 是否是开发模式
 
 module.exports = {
   entry: path.join(__dirname, "../src/index.tsx"), // 入口文件
   // 打包文件出口
   output: {
-    filename: "static/js/[name].[chunkhash:8].js", // 每个输出js的名称
+    filename: "static/js/[name].[chunkhash:8].js", //每个输出js的名称
     path: path.join(__dirname, "../dist"), // 打包结果输出路径
     clean: true, // webpack4需要配置clean-webpack-plugin来删除dist文件,webpack5内置了
     publicPath: "/", // 打包后文件的公共前缀路径
   },
+  // exclude: path.resolve(__dirname, 'node_modules'),
   module: {
     rules: [
       {
         test: /\.css$/, //匹配所有的 ccs 文件
-        include: [path.resolve(__dirname, "../src")],
+        include: [path.resolve(__dirname, "../src"), path.resolve(__dirname, "../node_modules"),],
         use: [isDev ? "style-loader" : MiniCssExtractPlugin.loader, "css-loader", "postcss-loader"],
       },
       {
@@ -32,6 +33,7 @@ module.exports = {
             loader: "css-loader",
             options: {
               modules: {
+                // [path][name]__[local]--[hash:base64:5]
                 localIdentName: "[name]__[local]___[hash:base64:5]",
               },
             },
@@ -44,6 +46,7 @@ module.exports = {
         test: /.(js|ts|tsx)$/,
         include: [path.resolve(__dirname, "../src")], //只对项目src文件的ts,tsx进行loader解析
         use: ["thread-loader", "babel-loader"],
+
       },
       {
         test: /.(png|jpg|jpeg|gif|svg)$/, // 匹配图片文件
@@ -84,11 +87,12 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: [".js", ".tsx", ".ts", ".css"],
+    extensions: [".js", ".tsx", ".ts",],
     alias: {
       "@": path.resolve(__dirname, "../src"),
     },
-    modules: [path.resolve(__dirname, "../node_modules")],
+    // 如果用的是pnpm 就暂时不要配置这个，会有幽灵依赖的问题，访问不到很多模块。
+    // modules: [path.resolve(__dirname, "../node_modules")],
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -101,7 +105,14 @@ module.exports = {
     new webpack.DefinePlugin({
       "process.env.BASE_ENV": JSON.stringify(process.env.BASE_ENV),
     }),
-    new WebpackBar()
+    // new CompressionPlugin({
+    //   filename: "[path].gz[query]", // 文件命名
+    //   algorithm: "gzip", // 压缩格式,默认是gzip
+    //   test: /\.js$|\.css$|\.html$|\.ttf$|\.eot$|\.woff$/, // 只生成css,js压缩文件
+    //   threshold: 10240, // 只有大小大于该值的资源会被处理。默认值是 10k
+    //   minRatio: 0.8, // 压缩率,默认值是 0.8
+    //   deleteOriginalAssets: false// 假如出现访问.gz文件访问不到的时候，还可以访问源文件双重保障
+    // }),
   ],
   cache: {
     type: "filesystem", // 使用文件缓存

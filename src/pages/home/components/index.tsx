@@ -1,8 +1,13 @@
+/*
+ * @Author: Lyq
+ * @Date: 2024-06-06 21:23:10
+ * @LastEditors: Lyq
+ * @LastEditTime: 2024-07-15 20:16:57
+ */
 import HooksMemo from "./HooksMemo";
 import ChildMemo from "./ChildMemo";
 import PieChat from "./PieChat";
 import LoadingModal from "./LoadingModal";
-import Loading from "./Loading";
 import HOC from "./HOC";
 import ChildUseMemo from "./ChildUseMemo";
 import ChilduseCallback from "./ChilduseCallback";
@@ -17,7 +22,6 @@ export {
   ChildMemo,
   PieChat,
   LoadingModal,
-  Loading,
   HOC,
   ChildUseMemo,
   ChilidRef,

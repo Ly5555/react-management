@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  // min-width: 950px;
+  height: 100vh;
+  overflow: hidden;
+
+  /* 防止 tabs 超出不收缩 */
+  :global {
+    .ant-layout {
+
+      .ant-layout-content {
+        min-width: 800px;
+        box-sizing: border-box;
+        overflow: hidden;
+
+      }
+    }
+  }
+}

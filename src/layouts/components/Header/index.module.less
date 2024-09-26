@@ -1,0 +1,45 @@
+.header {
+  height: 42px;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--yz-bold-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .header_lf {
+    display: flex;
+    align-items: center;
+
+    :global {
+      .collapsed {
+        margin-right: 20px;
+        font-size: 18px;
+        cursor: pointer;
+        transition: color 0.3s;
+      }
+    }
+  }
+
+  .header_ri {
+    display: flex;
+    align-items: center;
+
+    :global {
+      .icon-style {
+        margin-right: 22px;
+        font-size: 19px;
+        line-height: 19px;
+        color: rgb(77 77 77);
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+:global {
+  .ant-layout-header {
+    height: 42px;
+    line-height: 42px;
+    padding: 0 16px 0 13px;
+  }
+}

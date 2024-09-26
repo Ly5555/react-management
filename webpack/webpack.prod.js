@@ -1,3 +1,9 @@
+/*
+ * @Author: Lyq
+ * @Date: 2023-09-25 20:14:16
+ * @LastEditors: Lyq
+ * @LastEditTime: 2023-12-28 21:01:41
+ */
 const { merge } = require("webpack-merge");
 const baseConfig = require("./webpack.base.js");
 const path = require("path");
@@ -52,6 +58,7 @@ module.exports = merge(baseConfig, {
             pure_funcs: ["console.log"], // 删除console.log
           },
         },
+        extractComments: true,//将注释剥离到单独的文件中
       }),
     ],
     splitChunks: {

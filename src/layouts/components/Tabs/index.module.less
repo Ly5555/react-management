@@ -1,0 +1,26 @@
+.tabs_box {
+  padding: 0 4px;
+  box-shadow: 0 1px 4px 0 rgba(0, 21, 41, .08);
+
+  :global {
+    .ant-tabs-top>.ant-tabs-nav {
+      margin: 0;
+
+      ::before {
+        border: none;
+      }
+
+      .ant-tabs-ink-bar {
+        visibility: visible;
+      }
+
+      .ant-tabs-tab {
+        background: none;
+        border: none;
+        transition: none;
+
+      }
+
+    }
+  }
+}

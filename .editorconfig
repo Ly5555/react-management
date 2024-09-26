@@ -1,4 +1,5 @@
 root = true # 控制配置文件 .editorconfig 是否生效的字段
+
 [**] # 匹配全部文件
 indent_style = space // 缩进的风格
 indent_size = 2 // 缩进的字符
@@ -8,5 +9,5 @@ insert_final_newline = true // 末尾结束
 end_of_line = lf //缩进类型视lf
 
 [**.md] # 匹配md文件
-
+trim_trailing_whitespace = false
 

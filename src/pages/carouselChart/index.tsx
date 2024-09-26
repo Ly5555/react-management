@@ -1,17 +1,25 @@
 /*
-轮播图
-*/
+ * @Author: Lyq
+ * @Date: 2023-09-06 19:51:49
+ * @LastEditors: Lyq
+ * @LastEditTime: 2024-06-06 21:50:22
+ */
 import { Button, Form, Input, Modal } from "antd";
 import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import styles from "./carousel.module.less";
+
 const CarouselChart = () => {
   const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
+    className: "center",
+    // dots: true,
+    // infinite: true,
+    // slidesToShow: 1,
+    // slidesToScroll: 1,
+    // slidesPerRow: 1,
+    // adaptiveHeight: true,
+    // nextArrow: <SampleNextArrow />,
+    // prevArrow: <SamplePrevArrow />,
   };
   const [form] = Form.useForm();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -33,11 +41,16 @@ const CarouselChart = () => {
     setIsModalOpen(false);
   };
   return (
-    <div className={styles.carousel}>
+    <div className={styles.carousel_box}>
       <Button type="primary" onClick={showModal}>
         Open Modal
       </Button>
-      <Modal title="Basic Modal" destroyOnClose open={isModalOpen} onCancel={handleCancel} onOk={handleOk}>
+      <Modal
+        title="Basic Modal"
+        destroyOnClose
+        open={isModalOpen}
+        onCancel={handleCancel}
+        onOk={handleOk}>
         <Form form={form} name="control-hooks">
           <Form.Item name="note1" label="Note1" rules={[{ required: true }]}>
             <Input />
@@ -48,9 +61,6 @@ const CarouselChart = () => {
         </Form>
       </Modal>
       <h2> Single Item </h2>
-      <h2>
-        官网:<Button type="link">https://react-slick.neostack.com/</Button>
-      </h2>
       <Slider {...settings}>
         <div>
           <h3>1</h3>
@@ -74,4 +84,5 @@ const CarouselChart = () => {
     </div>
   );
 };
+
 export default CarouselChart;

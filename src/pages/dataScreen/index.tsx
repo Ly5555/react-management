@@ -1,23 +1,33 @@
+/*
+ * @Author: Lyq
+ * @Date: 2023-09-25 20:14:16
+ * @LastEditors: Lyq
+ * @LastEditTime: 2024-03-11 20:15:06
+ */
 import React, { useEffect, useState, useRef } from "react";
-import request from "@/utils/request/request";
-import scrollTo from "antd/lib/_util/scrollTo";
-import getScroll from "antd/lib/_util/getScroll";
+import { lib } from "@/utils/request";
 import styles from "./index.module.less";
 
-const sharpMatcherRegex = /#(\S+)$/;
-export type AnchorContainer = HTMLElement | Window;
 const DataScreen = () => {
-  return <>123</>;
-  const [currentId, setCurrentId] = useState("aaaa");
-  const [detail, setDetail] = useState({});
-  const animating = useRef(false);
+  const [currentId, setCurrentId] = useState("foundation");
+
   const getDetail = async () => {
-    const { data } = await request({
-      url: "https://www.fastmock.site/mock/302854084413bb6592dc4c53c7f85991/admin/detail",
-      method: "post",
+    const { data } = await lib.request({
+      url: "https://mock.mengxuegu.com/mock/65d344a5351bbd02cf339ac3/city_copy",
+      needMask: true,
     });
-    console.log(data);
   };
+  useEffect(() => {
+    getDetail();
+  }, []);
+  // 防抖
+  function debounce(fn: any, delay: any) {
+    let timer: any;
+    return (...args: any) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => fn(...args), delay);
+    };
+  }
   useEffect(() => {
     document.getElementById("right")?.addEventListener("scroll", handleScroll);
     return () => {
@@ -26,67 +36,34 @@ const DataScreen = () => {
   }, []);
 
   const navArr = [
-    { name: "基础信息", id: "aaaa" },
-    { name: "价格库存", id: "bbbb" },
-    { name: "图文信息", id: "cccc" },
-    { name: "商品资质", id: "dddd" },
+    { name: "1111", id: "foundation" },
+    { name: "2222", id: "stock" },
+    { name: "3333", id: "graphic" },
+    { name: "4444", id: "commodity" },
   ];
-  const handleScrollClick = (id: string) => {
-    let targetOffset = 0;
-    setCurrentId(id);
-    const container = document.getElementById("right") || window;
-    const scrollTop = getScroll(container, true);
-    const sharpLinkMatch = sharpMatcherRegex.exec(`#${id}`);
-    if (!sharpLinkMatch) {
-      return;
-    }
-    const targetElement = document.getElementById(sharpLinkMatch[1]);
-    if (!targetElement) {
-      return;
-    }
-    const eleOffsetTop = getOffsetTop(targetElement, container);
-    let y = scrollTop + eleOffsetTop;
-    y -= targetOffset !== undefined ? targetOffset : 0;
-    animating.current = true;
-    scrollTo(y, {
-      getContainer: getContainer as any,
-      callback: () => {
-        animating.current = false;
-      },
-    });
-  };
-  const getOffsetTop = (element: HTMLElement, container: AnchorContainer) => {
-    if (!element.getClientRects().length) {
-      return 0;
-    }
-    const rect = element.getBoundingClientRect();
-    if (rect.width || rect.height) {
-      if (container === window) {
-        container = element.ownerDocument!.documentElement!;
-        return rect.top - container.clientTop;
-      }
-      return rect.top - (container as HTMLElement).getBoundingClientRect().top;
-    }
-
-    return rect.top;
-  };
-  const getContainer = () => {
-    return document.getElementById("right");
-  };
   // 滚动条滚动选中
-  const handleScroll = () => {
+  const handleScroll = debounce(() => {
     let scrollTop = document.getElementById("right")?.scrollTop as number;
     let section = Array.from(document.querySelector("#right")?.children as any);
     let activeChannel;
     section.map((item: any) => {
       let itemTop = item?.offsetTop;
-
       if (scrollTop > itemTop - 110) {
         activeChannel = item.id;
       }
     });
     setCurrentId(String(activeChannel));
+  }, 100);
+  const handleHighlight = (id: string) => {
+    let target = document.getElementById(id) as any;
+    if (target) {
+      // 如果对应id的锚点存在，就跳转到锚点
+      // anchorElement.scrollIntoView({ block: "start", behavior: "smooth" });
+      target.parentNode.scrollTop = target.offsetTop - target.parentNode.offsetTop;
+      setCurrentId(id);
+    }
   };
+  return <>123</>;
   return (
     <div className={styles.dataScreen}>
       <div className={styles.good_left_icon}>
@@ -94,10 +71,11 @@ const DataScreen = () => {
           {navArr &&
             navArr.map((item) => {
               return (
-                <a key={item.id}>
+                <a key={item.id} onClick={() => handleHighlight(item.id)}>
                   <div
-                    className={`${styles.good_left_curr} ${currentId === item.id ? styles.actived : ""}`}
-                    onClick={() => handleScrollClick(item.id)}>
+                    className={`${styles.good_left_curr} ${
+                      currentId === item.id ? styles.actived : null
+                    }`}>
                     {item.name}
                   </div>
                 </a>
@@ -106,16 +84,16 @@ const DataScreen = () => {
         </div>
       </div>
       <div className={styles.goodRight} id="right">
-        <div id="aaaa" className={styles.goodRightBanner}>
+        <div id="foundation" className={styles.goodRightBanner}>
           1
         </div>
-        <div id="bbbb" className={styles.goodRightBanner}>
+        <div id="stock" className={styles.goodRightBanner}>
           2
         </div>
-        <div id="cccc" className={styles.goodRightBanner}>
+        <div id="graphic" className={styles.goodRightBanner}>
           3
         </div>
-        <div id="dddd" className={styles.goodRightBanner}>
+        <div id="commodity" className={styles.goodRightBanner}>
           4
         </div>
       </div>
